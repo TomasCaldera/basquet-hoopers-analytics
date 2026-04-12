@@ -41,8 +41,9 @@ body{font-family:var(--ff-b);background:var(--g50);color:var(--g800);min-height:
 .hdr-eyebrow{font-family:var(--ff-m);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:10px}
 .hdr-title{font-family:var(--ff-d);font-size:clamp(52px,9vw,86px);color:#fff;line-height:.88;letter-spacing:.02em}
 .hdr-title em{color:var(--blue-lt);font-style:normal}
-.hdr-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.hdr-pill{display:flex;flex-direction:column;background:rgba(8,12,20,.36);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-md);padding:10px 16px;min-width:80px}
+.hdr-pills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:22px}
+@media(max-width:480px){.hdr-pills{grid-template-columns:repeat(2,1fr)}}
+.hdr-pill{display:flex;flex-direction:column;align-items:center;text-align:center;background:rgba(8,12,20,.36);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-md);padding:10px 16px}
 .hdr-pill-val{font-family:var(--ff-d);font-size:26px;color:#fff;line-height:1}
 .hdr-pill-lbl{font-family:var(--ff-m);font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
 .hdr-pill-val.pos{color:#4ade80}.hdr-pill-val.neg{color:#f87171}
@@ -257,7 +258,6 @@ th.sortable.sort-desc::after{content:'↓';opacity:.9}
       <div class="hdr-pill"><span class="hdr-pill-val pos">32.3</span><span class="hdr-pill-lbl">Pts prom.</span></div>
       <div class="hdr-pill"><span class="hdr-pill-val neg">−27.8</span><span class="hdr-pill-lbl">Dif. prom.</span></div>
       <div class="hdr-pill"><span class="hdr-pill-val pos">↑</span><span class="hdr-pill-lbl">Tendencia</span></div>
-      <div class="hdr-pill"><span class="hdr-pill-val">19</span><span class="hdr-pill-lbl">Jugadores</span></div>
     </div>
   </div>
 </header>
