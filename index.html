@@ -28,7 +28,7 @@ body{font-family:var(--ff-b);background:var(--g50);color:var(--g800);min-height:
     linear-gradient(0deg, rgba(15,31,53,.55), rgba(15,31,53,.55)),
     url('./assets/team-photo.jpg');
   background-size:cover;
-  background-position:center 24%;
+  background-position:center 34%;
   background-repeat:no-repeat;
   padding:32px 20px 24px;
   position:relative;
@@ -46,21 +46,7 @@ body{font-family:var(--ff-b);background:var(--g50);color:var(--g800);min-height:
 .hdr-pill-val{font-family:var(--ff-d);font-size:26px;color:#fff;line-height:1}
 .hdr-pill-lbl{font-family:var(--ff-m);font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
 .hdr-pill-val.pos{color:#4ade80}.hdr-pill-val.neg{color:#f87171}
-@media(max-width:640px){
-  .hdr{background-position:center 16%}
-  .hdr-pills{
-    display:grid;
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    max-width:520px;
-    margin:22px auto 0;
-    width:100%;
-    align-items:stretch;
-    gap:8px;
-  }
-  .hdr-pill{grid-column:span 2;min-width:0;padding:9px 10px;text-align:center;min-height:72px;justify-content:center}
-  .hdr-pills .hdr-pill:nth-child(4){grid-column:2 / span 2}
-  .hdr-pills .hdr-pill:nth-child(5){grid-column:4 / span 2}
-}
+@media(max-width:640px){.hdr{background-position:center 26%}}
 
 /* ── NAV ── */
 .nav-wrap{background:var(--white);border-bottom:1px solid var(--g200);position:sticky;top:0;z-index:100}
@@ -136,17 +122,6 @@ main{max-width:960px;margin:0 auto;padding:28px 16px 72px}
 .q-net{font-family:var(--ff-m);font-size:12px;font-weight:600;margin-top:1px}
 .q-net.w{color:var(--green)}.q-net.l{color:var(--red)}
 @media(min-width:761px){.quarters{justify-content:center;overflow-x:visible}}
-@media(max-width:760px){
-  .quarters{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:6px;
-    padding:0 0 20px;
-    overflow:visible;
-  }
-  .q-pill{min-width:0;padding:8px 4px}
-  .chart-evol-card{display:none}
-}
 
 /* TIRO BARS */
 .tiro-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
