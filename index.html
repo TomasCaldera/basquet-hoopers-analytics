@@ -88,6 +88,8 @@ main{max-width:960px;margin:0 auto;padding:28px 16px 72px}
 .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 @media(max-width:640px){.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+.kpi-grid{max-width:760px;margin-inline:auto;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){.kpi-grid{grid-template-columns:1fr}}
 
 /* METRIC CARDS */
 .mc{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r-md);padding:14px 16px}
@@ -111,7 +113,7 @@ main{max-width:960px;margin:0 auto;padding:28px 16px 72px}
 .rb-l{background:var(--red-lt);color:var(--red)}.rb-w{background:var(--green-lt);color:var(--green)}
 
 /* CUARTOS */
-.quarters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 20px 20px}
+.quarters{display:flex;gap:8px;flex-wrap:nowrap;justify-content:flex-start;padding:0 20px 20px;overflow-x:auto;scrollbar-width:thin}
 .q-pill{display:flex;flex-direction:column;align-items:center;padding:10px 14px;border-radius:var(--r-md);min-width:72px;gap:2px}
 .q-pill.w{background:var(--green-lt)}.q-pill.l{background:var(--red-lt)}
 .q-lbl{font-family:var(--ff-m);font-size:9px;letter-spacing:.08em;color:var(--g400)}
@@ -119,6 +121,7 @@ main{max-width:960px;margin:0 auto;padding:28px 16px 72px}
 .q-score.w{color:var(--green)}.q-score.l{color:var(--red)}
 .q-net{font-family:var(--ff-m);font-size:12px;font-weight:600;margin-top:1px}
 .q-net.w{color:var(--green)}.q-net.l{color:var(--red)}
+@media(min-width:761px){.quarters{justify-content:center;overflow-x:visible}}
 
 /* TIRO BARS */
 .tiro-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -277,7 +280,7 @@ th.sortable.sort-desc::after{content:'↓';opacity:.9}
 <div class="tab-panel active" id="tab-overview">
   <div class="sec-label mb">Progreso del torneo — Hoppers · Star 2026</div>
 
-  <div class="g4 mb">
+  <div class="g4 mb kpi-grid">
     <div class="mc"><div class="mc-lbl">Pts anotados prom.</div><div class="mc-val">32.3</div><div class="mc-sub">F1: 28 → F4: 38</div></div>
     <div class="mc"><div class="mc-lbl">Pts recibidos prom.</div><div class="mc-val neg">55.8</div><div class="mc-sub">F1: 68 → F4: 51</div></div>
     <div class="mc"><div class="mc-lbl">Diferencial prom.</div><div class="mc-val neg">−27.8</div><div class="mc-sub">F1: −40 → F4: −13</div></div>
