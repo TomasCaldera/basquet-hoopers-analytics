@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoppers — Torneo Star 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --navy:#0f1f35;--blue:#1d5fa8;--blue-lt:#3b82f6;--blue-bg:#dbeafe;
+  --green:#0c7a52;--green-lt:#d1fae5;--red:#be3a2a;--red-lt:#fee2e2;
+  --amber:#b45309;--amber-lt:#fef3c7;
+  --g50:#f7f6f2;--g100:#edecea;--g200:#d8d6d0;--g400:#9c9a93;--g600:#5a5952;--g800:#2c2b27;
+  --white:#ffffff;
+  --ff-d:'Bebas Neue',sans-serif;--ff-b:'DM Sans',sans-serif;--ff-m:'DM Mono',monospace;
+  --r-sm:6px;--r-md:10px;--r-lg:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);background:var(--g50);color:var(--g800);min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{background:var(--navy);padding:32px 20px 24px;position:relative;overflow:hidden}
+.hdr::before,.hdr::after{content:'';position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.05)}
+.hdr::before{width:320px;height:320px;top:-100px;right:-80px}
+.hdr::after{width:180px;height:180px;bottom:-60px;left:15%}
+.hdr-in{max-width:960px;margin:0 auto;position:relative;z-index:1}
+.hdr-eyebrow{font-family:var(--ff-m);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:10px}
+.hdr-title{font-family:var(--ff-d);font-size:clamp(52px,9vw,86px);color:#fff;line-height:.88;letter-spacing:.02em}
+.hdr-title em{color:var(--blue-lt);font-style:normal}
+.hdr-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hdr-pill{display:flex;flex-direction:column;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:10px 16px;min-width:80px}
+.hdr-pill-val{font-family:var(--ff-d);font-size:26px;color:#fff;line-height:1}
+.hdr-pill-lbl{font-family:var(--ff-m);font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.hdr-pill-val.pos{color:#4ade80}.hdr-pill-val.neg{color:#f87171}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--g200);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;align-items:stretch}
+.nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:12px 18px;font-family:var(--ff-b);font-size:12px;font-weight:500;color:var(--g400);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap;text-align:left}
+.tab-btn:hover{color:var(--g800)}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tab-btn .tab-date{display:block;font-family:var(--ff-m);font-size:9px;letter-spacing:.08em;color:var(--g400);margin-top:2px;font-weight:400}
+.tab-btn.active .tab-date{color:var(--blue-lt)}
+.nav-spacer{flex:1}
+/* botón leyenda en nav */
+.legend-btn{flex-shrink:0;padding:0 18px;font-family:var(--ff-m);font-size:10px;letter-spacing:.08em;color:var(--g400);background:none;border:none;border-left:1px solid var(--g200);cursor:pointer;text-transform:uppercase;transition:color .15s}
+.legend-btn:hover{color:var(--g800)}
+
+/* ── MODAL LEYENDA ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,31,53,.55);z-index:500;backdrop-filter:blur(2px)}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:flex-end;padding:60px 20px 20px}
+.modal-box{background:var(--white);border:1px solid var(--g200);border-radius:var(--r-lg);padding:24px;width:100%;max-width:420px;max-height:82vh;overflow-y:auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-family:var(--ff-d);font-size:20px;letter-spacing:.03em;color:var(--navy)}
+.modal-close{background:none;border:none;font-size:18px;color:var(--g400);cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px}
+.modal-close:hover{background:var(--g100);color:var(--g800)}
+.legend-group{margin-bottom:18px}
+.legend-group:last-child{margin-bottom:0}
+.legend-group-title{font-family:var(--ff-m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--g400);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--g100)}
+.legend-row{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--g100);align-items:baseline}
+.legend-row:last-child{border-bottom:none}
+.legend-abbr{font-family:var(--ff-m);font-size:11px;font-weight:500;color:var(--blue);width:52px;flex-shrink:0}
+.legend-desc{font-size:12px;color:var(--g600);line-height:1.5}
+.legend-note{font-size:11px;color:var(--g400);line-height:1.5;background:var(--g50);border-radius:var(--r-sm);padding:10px 12px;margin-top:10px}
+
+/* ── MAIN ── */
+main{max-width:960px;margin:0 auto;padding:28px 16px 72px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.mb{margin-bottom:16px}
+.sec-label{font-family:var(--ff-m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--g400);margin-bottom:12px}
+.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r-lg);padding:20px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media(max-width:640px){.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+
+/* METRIC CARDS */
+.mc{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r-md);padding:14px 16px}
+.mc-lbl{font-family:var(--ff-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:4px}
+.mc-val{font-family:var(--ff-d);font-size:30px;line-height:1;color:var(--g800)}
+.mc-sub{font-size:10px;color:var(--g400);margin-top:3px}
+.mc-val.pos{color:var(--green)}.mc-val.neg{color:var(--red)}.mc-val.amb{color:var(--amber)}
+
+/* RESULTADO HERO */
+.res-hero{display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;gap:12px;padding:24px 20px}
+.res-side{display:flex;flex-direction:column}
+.res-side.right{align-items:flex-end}
+.res-team{font-family:var(--ff-d);font-size:20px;letter-spacing:.03em;color:var(--g600);line-height:1;margin-bottom:4px}
+.res-team.ours{color:var(--blue)}
+.res-pts{font-family:var(--ff-d);font-size:64px;line-height:1}
+.res-pts.l{color:var(--red)}.res-pts.w{color:var(--green)}
+.res-mid{text-align:center}
+.res-vs{font-family:var(--ff-d);font-size:18px;color:var(--g400)}
+.res-date{font-family:var(--ff-m);font-size:9px;color:var(--g400);letter-spacing:.08em;margin-top:3px}
+.res-badge{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:4px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.rb-l{background:var(--red-lt);color:var(--red)}.rb-w{background:var(--green-lt);color:var(--green)}
+
+/* CUARTOS */
+.quarters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 20px 20px}
+.q-pill{display:flex;flex-direction:column;align-items:center;padding:10px 14px;border-radius:var(--r-md);min-width:72px;gap:2px}
+.q-pill.w{background:var(--green-lt)}.q-pill.l{background:var(--red-lt)}
+.q-lbl{font-family:var(--ff-m);font-size:9px;letter-spacing:.08em;color:var(--g400)}
+.q-score{font-weight:600;font-size:13px}
+.q-score.w{color:var(--green)}.q-score.l{color:var(--red)}
+.q-net{font-family:var(--ff-m);font-size:12px;font-weight:600;margin-top:1px}
+.q-net.w{color:var(--green)}.q-net.l{color:var(--red)}
+
+/* TIRO BARS */
+.tiro-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tiro-row:last-child{margin-bottom:0}
+.tiro-tipo{font-size:11px;font-weight:500;color:var(--g600);width:56px;flex-shrink:0}
+.tiro-bar-bg{flex:1;height:7px;background:var(--g100);border-radius:4px;overflow:hidden}
+.tiro-bar-fg{height:100%;border-radius:4px}
+.bar-ok{background:var(--green)}.bar-warn{background:var(--amber)}.bar-bad{background:var(--red)}
+.tiro-num{font-family:var(--ff-d);font-size:20px;width:42px;text-align:right;flex-shrink:0}
+.tiro-num.ok{color:var(--green)}.tiro-num.warn{color:var(--amber)}.tiro-num.bad{color:var(--red)}
+.tiro-vol{font-size:10px;color:var(--g400);width:70px;text-align:right;flex-shrink:0;font-family:var(--ff-m)}
+
+/* PLAYER TABLE */
+.pt-wrap{overflow-x:auto}
+.pt{width:100%;border-collapse:collapse;font-size:12px;min-width:580px}
+.pt th{text-align:left;padding:7px 10px;font-family:var(--ff-m);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);border-bottom:1px solid var(--g100)}
+.pt td{padding:9px 10px;border-bottom:1px solid var(--g100);vertical-align:middle}
+.pt tr:last-child td{border-bottom:none}
+.pt tr:hover td{background:var(--g50)}
+.pname{font-weight:500;font-size:13px}.pnum{font-family:var(--ff-m);font-size:10px;color:var(--g400);margin-right:3px}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-left:4px}
+.t-star{background:var(--blue-bg);color:var(--blue)}.t-watch{background:var(--amber-lt);color:var(--amber)}.t-up{background:var(--green-lt);color:var(--green)}
+
+/* ANÁLISIS */
+.an-block{margin-bottom:18px}.an-block:last-child{margin-bottom:0}
+.an-tit{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.an-tit::before{content:'';display:inline-block;width:3px;height:13px;background:var(--blue-lt);border-radius:2px;flex-shrink:0}
+.an-txt{font-size:13px;line-height:1.68;color:var(--g600)}
+.an-txt strong{color:var(--g800);font-weight:600}
+
+/* RECO */
+.reco{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r-sm);padding:14px}
+.reco-t{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
+.reco-txt{font-size:12px;line-height:1.65;color:var(--g600)}
+.reco-txt strong{color:var(--g800)}
+
+/* DARK TABLE */
+.dark-card{background:var(--navy);border-radius:var(--r-lg);padding:22px}
+.dark-h{font-family:var(--ff-d);font-size:20px;color:#fff;letter-spacing:.03em;margin-bottom:2px}
+.dark-sub{font-family:var(--ff-m);font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.dt{width:100%;border-collapse:collapse;font-size:12px}
+.dt th{text-align:left;padding:5px 8px;font-family:var(--ff-m);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.08)}
+.dt td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+.dt tr:last-child td{border-bottom:none}
+.dt-name{font-weight:500;font-size:13px;color:#fff}
+.dt-rank{font-family:var(--ff-m);font-size:10px;color:rgba(255,255,255,.25)}
+.tend-u{color:#4ade80;font-size:14px}.tend-d{color:#f87171;font-size:14px}.tend-f{color:rgba(255,255,255,.3);font-size:14px}
+
+/* HEATMAP */
+.hm-grid{display:grid;grid-template-columns:60px repeat(4,1fr);gap:4px;align-items:center}
+.hm-header{font-family:var(--ff-m);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);text-align:center}
+.hm-row-lbl{font-size:11px;font-weight:500;color:var(--g600)}
+.hm-cell{text-align:center;padding:10px 4px;border-radius:var(--r-sm);font-family:var(--ff-m);font-size:12px;font-weight:500}
+.hm-w{background:var(--green-lt);color:var(--green)}.hm-l{background:var(--red-lt);color:var(--red)}.hm-n{background:var(--g100);color:var(--g400)}
+
+.divider{height:1px;background:var(--g100);margin:16px 0}
+</style>
+</head>
+<body>
+
+<!-- ── MODAL LEYENDA ── -->
+<div class="modal-overlay" id="legendModal" onclick="closeLegend(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Leyenda de métricas</span>
+      <button class="modal-close" onclick="toggleLegend()">✕</button>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Tiro</div>
+      <div class="legend-row"><span class="legend-abbr">SC / SF</span><span class="legend-desc">Simples convertidos / fallados (tiros de 1 pto desde la línea)</span></div>
+      <div class="legend-row"><span class="legend-abbr">DC / DF</span><span class="legend-desc">Dobles convertidos / fallados (tiros de campo de 2 pts)</span></div>
+      <div class="legend-row"><span class="legend-abbr">TC / TF</span><span class="legend-desc">Triples convertidos / fallados (tiros de 3 pts, más allá del arco)</span></div>
+      <div class="legend-row"><span class="legend-abbr">FG%</span><span class="legend-desc">Efectividad de tiro — tiros convertidos / intentos totales. Se muestra por tipo (S/D/T) y el volumen de intentos</span></div>
+      <div class="legend-note">Referencia para este nivel: simples &gt;55% = bueno · dobles &gt;40% = bueno · triples &gt;25% = aceptable</div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Rebote</div>
+      <div class="legend-row"><span class="legend-abbr">RD</span><span class="legend-desc">Rebote defensivo — capturado en el aro propio, evita segunda chance del rival</span></div>
+      <div class="legend-row"><span class="legend-abbr">RO</span><span class="legend-desc">Rebote ofensivo — capturado en el aro rival, da segunda posesión propia</span></div>
+      <div class="legend-row"><span class="legend-abbr">REB</span><span class="legend-desc">Rebotes totales (RD + RO)</span></div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Creación de juego</div>
+      <div class="legend-row"><span class="legend-abbr">AS</span><span class="legend-desc">Asistencias — pases directos que generan canasta al compañero</span></div>
+      <div class="legend-row"><span class="legend-abbr">TAP</span><span class="legend-desc">Tapas (bloqueos) — tiros tapados al rival</span></div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Pérdidas</div>
+      <div class="legend-row"><span class="legend-abbr">PE</span><span class="legend-desc">Pérdidas de balón — posesiones cedidas sin tiro (robo, salida en ataque, etc.)</span></div>
+      <div class="legend-row"><span class="legend-abbr">CA</span><span class="legend-desc">Caminadas — infracción de pasos, cuenta como pérdida</span></div>
+      <div class="legend-row"><span class="legend-abbr">PE+CA</span><span class="legend-desc">Total de pérdidas del jugador en el partido</span></div>
+      <div class="legend-note">Referencia: más de 1 pérdida cada 3 puntos producidos es un ratio alto para trabajar.</div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Faltas</div>
+      <div class="legend-row"><span class="legend-abbr">FP</span><span class="legend-desc">Faltas personales — contacto ilegal sobre el rival. Límite habitual: 5 por partido</span></div>
+      <div class="legend-row"><span class="legend-abbr">FT</span><span class="legend-desc">Falta técnica — por conducta (protestas, etc.). Puede tener impacto disciplinario</span></div>
+      <div class="legend-row"><span class="legend-abbr">FA</span><span class="legend-desc">Falta antideportiva — contacto intencional o excesivo, puede ser sancionada con suspensión</span></div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Resultado y cuartos</div>
+      <div class="legend-row"><span class="legend-abbr">Neto Q</span><span class="legend-desc">Diferencia de puntos en un cuarto (Hoppers − Rival). Positivo = ganamos ese cuarto</span></div>
+      <div class="legend-row"><span class="legend-abbr">Prom. Q</span><span class="legend-desc">Promedio del neto en ese cuarto a lo largo de todas las fechas</span></div>
+    </div>
+
+    <div class="legend-group">
+      <div class="legend-group-title">Categorías de jugadores</div>
+      <div class="legend-row"><span class="legend-abbr">⭐</span><span class="legend-desc">Destacado — aportó en múltiples facetas: puntos, rebotes, asistencias o defensa</span></div>
+      <div class="legend-row"><span class="legend-abbr">📈</span><span class="legend-desc">Tendencia positiva — viene mejorando en sus propias métricas fecha a fecha</span></div>
+      <div class="legend-row"><span class="legend-abbr">🔧</span><span class="legend-desc">A trabajar — hay un aspecto puntual donde puede crecer. No es una crítica, es una oportunidad</span></div>
+    </div>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-eyebrow">Torneo Star Córdoba · Temporada 2026</div>
+    <div class="hdr-title">HOP<em>PERS</em></div>
+    <div class="hdr-pills">
+      <div class="hdr-pill"><span class="hdr-pill-val">0–4</span><span class="hdr-pill-lbl">Récord</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val pos">32.3</span><span class="hdr-pill-lbl">Pts prom.</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val neg">−27.8</span><span class="hdr-pill-lbl">Dif. prom.</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val pos">↑</span><span class="hdr-pill-lbl">Tendencia</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val">19</span><span class="hdr-pill-lbl">Jugadores</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <button class="tab-btn active" onclick="showTab('overview')">Vista General</button>
+    <button class="tab-btn" onclick="showTab('f1')">F1 · Independencia<span class="tab-date">14 Mar 2026</span></button>
+    <button class="tab-btn" onclick="showTab('f2')">F2 · Jurasicos<span class="tab-date">21 Mar 2026</span></button>
+    <button class="tab-btn" onclick="showTab('f3')">F3 · Los Changos<span class="tab-date">28 Mar 2026</span></button>
+    <button class="tab-btn" onclick="showTab('f4')">F4 · Doble Cuarto<span class="tab-date">11 Abr 2026</span></button>
+    <div class="nav-spacer"></div>
+    <button class="legend-btn" onclick="toggleLegend()">Leyenda</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════ OVERVIEW ══════ -->
+<div class="tab-panel active" id="tab-overview">
+  <div class="sec-label mb">Progreso del torneo — Hoppers · Star 2026</div>
+
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Pts anotados prom.</div><div class="mc-val">32.3</div><div class="mc-sub">F1: 28 → F4: 38</div></div>
+    <div class="mc"><div class="mc-lbl">Pts recibidos prom.</div><div class="mc-val neg">55.8</div><div class="mc-sub">F1: 68 → F4: 51</div></div>
+    <div class="mc"><div class="mc-lbl">Diferencial prom.</div><div class="mc-val neg">−27.8</div><div class="mc-sub">F1: −40 → F4: −13</div></div>
+    <div class="mc"><div class="mc-lbl">Mejor anotador</div><div class="mc-val" style="font-size:20px">Caldera</div><div class="mc-sub">7.0 pts/f promedio</div></div>
+  </div>
+
+  <div class="card mb">
+    <div class="sec-label">Puntos anotados vs concedidos — variación fecha a fecha</div>
+    <div style="position:relative;height:280px;padding:8px 0 0">
+      <canvas id="chartEvolucion" role="img" aria-label="Evolución de puntos Hoppers vs rival por fecha con variación fecha a fecha">Puntos: F1 28-68, F2 32-70, F3 31-34, F4 38-51.</canvas>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:14px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g400)"><span style="width:12px;height:12px;border-radius:2px;background:#1d5fa8;display:inline-block"></span>Hoppers</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g400)"><span style="width:12px;height:12px;border-radius:2px;background:#d8d6d0;display:inline-block"></span>Rival</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g400)"><span style="width:20px;height:2px;background:#0c7a52;display:inline-block;border-radius:1px"></span>Δ Hoppers f a f</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g400)"><span style="width:20px;height:2px;border-top:2px dashed #be3a2a;display:inline-block"></span>Δ Rival f a f</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g400)"><span style="width:20px;height:2px;background:#b45309;display:inline-block;border-radius:1px"></span>Diferencial</span>
+    </div>
+  </div>
+
+  <div class="card mb">
+    <div class="sec-label">Neto por cuarto (Hoppers − Rival)</div>
+    <div class="hm-grid">
+      <div></div>
+      <div class="hm-header">Q1</div><div class="hm-header">Q2</div><div class="hm-header">Q3</div><div class="hm-header">Q4</div>
+      <div class="hm-row-lbl">F1</div>
+      <div class="hm-cell hm-l">−15</div><div class="hm-cell hm-l">−7</div><div class="hm-cell hm-l">−10</div><div class="hm-cell hm-l">−8</div>
+      <div class="hm-row-lbl">F2</div>
+      <div class="hm-cell hm-l">−23</div><div class="hm-cell hm-l">−13</div><div class="hm-cell hm-n">−1</div><div class="hm-cell hm-n">−1</div>
+      <div class="hm-row-lbl">F3</div>
+      <div class="hm-cell hm-l">−4</div><div class="hm-cell hm-w">+6</div><div class="hm-cell hm-l">−8</div><div class="hm-cell hm-w">+3</div>
+      <div class="hm-row-lbl">F4</div>
+      <div class="hm-cell hm-l">−5</div><div class="hm-cell hm-l">−6</div><div class="hm-cell hm-w">+3</div><div class="hm-cell hm-l">−3</div>
+      <div class="hm-row-lbl" style="font-size:10px;color:var(--g400)">Prom.</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−11.8</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−5.0</div>
+      <div class="hm-cell hm-n" style="font-size:11px">−4.0</div>
+      <div class="hm-cell hm-n" style="font-size:11px">−2.3</div>
+    </div>
+    <div style="margin-top:14px;font-size:12px;line-height:1.65;color:var(--g600)">
+      El Q1 acumula un promedio de <strong style="color:var(--g800)">−11.8 puntos</strong> — la mayor sangría del equipo. La tendencia mejora a lo largo del partido: Q2 (−5.0), Q3 (−4.0) y Q4 (−2.3) muestran que los Hoppers compiten mejor a medida que avanza el juego.
+    </div>
+  </div>
+
+  <div class="card mb">
+    <div class="sec-label">Evolución efectividad de tiro — porcentaje y volumen por fecha</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:520px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:6px 10px;font-family:var(--ff-m);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);border-bottom:1px solid var(--g100)">Fecha</th>
+            <th style="text-align:center;padding:6px 10px;font-family:var(--ff-m);font-size:9px;color:var(--g400);border-bottom:1px solid var(--g100)" colspan="2">Simples</th>
+            <th style="text-align:center;padding:6px 10px;font-family:var(--ff-m);font-size:9px;color:var(--g400);border-bottom:1px solid var(--g100)" colspan="2">Dobles</th>
+            <th style="text-align:center;padding:6px 10px;font-family:var(--ff-m);font-size:9px;color:var(--g400);border-bottom:1px solid var(--g100)" colspan="2">Triples</th>
+            <th style="text-align:right;padding:6px 10px;font-family:var(--ff-m);font-size:9px;color:var(--g400);border-bottom:1px solid var(--g100)">Dif.</th>
+          </tr>
+          <tr>
+            <th style="border-bottom:1px solid var(--g100)"></th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">%</th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">int.</th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">%</th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">int.</th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">%</th>
+            <th style="text-align:center;padding:4px 10px;font-family:var(--ff-m);font-size:8px;color:var(--g400);border-bottom:1px solid var(--g100)">int.</th>
+            <th style="border-bottom:1px solid var(--g100)"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F1</strong> · Independencia</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">22%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">9</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">37%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">16</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">11%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">9</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−40</td></tr>
+          <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F2</strong> · Jurasicos</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">36%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">11</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">35%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">23</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">8%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−38</td></tr>
+          <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F3</strong> · Los Changos</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--green);font-weight:500">62%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">32%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">22</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">25%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">8</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−3</td></tr>
+          <tr><td style="padding:9px 10px"><strong>F4</strong> · Doble Cuarto</td><td style="text-align:center;padding:9px 10px;color:var(--amber);font-weight:500">53%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">17</td><td style="text-align:center;padding:9px 10px;color:var(--amber);font-weight:500">38%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">32</td><td style="text-align:center;padding:9px 10px;color:var(--red);font-weight:500">12%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">17</td><td style="text-align:right;padding:9px 10px;color:var(--red)">−13</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--g600);line-height:1.6">Los dobles casi se duplicaron en volumen (16 → 32 intentos). El simple mejoró notablemente en % y creció en intentos. Los triples mantienen volumen alto (9–17 int.) con bajo retorno — es el tiro con peor relación esfuerzo/resultado del equipo.</div>
+  </div>
+
+  <div class="dark-card mb">
+    <div class="dark-h">Ranking final de temporada</div>
+    <div class="dark-sub">Por promedio de puntos anotados · todas las fechas</div>
+    <div style="overflow-x:auto">
+      <table class="dt" style="min-width:480px">
+        <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>3</td><td>7.0</td><td>2.3</td><td>3.7</td><td>0.7</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>3</td><td>6.7</td><td>2.3</td><td>2.0</td><td>0.3</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>4</td><td>4.3</td><td>2.0</td><td>0.8</td><td>0.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">4</td><td class="dt-name">Herrera</td><td>3</td><td>4.0</td><td>3.7</td><td>0.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>2</td><td>3.0</td><td>3.5</td><td>3.0</td><td>0.5</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>3</td><td>3.0</td><td>3.3</td><td>1.3</td><td>0.3</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Bustos</td><td>3</td><td>2.3</td><td>2.0</td><td>0.0</td><td>2.7</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>4</td><td>1.5</td><td>1.5</td><td>1.5</td><td>1.3</td><td class="tend-u">↑</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="an-block"><div class="an-tit">La narrativa del torneo</div><div class="an-txt">Los Hoppers arrancaron la temporada 2026 y muestran una curva de mejora real. De 28 puntos en F1 a 38 en F4 (<strong>+10 puntos</strong>), con el diferencial achicándose de −40 a −13. El F3 contra Los Changos (−3) estuvo al alcance de ser la primera victoria del torneo.</div></div>
+    <div class="an-block"><div class="an-tit">El arranque de partido — la oportunidad más grande</div><div class="an-txt">En los 4 partidos, el equipo todavía no ganó un Q1 (promedio −11.8). La diferencia se genera ahí. La buena noticia: Q3 y Q4 muestran que los Hoppers pueden competir de igual a igual — el equipo llega al final con energía.</div></div>
+    <div class="an-block"><div class="an-tit">El triple — tiro a reservar</div><div class="an-txt">FG% acumulado en triples: <strong>16%</strong> con alto volumen (9–17 intentos por partido). Es el tiro con peor retorno del equipo. El simple creció del 22% al 46% acumulado y es claramente el camino a potenciar.</div></div>
+  </div>
+</div>
+
+<!-- ══════ F1 ══════ -->
+<div class="tab-panel" id="tab-f1">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">28</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">14 MAR 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">Independencia</span><span class="res-pts" style="color:var(--g400)">68</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill l"><span class="q-lbl">Q1</span><span class="q-score l">6 – 21</span><span class="q-net l">−15</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q2</span><span class="q-score l">9 – 16</span><span class="q-net l">−7</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q3</span><span class="q-score l">6 – 16</span><span class="q-net l">−10</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q4</span><span class="q-score l">7 – 15</span><span class="q-net l">−8</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−40</div><div class="mc-sub">Apertura del torneo</div></div>
+    <div class="mc"><div class="mc-lbl">Q ganados</div><div class="mc-val">0 / 4</div><div class="mc-sub">Rival superior en todo</div></div>
+    <div class="mc"><div class="mc-lbl">Asistencias</div><div class="mc-val pos">12</div><div class="mc-sub">Buen juego colectivo</div></div>
+    <div class="mc"><div class="mc-lbl">PE + CA</div><div class="mc-val neg">7</div><div class="mc-sub">Pérdidas totales</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F1</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:22%"></div></div><span class="tiro-num bad">22%</span><span class="tiro-vol">2/9 int.</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:37%"></div></div><span class="tiro-num warn">37%</span><span class="tiro-vol">6/16 int.</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:11%"></div></div><span class="tiro-num bad">11%</span><span class="tiro-vol">1/9 int.</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 1</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>14</td><td>3</td><td>7</td><td>0</td><td>0</td><td>0</td><td>100% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>2</td><td>3</td><td>0</td><td>0</td><td>1</td><td>—</td><td></td></tr>
+          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#6</span><span class="pname">Gul</span></td><td>4</td><td>12</td><td>2</td><td>0</td><td>1</td><td>1</td><td>29% (7 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#12</span><span class="pname">Vega</span></td><td>0</td><td>4</td><td>4</td><td>0</td><td>0</td><td>1</td><td>0% (5 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>6</td><td>1</td><td>3</td><td>0</td><td>0</td><td>4</td><td>100% (2 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>13% (8 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">Debut del torneo contra un rival exigente. El Q1 (−15) marcó el partido desde el arranque. <strong>Caldera</strong> fue el gran protagonista del equipo: 14 pts, 7 AS y 100% de efectividad sobre 8 intentos. <strong>Gul</strong> capturó 12 rebotes mostrando una enorme presencia en la pintura. <strong>Vega</strong> distribuyó con 4 AS sin anotar, cumpliendo un rol organizador.</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>Arranque de partido:</strong> el Q1 (−15) es la señal más clara — vale hablarlo en grupo como el primer ajuste de la temporada.<br><strong>Toma de decisiones de Zito:</strong> anotó 6 puntos en 2 intentos (un gran ratio), pero las 4 pérdidas compensaron ese aporte. Con su capacidad goleadora, reducir pérdidas lo convierte en un jugador todavía más determinante.<br><strong>Volumen de simples:</strong> 2/9 al 22% sugiere que muchos tiros se tomaron en posición difícil — buscar mejores situaciones antes de lanzar.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking acumulado — F1</div>
+    <div class="dark-sub">Primera fecha del torneo</div>
+    <table class="dt">
+      <thead><tr><th>#</th><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>PE+CA</th></tr></thead>
+      <tbody>
+        <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>14</td><td>3</td><td>7</td><td>0</td></tr>
+        <tr><td class="dt-rank">2</td><td class="dt-name">Gul</td><td>4</td><td>12</td><td>2</td><td>1</td></tr>
+        <tr><td class="dt-rank">3</td><td class="dt-name">Zito</td><td>6</td><td>1</td><td>3</td><td>4</td></tr>
+        <tr><td class="dt-rank">4</td><td class="dt-name">Lachat</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td class="dt-rank">5</td><td class="dt-name">Vega</td><td>0</td><td>4</td><td>4</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════ F2 ══════ -->
+<div class="tab-panel" id="tab-f2">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">32</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">21 MAR 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">Jurasicos</span><span class="res-pts" style="color:var(--g400)">70</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill l"><span class="q-lbl">Q1</span><span class="q-score l">4 – 27</span><span class="q-net l">−23</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q2</span><span class="q-score l">6 – 19</span><span class="q-net l">−13</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q3</span><span class="q-score w">9 – 10</span><span class="q-net w">−1</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q4</span><span class="q-score w">13 – 14</span><span class="q-net w">−1</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−38</div><div class="mc-sub">Similar a F1</div></div>
+    <div class="mc"><div class="mc-lbl">Q ganados</div><div class="mc-val pos">2 / 4</div><div class="mc-sub">Q3 y Q4 muy competidos</div></div>
+    <div class="mc"><div class="mc-lbl">Tapas</div><div class="mc-val pos">7</div><div class="mc-sub">Mejor registro del torneo</div></div>
+    <div class="mc"><div class="mc-lbl">PE + CA</div><div class="mc-val pos">2</div><div class="mc-sub">Mejora de 5 vs F1</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F2 vs acumulado F1–F2</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:36%"></div></div><span class="tiro-num warn">36%</span><span class="tiro-vol">4/11 · ac:30%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:35%"></div></div><span class="tiro-num bad">35%</span><span class="tiro-vol">8/23 · ac:36%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:8%"></div></div><span class="tiro-num bad">8%</span><span class="tiro-vol">1/13 · ac:15%</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 2</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td><td>0</td><td>57% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#2</span><span class="pname">Aguirre</span></td><td>6</td><td>5</td><td>2</td><td>0</td><td>1</td><td>1</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>3</td><td>2</td><td>0</td><td>1</td><td>1</td><td>63% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>57% (7 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#5</span><span class="pname">Herrera</span></td><td>4</td><td>4</td><td>0</td><td>1</td><td>5</td><td>1</td><td>40% (5 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>0</td><td>14% (7 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr><td><span class="pnum">#12</span><span class="pname">Gonzalez</span></td><td>5</td><td>3</td><td>1</td><td>3</td><td>0</td><td>0</td><td>20% (10 int.)</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">El marcador final (−38) no muestra lo más importante: los Hoppers ganaron Q3 y Q4 por solo −1 cada uno, compitiendo de igual a igual en la segunda mitad. <strong>Diaz</strong> apareció con 4 pts, 3 AS y 3 tapas en un partido muy completo. <strong>Aguirre</strong> sumó 6 pts y 5 rebotes con buena eficiencia. <strong>Gonzalez</strong> generó 5 pts con mucho volumen de intento — su presencia atacante es valiosa.</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>El Q1 de nuevo (−23):</strong> el partido quedó liquidado en los primeros minutos. Es el patrón más consistente y la oportunidad más grande del equipo.<br><strong>Triple:</strong> 1/13 al 8% es mucho esfuerzo para muy poco retorno. Reservarlo para situaciones muy abiertas.<br><strong>Caldera:</strong> partido difícil (1 pto, 14%) pero viene de una gran F1 — la irregularidad es parte del proceso. Tiene todo para volver a su mejor versión.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking acumulado — F1–F2</div>
+    <div class="dark-sub">Por promedio de puntos · 2 fechas</div>
+    <table class="dt">
+      <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>2</td><td>7.5</td><td>2.0</td><td>4.0</td><td>0.0</td><td class="tend-d">↓</td></tr>
+        <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>1</td><td>6.0</td><td>5.0</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+        <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>2</td><td>4.0</td><td>1.5</td><td>0.5</td><td>0.0</td><td class="tend-u">↑</td></tr>
+        <tr><td class="dt-rank">4</td><td class="dt-name">Gugliemone</td><td>1</td><td>4.0</td><td>3.0</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+        <tr><td class="dt-rank">5</td><td class="dt-name">Diaz</td><td>1</td><td>4.0</td><td>4.0</td><td>3.0</td><td>0.0</td><td class="tend-u">↑</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════ F3 ══════ -->
+<div class="tab-panel" id="tab-f3">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">31</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">28 MAR 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">Los Changos</span><span class="res-pts" style="color:var(--g400)">34</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill l"><span class="q-lbl">Q1</span><span class="q-score l">3 – 7</span><span class="q-net l">−4</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q2</span><span class="q-score w">9 – 3</span><span class="q-net w">+6</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q3</span><span class="q-score l">10 – 18</span><span class="q-net l">−8</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q4</span><span class="q-score w">9 – 6</span><span class="q-net w">+3</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−3</div><div class="mc-sub">Partido al alcance</div></div>
+    <div class="mc"><div class="mc-lbl">Q ganados</div><div class="mc-val pos">2 / 4</div><div class="mc-sub">Q2 (+6) y Q4 (+3)</div></div>
+    <div class="mc"><div class="mc-lbl">Simples %</div><div class="mc-val pos">62%</div><div class="mc-sub">Mejor del torneo hasta F3</div></div>
+    <div class="mc"><div class="mc-lbl">PE + CA</div><div class="mc-val neg">6</div><div class="mc-sub">Sube vs F2 — a trabajar</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F3 vs acumulado F1–F3</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-ok" style="width:62%"></div></div><span class="tiro-num ok">62%</span><span class="tiro-vol">8/13 · ac:44%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:32%"></div></div><span class="tiro-num bad">32%</span><span class="tiro-vol">7/22 · ac:35%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:25%"></div></div><span class="tiro-num warn">25%</span><span class="tiro-vol">2/8 · ac:19%</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 3</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="pnum">#6</span><span class="pname">Aguirre</span></td><td>8</td><td>3</td><td>2</td><td>0</td><td>0</td><td>0</td><td>86% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#15</span><span class="pname">Bustos</span></td><td>7</td><td>5</td><td>0</td><td>0</td><td>2</td><td>4</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>7</td><td>6</td><td>1</td><td>4</td><td>5+FA</td><td>1</td><td>36% (11 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>3</td><td>2</td><td>0</td><td>1</td><td>0</td><td>50% (8 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>0</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>— (1 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#12</span><span class="pname">Osses</span></td><td>0</td><td>5</td><td>0</td><td>0</td><td>2</td><td>0</td><td>— (1 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#55</span><span class="pname">Herrera</span></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>20% (5 int.)</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">El partido más parejo del torneo: derrota por apenas <strong>3 puntos</strong>. El equipo ganó Q2 (+6) y Q4 (+3), mostró su mejor % de simples (62%) y competió de igual a igual. El Q3 (−8) fue el momento bisagra — si ese cuarto hubiera sido más equilibrado, el resultado podría haber sido otro. <strong>Osses</strong> con 5 rebotes y <strong>Diaz</strong> sin anotar pero sólido defensivamente: contribuciones que no siempre se ven en el marcador.</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>El Q3 después de un buen Q2:</strong> el equipo arrancó bien el segundo cuarto (ganó +6) y luego cedió −8 en el tercero. Puede ser un tema físico, de rotaciones o de concentración — vale conversarlo como equipo.<br><strong>Roldan y las faltas:</strong> 7 pts y 6 rebotes muestran un jugador de gran impacto físico. Las 5 FP + FA son una oportunidad de trabajar el posicionamiento defensivo para que ese impacto físico no lo saque del partido.<br><strong>Bustos:</strong> gran partido ofensivo (7 pts, 5 REB) pero 4 pérdidas pesaron. Trabajar las decisiones bajo presión.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking acumulado — F1–F3</div>
+    <div class="dark-sub">Por promedio de puntos · 3 fechas</div>
+    <table class="dt">
+      <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>2</td><td>7.5</td><td>2.0</td><td>4.0</td><td>0.0</td><td class="tend-d">↓</td></tr>
+        <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>2</td><td>7.0</td><td>4.0</td><td>2.0</td><td>0.5</td><td class="tend-f">→</td></tr>
+        <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>3</td><td>4.7</td><td>2.0</td><td>1.0</td><td>0.0</td><td class="tend-f">→</td></tr>
+        <tr><td class="dt-rank">4</td><td class="dt-name">Diaz</td><td>2</td><td>2.0</td><td>3.0</td><td>1.5</td><td>0.0</td><td class="tend-d">↓</td></tr>
+        <tr><td class="dt-rank">5</td><td class="dt-name">Bustos</td><td>2</td><td>3.5</td><td>3.0</td><td>0.0</td><td>4.0</td><td class="tend-u">↑</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════ F4 ══════ -->
+<div class="tab-panel" id="tab-f4">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">38</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">11 ABR 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">Doble Cuarto</span><span class="res-pts" style="color:var(--g400)">51</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill l"><span class="q-lbl">Q1</span><span class="q-score l">12 – 17</span><span class="q-net l">−5</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q2</span><span class="q-score l">10 – 16</span><span class="q-net l">−6</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q3</span><span class="q-score w">9 – 6</span><span class="q-net w">+3</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q4</span><span class="q-score l">9 – 12</span><span class="q-net l">−3</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−13</div><div class="mc-sub">Mejor marca del torneo</div></div>
+    <div class="mc"><div class="mc-lbl">Puntos</div><div class="mc-val pos">38</div><div class="mc-sub">Máximo de temporada</div></div>
+    <div class="mc"><div class="mc-lbl">Asistencias</div><div class="mc-val pos">12</div><div class="mc-sub">Mejor circulación del torneo</div></div>
+    <div class="mc"><div class="mc-lbl">PE + CA</div><div class="mc-val amb">3</div><div class="mc-sub">Bien gestionado</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F4 vs acumulado F1–F4</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:53%"></div></div><span class="tiro-num warn">53%</span><span class="tiro-vol">9/17 · ac:46%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:38%"></div></div><span class="tiro-num warn">38%</span><span class="tiro-vol">12/32 · ac:36%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:12%"></div></div><span class="tiro-num bad">12%</span><span class="tiro-vol">2/17 · ac:16%</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 4</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>2</td><td>4</td><td>4</td><td>1</td><td>0</td><td>0</td><td>50% (2 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>7</td><td>6</td><td>0</td><td>2</td><td>0</td><td>1</td><td>43% (7 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr><td><span class="pnum">#21</span><span class="pname">Aguirre</span></td><td>6</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>100% (4 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr><td><span class="pnum">#42</span><span class="pname">Gonzalez</span></td><td>7</td><td>7</td><td>1</td><td>0</td><td>3</td><td>0</td><td>29% (14 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#12</span><span class="pname">Diaz</span></td><td>5</td><td>4</td><td>1</td><td>0</td><td>1</td><td>1</td><td>31% (13 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>6</td><td>7</td><td>3</td><td>1</td><td>5</td><td>2</td><td>31% (13 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>3</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#70</span><span class="pname">Radici</span></td><td>2</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">El mejor partido ofensivo de la temporada: <strong>38 puntos y diferencial −13</strong>. Los Hoppers ganaron el Q3 (+3) y estuvieron muy cerca en el Q4 (−3). <strong>12 asistencias</strong> es el mejor registro colectivo del torneo — la pelota se mueve, el equipo confía entre sí. Todos los jugadores que entraron terminaron en números positivos o neutros: una señal muy buena de funcionamiento grupal.</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>Caldera y las faltas (5 FP):</strong> segundo partido seguido con 5 faltas. Su aporte con 6 pts, 7 rebotes y 3 AS es muy valioso — con un trabajo de posicionamiento defensivo, va a poder dar eso sin el riesgo de salir por faltas.<br><strong>El Q1 y Q2 (−5, −6):</strong> los Hoppers vienen de atrás en todos los partidos. Si logran arrancar mejor, tienen todo para ganar — lo demuestra el Q3 (+3) y Q4 (−3).<br><strong>Gonzalez:</strong> 7 pts y 7 rebotes son una contribución enorme. El 29% en tiro sobre 14 intentos muestra que puede ser todavía más eficiente eligiendo mejor las situaciones.</div></div>
+  </div>
+  <div class="g2 mb">
+    <div class="reco"><div class="reco-t">Jugadores en alza</div><div class="reco-txt"><strong>Herrera</strong> viene creciendo partido a partido (7 pts, 6 REB, 2 TAP). <strong>Gonzalez</strong> con 14 pts en las últimas dos fechas. Dos jugadores con mucho para dar en las próximas fechas.</div></div>
+    <div class="reco"><div class="reco-t">Lo que está funcionando</div><div class="reco-txt">El simple al 46% acumulado es el tiro del equipo. Los dobles crecen en volumen y se estabilizan. 12 asistencias en F4 es la dinámica a sostener — el equipo juega mejor cuando confía en el pase.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking final — F1–F4</div>
+    <div class="dark-sub">Clasificación definitiva · Hoppers · Star 2026</div>
+    <div style="overflow-x:auto">
+      <table class="dt" style="min-width:460px">
+        <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>3</td><td>7.0</td><td>2.3</td><td>3.7</td><td>0.7</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>3</td><td>6.7</td><td>2.3</td><td>2.0</td><td>0.3</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>4</td><td>4.3</td><td>2.0</td><td>0.8</td><td>0.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">4</td><td class="dt-name">Herrera</td><td>3</td><td>4.0</td><td>3.7</td><td>0.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>2</td><td>3.0</td><td>3.5</td><td>3.0</td><td>0.5</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>3</td><td>3.0</td><td>3.3</td><td>1.3</td><td>0.3</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Bustos</td><td>3</td><td>2.3</td><td>2.0</td><td>0.0</td><td>2.7</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>4</td><td>1.5</td><td>1.5</td><td>1.5</td><td>1.3</td><td class="tend-u">↑</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer style="text-align:center;padding:24px;font-family:var(--ff-m);font-size:9px;color:var(--g400);letter-spacing:.1em;text-transform:uppercase">
+  Hoppers · Torneo Star Córdoba 2026 · Basketball Analyst
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  const idx = ['overview','f1','f2','f3','f4'].indexOf(id);
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleLegend() {
+  document.getElementById('legendModal').classList.toggle('open');
+}
+
+function closeLegend(e) {
+  if (e.target === document.getElementById('legendModal')) toggleLegend();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('legendModal').classList.remove('open');
+});
+
+/* ── GRÁFICO DOBLE EJE ── */
+const ctx = document.getElementById('chartEvolucion');
+if (ctx) {
+  const hoppers = [28, 32, 31, 38];
+  const rival   = [68, 70, 34, 51];
+  const dif     = [-40, -38, -3, -13];
+  const deltaH  = [null, 4, -1, 7];
+  const deltaR  = [null, 2, -36, 17];
+
+  new Chart(ctx, {
+    data: {
+      labels: ['F1 · Independencia','F2 · Jurasicos','F3 · Changos','F4 · Doble Cuarto'],
+      datasets: [
+        { type:'bar', label:'Hoppers', data:hoppers, backgroundColor:'#1d5fa8', borderRadius:5, borderSkipped:false, yAxisID:'y', order:2 },
+        { type:'bar', label:'Rival',   data:rival,   backgroundColor:'#d8d6d0', borderRadius:5, borderSkipped:false, yAxisID:'y', order:2 },
+        { type:'line', label:'Δ Hoppers', data:deltaH, borderColor:'#0c7a52', backgroundColor:'transparent', tension:.35, pointRadius:5, pointBackgroundColor:'#0c7a52', borderWidth:2, yAxisID:'y2', order:1, spanGaps:false },
+        { type:'line', label:'Δ Rival',   data:deltaR, borderColor:'#be3a2a', backgroundColor:'transparent', tension:.35, pointRadius:5, pointBackgroundColor:'#be3a2a', borderWidth:2, borderDash:[5,4], yAxisID:'y2', order:1, spanGaps:false },
+        { type:'line', label:'Diferencial', data:dif, borderColor:'#b45309', backgroundColor:'rgba(180,83,9,0.07)', fill:true, tension:.35, pointRadius:5, pointBackgroundColor:'#b45309', borderWidth:2, yAxisID:'y2', order:1 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label: c => { const v=c.parsed.y; if(v===null) return null; return `${c.dataset.label}: ${v>0?'+':''}${v}`; } } } },
+      scales:{
+        x:{ ticks:{color:'#9c9a93',font:{size:10},autoSkip:false,maxRotation:0}, grid:{color:'rgba(0,0,0,0.05)'} },
+        y:{ position:'left', beginAtZero:true, max:85, ticks:{color:'#9c9a93',font:{size:10},stepSize:20}, grid:{color:'rgba(0,0,0,0.05)'}, title:{display:true,text:'Puntos',color:'#9c9a93',font:{size:10}} },
+        y2:{ position:'right', ticks:{color:'#9c9a93',font:{size:10},callback:v=>(v>0?'+':'')+v}, grid:{drawOnChartArea:false}, title:{display:true,text:'Variación / Dif.',color:'#9c9a93',font:{size:10}} }
+      },
+      layout:{ padding:{top:28,right:16,bottom:8,left:8} }
+    }
+  });
+
+  Chart.register({
+    id:'barLabels',
+    afterDatasetsDraw(chart) {
+      const {ctx:c} = chart;
+      chart.data.datasets.forEach((ds,i) => {
+        if (ds.type !== 'bar') return;
+        chart.getDatasetMeta(i).data.forEach((bar,j) => {
+          const v = ds.data[j]; if (v==null) return;
+          c.save(); c.font='600 11px DM Sans,sans-serif';
+          c.fillStyle = i===0 ? '#1d5fa8' : '#9c9a93';
+          c.textAlign='center'; c.textBaseline='bottom';
+          c.fillText(v, bar.x, bar.y-4); c.restore();
+        });
+      });
+    }
+  });
+}
+</script>
+</body>
+</html>
