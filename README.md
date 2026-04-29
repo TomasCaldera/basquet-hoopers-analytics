@@ -1,99 +1,131 @@
-# Basquet Hoopers Analytics — Torneo Star Córdoba 2026
+# Hoppers Analytics — Torneo Star Córdoba 2026
 
-Sitio web de estadísticas y análisis para el equipo **Hoppers** en el Torneo Star Córdoba, temporada 2026.
+> Un dashboard de estadísticas para un equipo de básquet amateur, construido con fotos de planillas, Claude y cero infraestructura.
 
-## Estructura del proyecto
+**[→ Ver el sitio en vivo](https://tomascaldera.github.io/basquet-hoopers-analytics/)**
+
+---
+
+## El proyecto
+
+Los **Hoppers** juegan en el Torneo Star de Córdoba. Como en la mayoría de los torneos amateurs, al final de cada partido te dan una planilla de papel con todas las estadísticas. Ese papel suele terminar en una mochila y nunca más se ve.
+
+Este proyecto transforma esas planillas en un dashboard con evolución del equipo, análisis por jugador y tendencias a lo largo de la temporada — sin ningún backend, sin base de datos, sin servidor.
+
+El flujo es simple:
+
+```
+Foto de la planilla
+       ↓
+Claude lee la imagen y extrae los datos
+       ↓
+Revisión manual en una tabla editable (review.html)
+       ↓
+Los datos se guardan en data/db.json
+       ↓
+Claude analiza el partido y la evolución del equipo
+       ↓
+index.html se actualiza con los nuevos datos y análisis
+       ↓
+git push → GitHub Pages despliega el sitio en segundos
+```
+
+No hay nada más. El sitio es un HTML estático con Chart.js. Los datos son un JSON. El análisis lo hace Claude leyendo el JSON y las planillas anteriores.
+
+---
+
+## El equipo
+
+Hoppers terminó las primeras 6 fechas con récord **0–6**, pero eso no cuenta la historia real:
+
+| Fecha | Hoppers | Rival | Diferencial |
+|-------|---------|-------|-------------|
+| F1 vs Independencia | 28 | 68 | −40 |
+| F2 vs Jurasicos | 32 | 70 | −38 |
+| F3 vs Los Changos | 31 | 34 | **−3** |
+| F4 vs Doble Cuarto | 38 | 51 | −13 |
+| F5 vs Walkers | 51 | 69 | −18 |
+| F6 vs Incas | 44 | 55 | −11 |
+
+De −40 a −11. El equipo que empezó perdiendo de a 40 ahora empata cuartos individuales contra cualquier rival. El tablero existe para hacer visible ese progreso.
+
+---
+
+## Estructura
 
 ```
 basquet-hoopers-analytics/
-├── .github/
-│   └── workflows/
-│       └── deploy-pages.yml   # Deploy automático a GitHub Pages
-├── index.html                 # Sitio web principal (autocontenido)
+├── index.html                    # Dashboard completo (autocontenido, sin build)
 ├── data/
-│   └── db.json                # Base de datos del torneo (planillas procesadas)
+│   └── db.json                   # Base de datos del torneo
+├── planillas/
+│   ├── planilla_fN_DDMMYYYY.jpeg # Fotos de las planillas (fuente de verdad)
+│   ├── f5_data.json              # Datos corregidos por el usuario
+│   ├── f6_data.json
+│   └── review/
+│       └── review.html           # Herramienta de revisión y corrección
+├── analisis/
+│   ├── f5_analisis.md            # Análisis por partido generado por Claude
+│   ├── f6_analisis.md
+│   └── tendencias_6f.md          # Tendencias acumuladas de la temporada
 ├── skills/
-│   └── basketball-analyst.md  # Skill de Claude para análisis
-└── README.md
+│   ├── planilla-ingestor.md      # Skill de Claude para leer planillas
+│   └── basketball-analyst.md    # Skill de Claude para analizar partidos
+├── assets/
+│   └── team-photo.jpg            # Foto del equipo para el header
+└── .github/
+    └── workflows/
+        └── deploy-pages.yml      # Deploy automático a GitHub Pages
 ```
 
-## Publicar en dominio público (GitHub Pages)
+---
 
-Este repo ya queda listo para publicarse automáticamente con GitHub Pages usando el workflow de Actions.
+## Cómo agregar una fecha nueva
 
-1. En GitHub, ir a **Settings → Pages**.
-2. En **Source**, seleccionar **GitHub Actions**.
-3. Hacer push a `main` (o ejecutar manualmente el workflow **Deploy static site to GitHub Pages**).
-4. La URL pública del repo será:
-   - **https://tomascaldera.github.io/basquet-hoopers-analytics/**
+1. Subir la foto de la planilla a `planillas/` con el nombre `planilla_fN_DDMMYYYY.jpeg`
+2. Abrir Claude Code en este directorio
+3. Decirle a Claude: *"Tengo la planilla de la fecha N, procesala"*
+4. Claude va a:
+   - Leer la imagen y extraer los datos
+   - Generar `planillas/review/review.html` con los valores precargados para revisar
+   - Después de la revisión, persistir los datos en `data/db.json`
+   - Correr el análisis del partido y de tendencias acumuladas
+   - Guardar el análisis en `analisis/`
+   - Actualizar `index.html` con la nueva fecha
+5. `git push` → el sitio se actualiza solo
 
-## Error típico de “Custom domain is not properly formatted”
+### El paso de revisión
 
-En **Custom domain** no va el nombre del repositorio (`basquet-hoopers-analytics`).
-Debe ir un dominio real, por ejemplo:
+Las fotos de planillas de torneos amateurs suelen ser tomadas con el celular en condiciones de luz variable. Para no depender de que Claude lea perfectamente cada número, el proceso tiene una etapa intermedia: una tabla HTML editable con los valores que Claude extrajo, resaltando en amarillo los que son inciertos. El usuario corrige lo necesario, descarga el JSON validado, y recién ahí los datos se guardan.
 
-- `stats.tudominio.com`
-- `hoopersanalytics.com`
-
-Si no tenés dominio propio, dejá ese campo vacío y usá la URL pública de GitHub Pages.
-
-## Si querés usar dominio propio
-
-1. Comprar/usar un dominio (ej. `hoopersanalytics.com`).
-2. Configurar DNS en tu proveedor:
-   - Para subdominio (`stats.tudominio.com`): registro **CNAME** apuntando a `tomascaldera.github.io`.
-   - Para dominio raíz (`tudominio.com`): usar **A/ALIAS/ANAME** según permita el proveedor, apuntando a GitHub Pages.
-3. En **Settings → Pages → Custom domain**, escribir ese dominio.
-4. Activar **Enforce HTTPS** cuando GitHub valide el certificado.
-
-## Cómo usar con Claude Code
-
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/TomasCaldera/basquet-hoopers-analytics.git
-   cd basquet-hoopers-analytics
-   ```
-
-2. Abrir en Claude Code:
-   ```bash
-   claude
-   ```
-
-3. Para agregar una nueva fecha, subir la foto de la planilla a Claude y pedirle:
-   ```
-   Acá está la planilla de la fecha X. Actualizá la base de datos y regenerá el sitio.
-   ```
+---
 
 ## Stack
 
-- **Frontend**: HTML + CSS + JS puro (sin framework), Chart.js para gráficos
-- **Datos**: JSON estático en `data/db.json`
-- **Análisis**: Claude con el skill `/basketball-analyst`
-- **Hosting**: GitHub Pages + GitHub Actions
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | HTML + CSS + JS puro, sin framework |
+| Gráficos | Chart.js 4.4.1 |
+| Datos | JSON estático (`data/db.json`) |
+| Extracción | Claude (lectura de imágenes) |
+| Análisis | Claude con skill `basketball-analyst.md` |
+| Hosting | GitHub Pages |
+| Deploy | GitHub Actions (push a `main` → deploy automático) |
 
-## Skill de análisis
+El sitio no tiene backend, no tiene base de datos en la nube, no tiene costos de hosting. Todo corre en el navegador a partir de un JSON local.
 
-El archivo `skills/basketball-analyst.md` contiene las instrucciones para que Claude analice las planillas. Para usarlo desde Claude Code, copiarlo a la carpeta de skills del usuario o referenciarlo directamente en la conversación.
+---
 
-## Flujo de trabajo sugerido
+## Por qué Claude Code
 
-```
-Nuevo partido
-     ↓
-Foto de la planilla → Claude Code → Actualiza db.json
-     ↓
-Claude regenera index.html con los nuevos datos
-     ↓
-git add . && git commit -m "Fecha X vs Rival" && git push
-     ↓
-GitHub Pages actualiza el sitio automáticamente
-```
+La extracción de datos de planillas manuscritas y la escritura de análisis de básquet son exactamente el tipo de tarea donde un LLM agrega valor real. Claude lee la imagen, identifica a los jugadores por número de camiseta, calcula PTS = SC×1 + DC×2 + TC×3, detecta inconsistencias, y escribe análisis con contexto acumulado de todas las fechas anteriores.
 
-## Base de datos
+Lo que haría falta programar manualmente (OCR + parser + validador + motor de análisis) se reemplaza por una conversación.
 
-`data/db.json` contiene:
-- Metadata del torneo (nombre, temporada, equipo)
-- Array `fechas[]` con cada partido: resultado, parciales por cuarto, jugadores con estadísticas
-- `jugadores_registro` con el historial de apariciones por jugador
+---
 
-Para agregar una fecha nueva, Claude Code lee la imagen de la planilla, extrae los datos y agrega el objeto correspondiente al array `fechas`.
+## URL del sitio
+
+**https://tomascaldera.github.io/basquet-hoopers-analytics/**
+
+Para configurar dominio propio: Settings → Pages → Custom domain. Para un subdominio, agregar un registro CNAME apuntando a `tomascaldera.github.io`.
