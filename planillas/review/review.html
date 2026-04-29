@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Revisión Planillas — Hoppers 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Courier New',monospace;background:#0d1117;color:#c9d1d9;padding:20px;font-size:13px}
+h1{color:#ff6b35;margin-bottom:12px;font-size:18px}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid #30363d}
+.tab-btn{padding:8px 20px;background:#0d1117;border:1px solid #30363d;border-bottom:none;color:#8b949e;cursor:pointer;border-radius:4px 4px 0 0;font-family:inherit;font-size:13px;margin-bottom:-1px}
+.tab-btn.active{background:#161b22;color:#ff6b35;border-bottom-color:#161b22}
+.tab-content{display:none}.tab-content.active{display:block}
+.meta{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:14px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:12px}
+.field label{display:block;color:#8b949e;font-size:10px;margin-bottom:3px;text-transform:uppercase}
+.field input[type=text],.field input[type=number]{background:#0d1117;border:1px solid #30363d;color:#c9d1d9;padding:5px 8px;border-radius:3px;font-family:inherit;font-size:13px;width:100%}
+.field{min-width:110px}
+.table-wrap{overflow-x:auto;margin-bottom:14px}
+table{border-collapse:collapse;font-size:11px;white-space:nowrap}
+th{background:#161b22;color:#ff6b35;padding:4px 3px;text-align:center;border:1px solid #30363d;font-weight:normal;position:sticky;top:0;z-index:2}
+th.sh{background:#1a1f2e;color:#79c0ff}
+th.sec{background:#172217;color:#7ee787}
+th.pts-head{background:#1e1900;color:#e3b341}
+td{border:1px solid #21262d;padding:1px;text-align:center;vertical-align:middle}
+td.name-cell{text-align:left;padding:1px 4px}
+input[type=number].cell{width:34px;background:#0d1117;border:1px solid #30363d;color:#c9d1d9;text-align:center;padding:2px 1px;font-family:inherit;font-size:11px;border-radius:2px}
+input[type=text].name-inp{width:86px;background:#0d1117;border:1px solid #30363d;color:#c9d1d9;padding:2px 4px;font-family:inherit;font-size:11px;border-radius:2px}
+input.u{border-color:#8a6000!important;background:#16120000!important;background-color:#1a1500!important}
+.calc-ok{color:#3fb950;font-weight:bold;font-size:11px}
+.calc-err{color:#f85149;font-weight:bold;font-size:11px}
+tr.tot td{background:#161b22;color:#ff6b35;font-weight:bold;font-size:11px}
+.val-box{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:12px;margin-bottom:14px;font-size:12px}
+.val-box h3{color:#8b949e;margin-bottom:8px;font-size:11px;text-transform:uppercase}
+.ok{color:#3fb950}.warn{color:#d29922}.err{color:#f85149}
+.vl{margin:3px 0}
+.actions{display:flex;gap:10px;margin-bottom:20px}
+button.dl{background:#ff6b35;color:#fff;border:none;padding:9px 22px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:13px}
+button.dl:hover{background:#e05c28}
+.legend{display:flex;gap:16px;margin-bottom:12px;font-size:11px;color:#8b949e;flex-wrap:wrap;align-items:center}
+.lb{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid #8a6000;background:#1a1500;vertical-align:middle;margin-right:4px}
+.note{color:#8b949e;font-size:11px;margin-bottom:14px;padding:8px 12px;border-left:3px solid #30363d}
+</style>
+</head>
+<body>
+<h1>📋 Revisión de Planillas — Hoppers Torneo Star 2026</h1>
+<div class="legend">
+  <span><span class="lb"></span> Valor incierto — verificar en imagen original</span>
+  <span style="color:#f85149">■</span>&nbsp;PTS planilla ≠ SC×1 + DC×2 + TC×3
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('f5')">F5 · 18 abr · vs Walkers</button>
+  <button class="tab-btn" onclick="showTab('f6')">F6 · 26 abr · vs Incas</button>
+</div>
+
+<!-- ═══════════════════════════════════ F5 ═══════════════════════════════════ -->
+<div id="tab-f5" class="tab-content active">
+<div class="note">⚠️ Imagen F5 es foto de pantalla de baja resolución. Sólo #11 Diez tiene stats confirmadas. El resto está en 0 — completar mirando la imagen original. Los PTS por jugador son estimaciones; verificar que sumen 51.</div>
+<div class="meta">
+  <div class="field"><label>Rival</label><input type="text" id="f5-rival" value="Walkers"></div>
+  <div class="field"><label>Fecha</label><input type="text" id="f5-fecha" value="2026-04-18"></div>
+  <div class="field"><label>Score Hop.</label><input type="number" id="f5-score" value="51" oninput="updateVal('f5')"></div>
+  <div class="field"><label>Score Rival</label><input type="number" id="f5-scorer" value="69"></div>
+  <div class="field"><label>Q1 [Hop,Riv]</label><input type="text" id="f5-q1" value="18,22"></div>
+  <div class="field"><label>Q2</label><input type="text" id="f5-q2" value="6,10"></div>
+  <div class="field"><label>Q3</label><input type="text" id="f5-q3" value="7,15"></div>
+  <div class="field"><label>Q4</label><input type="text" id="f5-q4" value="20,22"></div>
+</div>
+<div class="table-wrap"><table><thead>
+<tr>
+  <th rowspan="2">N°</th><th rowspan="2">Nombre</th>
+  <th colspan="6" class="sh">——— Tiros ———</th>
+  <th colspan="2" class="pts-head">PTS</th>
+  <th colspan="10" class="sec">——————— Stats ———————</th>
+</tr>
+<tr>
+  <th class="sh">SC</th><th class="sh">SF</th><th class="sh">DC</th><th class="sh">DF</th><th class="sh">TC</th><th class="sh">TF</th>
+  <th class="pts-head">Plan.</th><th class="pts-head">Calc.</th>
+  <th class="sec">AS</th><th class="sec">RD</th><th class="sec">RO</th><th class="sec">FP</th><th class="sec">FT</th><th class="sec">FA</th><th class="sec">TP</th><th class="sec">PE</th><th class="sec">CA</th><th class="sec">VAL</th>
+</tr>
+</thead><tbody id="f5-body"></tbody>
+<tfoot><tr class="tot" id="f5-tot">
+  <td colspan="2">TOTAL</td>
+  <td id="f5-tsc">0</td><td id="f5-tsf">0</td><td id="f5-tdc">0</td><td id="f5-tdf">0</td><td id="f5-ttc">0</td><td id="f5-ttf">0</td>
+  <td id="f5-tpts">0</td><td id="f5-tcalc">0</td>
+  <td id="f5-tas">0</td><td id="f5-trd">0</td><td id="f5-tro">0</td><td id="f5-tfp">0</td><td id="f5-tft">0</td><td id="f5-tfa">0</td><td id="f5-ttp">0</td><td id="f5-tpe">0</td><td id="f5-tca">0</td><td id="f5-tval">0</td>
+</tr></tfoot>
+</table></div>
+<div class="val-box" id="f5-valbox"></div>
+<div class="actions"><button class="dl" onclick="dl('f5')">⬇ Descargar f5_data.json</button></div>
+</div>
+
+<!-- ═══════════════════════════════════ F6 ═══════════════════════════════════ -->
+<div id="tab-f6" class="tab-content">
+<div class="note">✅ Tiros (SC/SF/DC/DF/TC/TF) confirmados — PTS suma 44. Stats secundarios (AS/RD/RO…) en 0 — completar. Gugliemone DF=9 es estimado (hace que dobles%=36% cierre).</div>
+<div class="meta">
+  <div class="field"><label>Rival</label><input type="text" id="f6-rival" value="Incas"></div>
+  <div class="field"><label>Fecha</label><input type="text" id="f6-fecha" value="2026-04-26"></div>
+  <div class="field"><label>Score Hop.</label><input type="number" id="f6-score" value="44" oninput="updateVal('f6')"></div>
+  <div class="field"><label>Score Rival</label><input type="number" id="f6-scorer" value="55"></div>
+  <div class="field"><label>Q1 [Hop,Riv]</label><input type="text" id="f6-q1" value="9,9"></div>
+  <div class="field"><label>Q2</label><input type="text" id="f6-q2" value="7,12"></div>
+  <div class="field"><label>Q3</label><input type="text" id="f6-q3" value="11,17"></div>
+  <div class="field"><label>Q4</label><input type="text" id="f6-q4" value="17,17"></div>
+</div>
+<div class="table-wrap"><table><thead>
+<tr>
+  <th rowspan="2">N°</th><th rowspan="2">Nombre</th>
+  <th colspan="6" class="sh">——— Tiros ———</th>
+  <th colspan="2" class="pts-head">PTS</th>
+  <th colspan="10" class="sec">——————— Stats ———————</th>
+</tr>
+<tr>
+  <th class="sh">SC</th><th class="sh">SF</th><th class="sh">DC</th><th class="sh">DF</th><th class="sh">TC</th><th class="sh">TF</th>
+  <th class="pts-head">Plan.</th><th class="pts-head">Calc.</th>
+  <th class="sec">AS</th><th class="sec">RD</th><th class="sec">RO</th><th class="sec">FP</th><th class="sec">FT</th><th class="sec">FA</th><th class="sec">TP</th><th class="sec">PE</th><th class="sec">CA</th><th class="sec">VAL</th>
+</tr>
+</thead><tbody id="f6-body"></tbody>
+<tfoot><tr class="tot" id="f6-tot">
+  <td colspan="2">TOTAL</td>
+  <td id="f6-tsc">0</td><td id="f6-tsf">0</td><td id="f6-tdc">0</td><td id="f6-tdf">0</td><td id="f6-ttc">0</td><td id="f6-ttf">0</td>
+  <td id="f6-tpts">0</td><td id="f6-tcalc">0</td>
+  <td id="f6-tas">0</td><td id="f6-trd">0</td><td id="f6-tro">0</td><td id="f6-tfp">0</td><td id="f6-tft">0</td><td id="f6-tfa">0</td><td id="f6-ttp">0</td><td id="f6-tpe">0</td><td id="f6-tca">0</td><td id="f6-tval">0</td>
+</tr></tfoot>
+</table></div>
+<div class="val-box" id="f6-valbox"></div>
+<div class="actions"><button class="dl" onclick="dl('f6')">⬇ Descargar f6_data.json</button></div>
+</div>
+
+<script>
+// ── Player data ─────────────────────────────────────────────────────────────
+// Each player: { num, nombre, sc,sf,dc,df,tc,tf, pts, as,rd,ro,fp,ft,fa,tp,pe,ca, val, u:[] }
+// u[] = array of uncertain field names (shown with yellow border)
+const DB = {
+  f5: [
+    {num:11,nombre:"Diez",       sc:0,sf:0,dc:7,df:1,tc:1,tf:1, pts:17, as:0,rd:2,ro:0,fp:1,ft:0,fa:0,tp:0,pe:0,ca:0,val:24,
+     u:[]},
+    {num:43,nombre:"Gonzalez",   sc:0,sf:0,dc:1,df:1,tc:1,tf:0, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:22,nombre:"Herrera",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:6, nombre:"Caldera",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:11, as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:8, nombre:"Gugliemone", sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:6,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:15,nombre:"Aguirre",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:2,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:14,nombre:"Zito",       sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:2,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:24,nombre:"Lachat",     sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:1,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:21,nombre:"Cabrera",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:0, nombre:"Radici",     sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:2,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+  ],
+  f6: [
+    {num:11,nombre:"Diez",       sc:2,sf:1,dc:1,df:0,tc:1,tf:2, pts:7,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:43,nombre:"Gonzalez",   sc:0,sf:4,dc:1,df:7,tc:0,tf:0, pts:2,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:22,nombre:"Herrera",    sc:0,sf:2,dc:0,df:3,tc:2,tf:1, pts:6,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:6, nombre:"Caldera",    sc:4,sf:3,dc:2,df:1,tc:0,tf:0, pts:8,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:8, nombre:"Gugliemone", sc:0,sf:1,dc:6,df:9,tc:0,tf:0, pts:12, as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['df','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:15,nombre:"Aguirre",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sf','df','tf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:14,nombre:"Zito",       sc:0,sf:2,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['df','tf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:24,nombre:"Lachat",     sc:0,sf:0,dc:2,df:1,tc:0,tf:1, pts:4,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:21,nombre:"Cabrera",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sf','df','tf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+    {num:13,nombre:"Cazon",      sc:0,sf:0,dc:1,df:2,tc:1,tf:2, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+  ]
+};
+
+const SHOOT = ['sc','sf','dc','df','tc','tf'];
+const SEC   = ['as','rd','ro','fp','ft','fa','tp','pe','ca','val'];
+const ALL   = [...SHOOT,'pts',...SEC];
+
+function calcPts(p){ return (p.sc||0)+(p.dc||0)*2+(p.tc||0)*3; }
+
+function numInput(f,i,field,val,uncertain){
+  const inp = document.createElement('input');
+  inp.type='number'; inp.className='cell';
+  inp.value = val===null?'':val;
+  if(uncertain) inp.classList.add('u');
+  inp.addEventListener('input',()=>{
+    DB[f][i][field] = inp.value===''?null:+inp.value;
+    inp.classList.remove('u');
+    refresh(f);
+  });
+  return inp;
+}
+
+function render(f){
+  const tbody = document.getElementById(`${f}-body`);
+  tbody.innerHTML='';
+  DB[f].forEach((p,i)=>{
+    const tr = document.createElement('tr');
+    // N°
+    let td=document.createElement('td');
+    let inp=numInput(f,i,'num',p.num,false); inp.style.width='30px'; td.appendChild(inp); tr.appendChild(td);
+    // Nombre
+    td=document.createElement('td'); td.className='name-cell';
+    let ni=document.createElement('input'); ni.type='text'; ni.className='name-inp'; ni.value=p.nombre;
+    ni.addEventListener('input',()=>{DB[f][i].nombre=ni.value;});
+    td.appendChild(ni); tr.appendChild(td);
+    // Shooting
+    SHOOT.forEach(fld=>{
+      td=document.createElement('td');
+      td.appendChild(numInput(f,i,fld,p[fld],p.u.includes(fld)));
+      tr.appendChild(td);
+    });
+    // PTS planilla
+    td=document.createElement('td');
+    td.appendChild(numInput(f,i,'pts',p.pts,p.u.includes('pts')));
+    tr.appendChild(td);
+    // PTS calc
+    td=document.createElement('td'); td.id=`${f}-calc-${i}`; tr.appendChild(td);
+    // Secondary
+    SEC.forEach(fld=>{
+      td=document.createElement('td');
+      td.appendChild(numInput(f,i,fld,p[fld],p.u.includes(fld)));
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  refresh(f);
+}
+
+function refresh(f){
+  const players = DB[f];
+  // Per-row calc PTS
+  players.forEach((p,i)=>{
+    const c = calcPts(p);
+    const el = document.getElementById(`${f}-calc-${i}`);
+    if(!el) return;
+    el.textContent = c;
+    el.className = c===(p.pts||0) ? 'calc-ok' : 'calc-err';
+  });
+  // Totals
+  const tot={};
+  ALL.forEach(fld=>{ tot[fld]=players.reduce((s,p)=>s+(p[fld]||0),0); });
+  tot.calc = players.reduce((s,p)=>s+calcPts(p),0);
+  ['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','ft','fa','tp','pe','ca','val'].forEach(fld=>{
+    const el=document.getElementById(`${f}-t${fld}`); if(el) el.textContent=tot[fld];
+  });
+  const ec=document.getElementById(`${f}-tcalc`); if(ec) ec.textContent=tot.calc;
+  updateVal(f);
+}
+
+function updateVal(f){
+  const score=+(document.getElementById(`${f}-score`).value)||0;
+  const players=DB[f];
+  const ptsSum=players.reduce((s,p)=>s+(p.pts||0),0);
+  const calcSum=players.reduce((s,p)=>s+calcPts(p),0);
+  const mismatches=players.filter(p=>calcPts(p)!==(p.pts||0));
+  const div=document.getElementById(`${f}-valbox`);
+  let h='<h3>Validación</h3>';
+  const scoreOk=ptsSum===score;
+  h+=`<div class="vl ${scoreOk?'ok':'err'}">Score oficial: ${score} | Suma PTS jugadores: ${ptsSum} ${scoreOk?'✅':'❌ (diferencia '+(ptsSum-score>0?'+':'')+(ptsSum-score)+')'}</div>`;
+  const calcOk=calcSum===ptsSum;
+  h+=`<div class="vl ${calcOk?'ok':'warn'}">SC×1+DC×2+TC×3 total: ${calcSum} ${calcOk?'✅':'⚠️ difiere de PTS planilla ('+ptsSum+')'}</div>`;
+  if(mismatches.length){
+    h+='<div class="vl err">Filas con PTS ≠ cálculo:</div>';
+    mismatches.forEach(p=>{
+      h+=`<div class="vl err" style="padding-left:14px">${p.nombre}: planilla=${p.pts||0}, calc=${calcPts(p)}</div>`;
+    });
+  } else if(ptsSum>0){
+    h+='<div class="vl ok">Todos los PTS individuales coinciden con la fórmula ✅</div>';
+  }
+  div.innerHTML=h;
+}
+
+function showTab(f){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById(`tab-${f}`).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    if(btn.getAttribute('onclick').includes(`'${f}'`)) btn.classList.add('active');
+  });
+}
+
+function parseQ(f,q){
+  const raw=document.getElementById(`${f}-${q}`).value;
+  const parts=raw.split(',').map(x=>parseInt(x.trim()));
+  return parts.length===2&&!isNaN(parts[0])&&!isNaN(parts[1])?parts:[null,null];
+}
+
+function dl(f){
+  const players=DB[f];
+  const score=+(document.getElementById(`${f}-score`).value)||0;
+  const scorer=+(document.getElementById(`${f}-scorer`).value)||0;
+  const rival=document.getElementById(`${f}-rival`).value;
+  const fecha=document.getElementById(`${f}-fecha`).value;
+  const fnum={f5:5,f6:6}[f];
+  const fid={f5:'18042026',f6:'26042026'}[f];
+  const obj={
+    meta:{
+      fecha_numero:fnum, fecha_texto:fecha, id_planilla:fid,
+      rival, cancha:null,
+      resultado: score>scorer?'ganado':score<scorer?'perdido':'empate',
+      score_propio:score, score_rival:scorer,
+      parciales:{q1:parseQ(f,'q1'),q2:parseQ(f,'q2'),q3:parseQ(f,'q3'),q4:parseQ(f,'q4'),ot:null},
+      notas_extraccion:[]
+    },
+    jugadores: players.map(p=>({
+      numero:p.num, nombre:p.nombre, minutos:null,
+      simples_convertidos:p.sc??0, simples_fallados:p.sf??0,
+      dobles_convertidos:p.dc??0,  dobles_fallados:p.df??0,
+      triples_convertidos:p.tc??0, triples_fallados:p.tf??0,
+      asistencias:p.as??0, rebotes_defensivos:p.rd??0, rebotes_ofensivos:p.ro??0,
+      faltas_personales:p.fp??0, falta_tecnica:p.ft??0, falta_antideportiva:p.fa??0,
+      tapas:p.tp??0, perdidas:p.pe??0, caminadas:p.ca??0,
+      puntos:p.pts??0, valoracion:p.val??null
+    }))
+  };
+  const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`${f}_data.json`; a.click();
+}
+
+render('f5');
+render('f6');
+</script>
+</body>
+</html>
