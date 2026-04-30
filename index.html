@@ -688,9 +688,370 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
 .hm-n { background: var(--g100);     color: var(--g400) }
 
 .divider { height: 1px; background: var(--g100); margin: 20px 0 }
+
+/* ════════ MULTI-VIEW DASHBOARD ════════ */
+
+/* ── MODE BAR ── */
+.mode-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--g200);
+  padding: 14px 16px 12px;
+  display: flex;
+  justify-content: center;
+}
+.mode-bar-inner {
+  display: inline-flex;
+  background: var(--g100);
+  border-radius: var(--r-md);
+  padding: 4px;
+  gap: 2px;
+}
+.mode-btn {
+  padding: 9px 18px;
+  font-family: var(--ff-b);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--g600);
+  background: transparent;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
+.mode-btn:hover { color: var(--g800) }
+.mode-btn.active {
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: var(--sh-sm);
+  font-weight: 600;
+}
+.mode-btn:focus-visible { outline: 2px solid var(--blue-lt); outline-offset: 2px }
+@media (max-width: 480px) { .mode-btn { padding: 8px 12px; font-size: 11px } }
+
+/* Mode-based show/hide — hidden by default, shown only when mode matches */
+.nav-jugador, .nav-metrica { display: none }
+#view-jugador, #view-metrica { display: none }
+
+body[data-mode="jugador"] .nav-fecha,
+body[data-mode="metrica"] .nav-fecha { display: none }
+
+body[data-mode="jugador"] .tab-panel,
+body[data-mode="metrica"] .tab-panel { display: none !important }
+
+body[data-mode="jugador"] .nav-jugador,
+body[data-mode="metrica"] .nav-metrica { display: block }
+
+body[data-mode="jugador"] #view-jugador,
+body[data-mode="metrica"] #view-metrica { display: block }
+
+/* ── PLAYER VIEW HEADER ── */
+.player-header {
+  background: linear-gradient(140deg, var(--navy) 0%, #163158 60%, #1a3f72 100%);
+  border-radius: var(--r-lg);
+  padding: 26px 24px;
+  color: #fff;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.player-header::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.04);
+  pointer-events: none;
+}
+.player-name {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 16px;
+  position: relative;
+  flex-wrap: wrap;
+}
+.player-num {
+  font-family: var(--ff-m);
+  font-size: 14px;
+  color: var(--blue-lt);
+  letter-spacing: .03em;
+}
+.player-surname {
+  font-family: var(--ff-d);
+  font-size: clamp(38px, 7vw, 56px);
+  letter-spacing: .03em;
+  line-height: 1;
+}
+.player-meta {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.player-meta-item {
+  font-family: var(--ff-m);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+}
+.player-meta-item strong {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--ff-d);
+  font-size: 22px;
+  letter-spacing: .02em;
+  color: #fff;
+  text-transform: none;
+}
+.player-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.player-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.85);
+}
+
+/* ── METRIC VIEW HEADER ── */
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.metric-title {
+  font-family: var(--ff-d);
+  font-size: 30px;
+  letter-spacing: .03em;
+  color: var(--g800);
+  line-height: 1;
+}
+.metric-subtitle {
+  font-family: var(--ff-m);
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--g400);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.metric-toggle {
+  display: inline-flex;
+  background: var(--g100);
+  border-radius: var(--r-md);
+  padding: 3px;
+  gap: 1px;
+}
+.metric-toggle-btn {
+  padding: 7px 14px;
+  font-family: var(--ff-m);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--g600);
+  background: transparent;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.metric-toggle-btn.active {
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: var(--sh-sm);
+  font-weight: 600;
+}
+
+/* ── LEADERBOARD ── */
+.leaderboard { display: flex; flex-direction: column; gap: 12px }
+.lb-row {
+  display: grid;
+  grid-template-columns: 24px minmax(70px, 110px) 1fr 80px;
+  align-items: center;
+  gap: 12px;
+}
+.lb-rank {
+  font-family: var(--ff-m);
+  font-size: 11px;
+  color: var(--g300);
+  text-align: center;
+  font-weight: 600;
+}
+.lb-row:nth-child(1) .lb-rank { color: #d97706; font-weight: 700 }
+.lb-row:nth-child(2) .lb-rank { color: var(--g400) }
+.lb-row:nth-child(3) .lb-rank { color: #cd7c3a }
+.lb-name { font-size: 13px; font-weight: 600; color: var(--g800); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.lb-bar-wrap { background: var(--g100); height: 10px; border-radius: 5px; overflow: hidden }
+.lb-bar-fg {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--blue-lt) 100%);
+  border-radius: 5px;
+  transition: width .4s ease;
+}
+.lb-val-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+.lb-val {
+  font-family: var(--ff-d);
+  font-size: 22px;
+  color: var(--g800);
+  line-height: 1;
+}
+.lb-subv {
+  font-family: var(--ff-m);
+  font-size: 9px;
+  color: var(--g300);
+  margin-top: 3px;
+  letter-spacing: .04em;
+}
+
+/* ── METRIC HEATMAP TABLE ── */
+.mt-wrap { overflow-x: auto; margin: 0 -4px }
+.mt-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 480px }
+.mt-table th {
+  text-align: center;
+  padding: 8px 6px;
+  font-family: var(--ff-m);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--g300);
+  border-bottom: 1.5px solid var(--g200);
+  background: var(--g50);
+}
+.mt-table th.mt-name-col { text-align: left; padding-left: 12px }
+.mt-table td {
+  padding: 9px 6px;
+  text-align: center;
+  border-bottom: 1px solid var(--g100);
+  font-family: var(--ff-m);
+  font-weight: 600;
+}
+.mt-table td.mt-name-cell {
+  text-align: left;
+  font-family: var(--ff-b);
+  padding-left: 12px;
+  color: var(--g800);
+  font-weight: 600;
+}
+.mt-cell-empty { color: var(--g300) !important; font-weight: 400 !important }
+.mt-cell-i0 { background: var(--g50); color: var(--g400) }
+.mt-cell-i1 { background: rgba(26,95,180,.08); color: var(--blue) }
+.mt-cell-i2 { background: rgba(26,95,180,.18); color: var(--blue) }
+.mt-cell-i3 { background: rgba(26,95,180,.34); color: #fff }
+.mt-cell-i4 { background: rgba(26,95,180,.6); color: #fff }
+
+/* ── PLAYER LINK BUTTON (in tables) ── */
+.player-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  transition: color .15s;
+}
+.player-link:hover { color: var(--blue) }
+.player-link:hover .pname { text-decoration: underline; text-underline-offset: 2px }
+.player-link:focus-visible { outline: 2px solid var(--blue-lt); outline-offset: 2px; border-radius: 3px }
+
+/* Heatmap clickable row */
+.mt-name-cell button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+.mt-name-cell button:hover { color: var(--blue) }
+.mt-name-cell button:hover { text-decoration: underline; text-underline-offset: 2px }
+
+/* Inline % subtle */
+.cell-pct {
+  font-family: var(--ff-m);
+  font-size: 10px;
+  color: var(--g400);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* ── EVOLUTION MODAL ── */
+.modal-overlay.open .modal-evol { max-width: 560px }
+.modal-evol { max-width: 560px }
+.modal-sub {
+  font-family: var(--ff-m);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+.evol-meta {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--g100);
+}
+.evol-meta-item {
+  font-family: var(--ff-m);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+.evol-meta-item strong {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--ff-d);
+  font-size: 22px;
+  color: var(--g800);
+  letter-spacing: .02em;
+}
 </style>
 </head>
 <body>
+
+<!-- ── MODAL EVOLUCIÓN ── -->
+<div class="modal-overlay" id="evolModal" onclick="closeEvolModal(event)">
+  <div class="modal-box modal-evol">
+    <div class="modal-header">
+      <span class="modal-title" id="evolTitle">Evolución</span>
+      <button class="modal-close" onclick="closeEvolModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-sub" id="evolSub"></div>
+    <div style="position:relative;height:260px;margin-top:14px">
+      <canvas id="evolChart" role="img"></canvas>
+    </div>
+    <div id="evolMeta" class="evol-meta"></div>
+  </div>
+</div>
 
 <!-- ── MODAL LEYENDA ── -->
 <div class="modal-overlay" id="legendModal" onclick="closeLegend(event)">
@@ -765,7 +1126,15 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
   </div>
 </header>
 
-<nav class="nav-wrap">
+<div class="mode-bar">
+  <div class="mode-bar-inner">
+    <button class="mode-btn active" data-mode="fecha">Por fecha</button>
+    <button class="mode-btn" data-mode="jugador">Por jugador</button>
+    <button class="mode-btn" data-mode="metrica">Por métrica</button>
+  </div>
+</div>
+
+<nav class="nav-wrap nav-fecha">
   <div class="nav-inner">
     <button class="tab-btn active" onclick="showTab('overview')">Vista General</button>
     <button class="tab-btn" onclick="showTab('f1')">F1 · Independencia<span class="tab-date">14 Mar 2026</span></button>
@@ -777,6 +1146,10 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
     <div class="nav-spacer"></div>
     <button class="legend-btn" onclick="toggleLegend()">Leyenda</button>
   </div>
+</nav>
+
+<nav class="nav-wrap nav-metrica">
+  <div class="nav-inner" id="navMetricaInner"></div>
 </nav>
 
 <main>
@@ -883,8 +1256,8 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
           <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>5</td><td>6.0</td><td>2.4</td><td>0.8</td><td>1.0</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>5</td><td>5.6</td><td>3.0</td><td>2.2</td><td>0.6</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">5</td><td class="dt-name">Diaz</td><td>5</td><td>5.4</td><td>3.4</td><td>1.0</td><td>1.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">6</td><td class="dt-name">Lachat</td><td>6</td><td>3.5</td><td>2.3</td><td>0.7</td><td>0.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">7</td><td class="dt-name">Gugliemone</td><td>4</td><td>3.5</td><td>4.0</td><td>1.5</td><td>0.3</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Gugliemone</td><td>5</td><td>3.6</td><td>5.6</td><td>1.6</td><td>0.4</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>6</td><td>3.5</td><td>2.3</td><td>0.7</td><td>0.0</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>6</td><td>1.3</td><td>0.5</td><td>1.0</td><td>0.8</td><td class="tend-f">→</td></tr>
         </tbody>
       </table>
@@ -934,7 +1307,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
           <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>14</td><td>3</td><td>7</td><td>0</td><td>0</td><td>0</td><td>100% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
           <tr><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>2</td><td>3</td><td>0</td><td>0</td><td>1</td><td>—</td><td></td></tr>
           <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#6</span><span class="pname">Gul</span></td><td>4</td><td>12</td><td>2</td><td>0</td><td>1</td><td>1</td><td>29% (7 int.)</td><td></td></tr>
+          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>12</td><td>2</td><td>0</td><td>1</td><td>1</td><td>29% (7 int.)</td><td></td></tr>
           <tr><td><span class="pnum">#12</span><span class="pname">Vega</span></td><td>0</td><td>4</td><td>4</td><td>0</td><td>0</td><td>1</td><td>0% (5 int.)</td><td></td></tr>
           <tr><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>6</td><td>1</td><td>3</td><td>0</td><td>0</td><td>4</td><td>100% (2 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
           <tr><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>13% (8 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
@@ -943,7 +1316,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
     </div>
   </div>
   <div class="card mb">
-    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">Debut del torneo contra un rival exigente. El Q1 (−15) marcó el partido desde el arranque. <strong>Caldera</strong> fue el gran protagonista del equipo: 14 pts, 7 AS y 100% de efectividad sobre 8 intentos. <strong>Gul</strong> capturó 12 rebotes mostrando una enorme presencia en la pintura. <strong>Vega</strong> distribuyó con 4 AS sin anotar, cumpliendo un rol organizador.</div></div>
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">Debut del torneo contra un rival exigente. El Q1 (−15) marcó el partido desde el arranque. <strong>Caldera</strong> fue el gran protagonista del equipo: 14 pts, 7 AS y 100% de efectividad sobre 8 intentos. <strong>Gugliemone</strong> capturó 12 rebotes mostrando una enorme presencia en la pintura. <strong>Vega</strong> distribuyó con 4 AS sin anotar, cumpliendo un rol organizador.</div></div>
     <div class="divider"></div>
     <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>Arranque de partido:</strong> el Q1 (−15) es la señal más clara — vale hablarlo en grupo como el primer ajuste de la temporada.<br><strong>Toma de decisiones de Zito:</strong> anotó 6 puntos en 2 intentos (un gran ratio), pero las 4 pérdidas compensaron ese aporte. Con su capacidad goleadora, reducir pérdidas lo convierte en un jugador todavía más determinante.<br><strong>Volumen de simples:</strong> 2/9 al 22% sugiere que muchos tiros se tomaron en posición difícil — buscar mejores situaciones antes de lanzar.</div></div>
   </div>
@@ -954,7 +1327,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
       <thead><tr><th>#</th><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>PE+CA</th></tr></thead>
       <tbody>
         <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>14</td><td>3</td><td>7</td><td>0</td></tr>
-        <tr><td class="dt-rank">2</td><td class="dt-name">Gul</td><td>4</td><td>12</td><td>2</td><td>1</td></tr>
+        <tr><td class="dt-rank">2</td><td class="dt-name">Gugliemone</td><td>4</td><td>12</td><td>2</td><td>1</td></tr>
         <tr><td class="dt-rank">3</td><td class="dt-name">Zito</td><td>6</td><td>1</td><td>3</td><td>4</td></tr>
         <tr><td class="dt-rank">4</td><td class="dt-name">Lachat</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
         <tr><td class="dt-rank">5</td><td class="dt-name">Vega</td><td>0</td><td>4</td><td>4</td><td>1</td></tr>
@@ -1021,7 +1394,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
         <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>2</td><td>7.5</td><td>2.0</td><td>4.0</td><td>0.0</td><td class="tend-d">↓</td></tr>
         <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>1</td><td>6.0</td><td>5.0</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
         <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>2</td><td>4.0</td><td>1.5</td><td>0.5</td><td>0.0</td><td class="tend-u">↑</td></tr>
-        <tr><td class="dt-rank">4</td><td class="dt-name">Gugliemone</td><td>1</td><td>4.0</td><td>3.0</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+        <tr><td class="dt-rank">4</td><td class="dt-name">Gugliemone</td><td>2</td><td>4.0</td><td>7.5</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
         <tr><td class="dt-rank">5</td><td class="dt-name">Diaz</td><td>1</td><td>4.0</td><td>4.0</td><td>3.0</td><td>0.0</td><td class="tend-u">↑</td></tr>
       </tbody>
     </table>
@@ -1087,7 +1460,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
         <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>2</td><td>7.0</td><td>4.0</td><td>2.0</td><td>0.5</td><td class="tend-f">→</td></tr>
         <tr><td class="dt-rank">3</td><td class="dt-name">Diaz</td><td>2</td><td>5.5</td><td>4.5</td><td>1.5</td><td>2.0</td><td class="tend-u">↑</td></tr>
         <tr><td class="dt-rank">4</td><td class="dt-name">Lachat</td><td>3</td><td>4.7</td><td>2.0</td><td>1.0</td><td>0.0</td><td class="tend-f">→</td></tr>
-        <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>1</td><td>4.0</td><td>3.0</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
+        <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>2</td><td>4.0</td><td>7.5</td><td>2.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
       </tbody>
     </table>
   </div>
@@ -1158,7 +1531,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
           <tr><td class="dt-rank">2</td><td class="dt-name">Aguirre</td><td>3</td><td>6.7</td><td>2.3</td><td>2.0</td><td>0.3</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">3</td><td class="dt-name">Lachat</td><td>4</td><td>4.3</td><td>2.0</td><td>0.8</td><td>0.0</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">4</td><td class="dt-name">Herrera</td><td>3</td><td>4.0</td><td>3.7</td><td>0.0</td><td>1.0</td><td class="tend-u">↑</td></tr>
-          <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>2</td><td>3.0</td><td>3.5</td><td>3.0</td><td>0.5</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Gugliemone</td><td>3</td><td>3.3</td><td>6.3</td><td>2.7</td><td>0.7</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>3</td><td>5.3</td><td>4.3</td><td>1.3</td><td>1.7</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">7</td><td class="dt-name">Bustos</td><td>3</td><td>0.0</td><td>2.3</td><td>0.0</td><td>0.0</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>4</td><td>1.5</td><td>1.5</td><td>1.5</td><td>1.3</td><td class="tend-u">↑</td></tr>
@@ -1237,7 +1610,7 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
           <tr><td class="dt-rank">3</td><td class="dt-name">Diaz</td><td>4</td><td>5.5</td><td>3.8</td><td>1.3</td><td>1.3</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>4</td><td>5.0</td><td>2.5</td><td>2.0</td><td>0.5</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">5</td><td class="dt-name">Herrera</td><td>4</td><td>4.5</td><td>2.8</td><td>1.0</td><td>1.3</td><td class="tend-u">↑</td></tr>
-          <tr><td class="dt-rank">6</td><td class="dt-name">Gugliemone</td><td>3</td><td>4.0</td><td>4.3</td><td>2.0</td><td>0.3</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Gugliemone</td><td>4</td><td>4.0</td><td>6.3</td><td>2.0</td><td>0.5</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>5</td><td>3.8</td><td>1.8</td><td>0.8</td><td>0.0</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>5</td><td>1.6</td><td>0.4</td><td>1.0</td><td>1.0</td><td class="tend-f">→</td></tr>
         </tbody>
@@ -1314,14 +1687,20 @@ th.sortable.sort-desc::after { content: '↓'; opacity: .9 }
           <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>5</td><td>6.0</td><td>2.4</td><td>0.8</td><td>1.0</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>5</td><td>5.6</td><td>3.0</td><td>2.2</td><td>0.6</td><td class="tend-u">↑</td></tr>
           <tr><td class="dt-rank">5</td><td class="dt-name">Diaz</td><td>5</td><td>5.4</td><td>3.4</td><td>1.0</td><td>1.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">6</td><td class="dt-name">Lachat</td><td>6</td><td>3.5</td><td>2.3</td><td>0.7</td><td>0.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">7</td><td class="dt-name">Gugliemone</td><td>4</td><td>3.5</td><td>4.0</td><td>1.5</td><td>0.3</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Gugliemone</td><td>5</td><td>3.6</td><td>5.6</td><td>1.6</td><td>0.4</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>6</td><td>3.5</td><td>2.3</td><td>0.7</td><td>0.0</td><td class="tend-f">→</td></tr>
           <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>6</td><td>1.3</td><td>0.5</td><td>1.0</td><td>0.8</td><td class="tend-f">→</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<!-- ══════ VIEW: POR JUGADOR ══════ -->
+<div id="view-jugador"></div>
+
+<!-- ══════ VIEW: POR MÉTRICA ══════ -->
+<div id="view-metrica"></div>
 
 </main>
 
@@ -1372,6 +1751,7 @@ function makeTablesSortable() {
     if (!thead || !tbody) return;
 
     thead.querySelectorAll('th').forEach(th => {
+      if (th.classList.contains('sortable')) return;
       const label = th.textContent.trim();
       if (th.colSpan !== 1 || !label) return;
       th.classList.add('sortable');
@@ -1459,6 +1839,857 @@ if (ctx) {
     }
   });
 }
+
+/* ════════ MULTI-VIEW DASHBOARD ════════ */
+const STATE = {
+  mode: 'fecha',
+  fecha: 'overview',
+  metric: 'pts',
+  metricMode: 'tournament'
+};
+
+const METRICS = [
+  { key: 'pts',   label: 'Puntos',             short: 'PTS',   desc: 'Producción ofensiva por jugador' },
+  { key: 'reb',   label: 'Rebotes',            short: 'REB',   desc: 'Captura del balón tras tiro' },
+  { key: 'as',    label: 'Asistencias',        short: 'AS',    desc: 'Pases que generan canasta al compañero' },
+  { key: 'tap',   label: 'Tapas',              short: 'TAP',   desc: 'Tiros bloqueados al rival' },
+  { key: 'peca',  label: 'Pérdidas',           short: 'PE+CA', desc: 'Posesiones cedidas (PE + CA)', isNegative: true },
+  { key: 'fp',    label: 'Faltas personales',  short: 'FP',    desc: 'Contacto ilegal sobre el rival', isNegative: true },
+  { key: 'fgPct', label: 'Efectividad de tiro',short: 'FG%',   desc: 'Tiros convertidos / intentos · mín. 5 int.', isPercent: true },
+  { key: 'scPct', label: 'Simples %',          short: 'SC%',   desc: 'Conversión de tiros de 1 pto (mín. 2 intentos)', isPercent: true },
+  { key: 'dcPct', label: 'Dobles %',           short: 'DC%',   desc: 'Conversión de tiros de 2 pts (mín. 2 intentos)', isPercent: true },
+  { key: 'tcPct', label: 'Triples %',          short: 'TC%',   desc: 'Conversión de tiros de 3 pts (mín. 2 intentos)', isPercent: true }
+];
+
+/* ── LOAD MASTER DATABASE ── */
+async function loadMasterDB() {
+  try {
+    const r = await fetch('data/db.json', { cache: 'no-cache' });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+function dbToFechaMap(db) {
+  if (!db || !db.fechas) return {};
+  const map = {};
+  db.fechas.forEach(f => {
+    const id = `f${f.meta.fecha_numero}`;
+    map[id] = f;
+  });
+  return map;
+}
+
+/* ── PARSE EXISTING TABLES INTO DATA MODEL ── */
+function parseDataset(jsonMap = {}) {
+  const fechas = [];
+  const playerIndex = new Map();
+
+  document.querySelectorAll('.tab-panel[id^="tab-f"]').forEach(panel => {
+    const fechaId = panel.id.replace('tab-', '');
+    const idx = parseInt(fechaId.replace('f', ''), 10);
+
+    const hero = panel.querySelector('.res-hero');
+    if (!hero) return;
+    const sides = hero.querySelectorAll('.res-side');
+    const ourPts = parseInt(sides[0]?.querySelector('.res-pts')?.textContent || '0', 10);
+    const rivalPts = parseInt(sides[1]?.querySelector('.res-pts')?.textContent || '0', 10);
+    const rivalName = sides[1]?.querySelector('.res-team')?.textContent.trim() || '';
+    const dateStr = hero.querySelector('.res-date')?.textContent.trim() || '';
+    const won = !!hero.querySelector('.res-badge.rb-w');
+
+    const quarters = Array.from(panel.querySelectorAll('.quarters .q-pill')).map((pill, i) => {
+      const score = pill.querySelector('.q-score')?.textContent || '';
+      const parts = score.split('–').map(s => parseInt(s.trim(), 10));
+      return { q: i + 1, h: parts[0] || 0, r: parts[1] || 0 };
+    });
+
+    const shooting = {};
+    panel.querySelectorAll('.tiro-row').forEach(row => {
+      const tipo = row.querySelector('.tiro-tipo')?.textContent.trim().toLowerCase() || '';
+      const pct = parseInt(row.querySelector('.tiro-num')?.textContent || '0', 10);
+      const vol = row.querySelector('.tiro-vol')?.textContent.trim() || '';
+      const m = vol.match(/(\d+)\/(\d+)/);
+      if (m) shooting[tipo] = { c: +m[1], tot: +m[2], pct };
+    });
+
+    const players = [];
+    const playerTable = panel.querySelector('.pt');
+    const jsonFecha = jsonMap[fechaId];
+    const jsonByName = {};
+    if (jsonFecha) {
+      jsonFecha.jugadores.forEach(j => { jsonByName[j.nombre] = j; });
+    }
+
+    if (playerTable) {
+      playerTable.querySelectorAll('tbody tr').forEach(tr => {
+        const cells = tr.cells;
+        if (cells.length < 8) return;
+        const nameCell = cells[0];
+        const num = parseInt((nameCell.querySelector('.pnum')?.textContent || '#0').replace('#', ''), 10);
+        const name = nameCell.querySelector('.pname')?.textContent.trim() || '';
+        if (!name) return;
+        const pts = parseInt(cells[1].textContent, 10) || 0;
+        const reb = parseInt(cells[2].textContent, 10) || 0;
+        const as_ = parseInt(cells[3].textContent, 10) || 0;
+        const tap = parseInt(cells[4].textContent, 10) || 0;
+        const fpRaw = cells[5].textContent.trim();
+        const fp = parseInt(fpRaw, 10) || 0;
+        const peca = parseInt(cells[6].textContent, 10) || 0;
+        const fgRaw = cells[7].textContent.trim();
+        const fgMatch = fgRaw.match(/(\d+)%\s*\((\d+)\s*int/);
+        const fg = fgMatch ? { pct: +fgMatch[1], attempts: +fgMatch[2], makes: Math.round(+fgMatch[1] * +fgMatch[2] / 100) } : null;
+        const tagEl = cells[8]?.querySelector('.tag');
+        let tag = null;
+        if (tagEl) {
+          if (tagEl.classList.contains('t-star')) tag = 'star';
+          else if (tagEl.classList.contains('t-up')) tag = 'up';
+          else if (tagEl.classList.contains('t-watch')) tag = 'watch';
+        }
+
+        const stat = { name, num, pts, reb, as: as_, tap, fp, fpRaw, peca, fg, tag };
+
+        // ── Enrich with JSON shot-type breakdown if available ──
+        const jp = jsonByName[name];
+        if (jp) {
+          stat.sc = jp.simples_convertidos;
+          stat.sf = jp.simples_fallados;
+          stat.dc = jp.dobles_convertidos;
+          stat.df = jp.dobles_fallados;
+          stat.tc = jp.triples_convertidos;
+          stat.tf = jp.triples_fallados;
+          stat.rd = jp.rebotes_defensivos;
+          stat.ro = jp.rebotes_ofensivos;
+          stat.ft = jp.falta_tecnica;
+          stat.fa = jp.falta_antideportiva;
+          stat.pe = jp.perdidas;
+          stat.ca = jp.caminadas;
+          stat.valoracion = jp.valoracion;
+          stat.hasShots = true;
+        }
+
+        players.push(stat);
+
+        if (!playerIndex.has(name)) playerIndex.set(name, { name, num, fechas: [] });
+        playerIndex.get(name).fechas.push({ fechaId, fechaIdx: idx, ...stat });
+        playerIndex.get(name).num = num;
+      });
+    }
+
+    let label = rivalName;
+    const tabBtn = document.querySelector(`.tab-btn[onclick*="'${fechaId}'"]`);
+    if (tabBtn && tabBtn.firstChild) {
+      const text = (tabBtn.firstChild.textContent || '').trim();
+      const after = text.split('·')[1]?.trim();
+      if (after) label = after;
+    }
+
+    fechas.push({ id: fechaId, idx, label, rivalName, date: dateStr, hoppers: ourPts, rival: rivalPts, diff: ourPts - rivalPts, won, quarters, shooting, players });
+  });
+
+  fechas.sort((a, b) => a.idx - b.idx);
+
+  const jugadores = Array.from(playerIndex.values()).map(p => {
+    const fps = p.fechas.slice().sort((a, b) => a.fechaIdx - b.fechaIdx);
+    const sum = key => fps.reduce((s, f) => s + (f[key] || 0), 0);
+    const avg = key => fps.length ? sum(key) / fps.length : 0;
+    const totalAttempts = fps.reduce((s, f) => s + (f.fg?.attempts || 0), 0);
+    const totalMakes = fps.reduce((s, f) => s + (f.fg?.makes || 0), 0);
+
+    let tendency = 'flat';
+    if (fps.length >= 2) {
+      const half = Math.floor(fps.length / 2) || 1;
+      const firstAvg = fps.slice(0, half).reduce((s, f) => s + f.pts, 0) / half;
+      const second = fps.slice(half);
+      const secondAvg = second.reduce((s, f) => s + f.pts, 0) / second.length;
+      if (secondAvg - firstAvg > 1.5) tendency = 'up';
+      else if (firstAvg - secondAvg > 1.5) tendency = 'down';
+    }
+
+    // Shot-type aggregates (only over fechas with hasShots)
+    const fpsWithShots = fps.filter(f => f.hasShots);
+    const sumS = key => fpsWithShots.reduce((s, f) => s + (f[key] || 0), 0);
+    const totalSc = sumS('sc'), totalSf = sumS('sf');
+    const totalDc = sumS('dc'), totalDf = sumS('df');
+    const totalTc = sumS('tc'), totalTf = sumS('tf');
+    const totalRd = sumS('rd'), totalRo = sumS('ro');
+    const totalPe = sumS('pe'), totalCa = sumS('ca');
+    const scAtt = totalSc + totalSf;
+    const dcAtt = totalDc + totalDf;
+    const tcAtt = totalTc + totalTf;
+
+    return {
+      name: p.name, num: p.num, fechas: fps, fechaCount: fps.length,
+      totalPts: sum('pts'), ptsAvg: avg('pts'),
+      totalReb: sum('reb'), rebAvg: avg('reb'),
+      totalAs: sum('as'), asAvg: avg('as'),
+      tapTotal: sum('tap'), tapAvg: avg('tap'),
+      fpTotal: sum('fp'), fpAvg: avg('fp'),
+      pecaTotal: sum('peca'), pecaAvg: avg('peca'),
+      fgPctOverall: totalAttempts > 0 ? Math.round(totalMakes / totalAttempts * 100) : null,
+      fgTotalAttempts: totalAttempts, fgTotalMakes: totalMakes,
+      // Shot type aggregates (limited to fechas with JSON data)
+      shotsFechaCount: fpsWithShots.length,
+      totalSc, totalSf, scAtt,
+      scPct: scAtt > 0 ? Math.round(totalSc / scAtt * 100) : null,
+      totalDc, totalDf, dcAtt,
+      dcPct: dcAtt > 0 ? Math.round(totalDc / dcAtt * 100) : null,
+      totalTc, totalTf, tcAtt,
+      tcPct: tcAtt > 0 ? Math.round(totalTc / tcAtt * 100) : null,
+      // Detailed rebotes
+      totalRd, totalRo,
+      // PE/CA split
+      totalPe, totalCa,
+      tendency,
+      tags: {
+        star: fps.filter(f => f.tag === 'star').length,
+        up: fps.filter(f => f.tag === 'up').length,
+        watch: fps.filter(f => f.tag === 'watch').length
+      }
+    };
+  }).sort((a, b) => b.ptsAvg - a.ptsAvg);
+
+  return { fechas, jugadores };
+}
+
+// HOPPERS_DATA assigned asynchronously after JSON loading (see init at bottom)
+window.HOPPERS_DATA = parseDataset({});
+
+/* ── URL STATE ── */
+function loadStateFromURL() {
+  const p = new URLSearchParams(location.search);
+  const m = p.get('mode');
+  if (['fecha','jugador','metrica'].includes(m)) STATE.mode = m;
+  if (STATE.mode === 'fecha') {
+    const f = p.get('fecha');
+    if (f && (f === 'overview' || /^f\d+$/.test(f))) STATE.fecha = f;
+  }
+  if (STATE.mode === 'metrica') {
+    const mt = p.get('metric');
+    if (mt && METRICS.some(x => x.key === mt)) STATE.metric = mt;
+    const mm = p.get('aggr');
+    if (['total', 'tournament', 'played'].includes(mm)) STATE.metricMode = mm;
+  }
+}
+
+function updateURL() {
+  const p = new URLSearchParams();
+  p.set('mode', STATE.mode);
+  if (STATE.mode === 'fecha') p.set('fecha', STATE.fecha);
+  if (STATE.mode === 'metrica') {
+    p.set('metric', STATE.metric);
+    p.set('aggr', STATE.metricMode);
+  }
+  history.replaceState(null, '', '?' + p.toString());
+}
+
+/* ── MODE SWITCHER ── */
+function setMode(mode) {
+  STATE.mode = mode;
+  document.body.dataset.mode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  if (mode === 'jugador') {
+    renderJugadorView();
+  } else if (mode === 'metrica') {
+    renderMetricaView();
+  }
+  updateURL();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── PLAYER VIEW (aggregate tables) ── */
+function renderJugadorView() {
+  const container = document.getElementById('view-jugador');
+  if (!container) return;
+
+  const totalFechas = HOPPERS_DATA.fechas.length;
+  const players = HOPPERS_DATA.jugadores;
+  const richFechas = HOPPERS_DATA.jsonFechas || [];
+  const hasAnyRich = richFechas.length > 0;
+
+  const safeId = n => n.replace(/[^a-zA-Z0-9]/g, '_');
+
+  const generalRows = players.map(p => {
+    const fgTxt = p.fgPctOverall !== null ? `${p.fgPctOverall}%` : '—';
+    const intTxt = p.fgTotalAttempts > 0 ? `${p.fgTotalMakes}/${p.fgTotalAttempts}` : '—';
+    const tagParts = [];
+    if (p.tags.star > 0) tagParts.push(`<span class="tag t-star">⭐${p.tags.star}</span>`);
+    if (p.tags.up > 0) tagParts.push(`<span class="tag t-up">📈${p.tags.up}</span>`);
+    if (p.tags.watch > 0) tagParts.push(`<span class="tag t-watch">🔧${p.tags.watch}</span>`);
+    return `<tr>
+      <td><button class="player-link" data-player="${p.name}" title="Ver evolución"><span class="pnum">#${p.num}</span><span class="pname">${p.name}</span></button></td>
+      <td>${p.fechaCount}/${totalFechas}</td>
+      <td>${p.totalPts}</td>
+      <td>${p.ptsAvg.toFixed(1)}</td>
+      <td>${(p.totalPts / totalFechas).toFixed(1)}</td>
+      <td>${p.totalReb}</td>
+      <td>${p.totalAs}</td>
+      <td>${p.tapTotal}</td>
+      <td>${p.pecaTotal}</td>
+      <td>${p.fpTotal}</td>
+      <td>${fgTxt}</td>
+      <td style="font-family:var(--ff-m);color:var(--g400);font-size:11px">${intTxt}</td>
+      <td>${tagParts.join(' ')}</td>
+    </tr>`;
+  }).join('');
+
+  // Shooting breakdown (only renders if at least one fecha has rich data)
+  const shotRows = players.map(p => {
+    if (p.shotsFechaCount === 0) {
+      return `<tr>
+        <td><button class="player-link" data-player="${p.name}"><span class="pnum">#${p.num}</span><span class="pname">${p.name}</span></button></td>
+        <td colspan="7" style="color:var(--g300);font-style:italic;text-align:center">Sin datos de tipo de tiro</td>
+      </tr>`;
+    }
+    const sc = p.scAtt > 0 ? `${p.totalSc}/${p.scAtt}` : '—';
+    const dc = p.dcAtt > 0 ? `${p.totalDc}/${p.dcAtt}` : '—';
+    const tc = p.tcAtt > 0 ? `${p.totalTc}/${p.tcAtt}` : '—';
+    const scP = p.scPct !== null ? `${p.scPct}%` : '—';
+    const dcP = p.dcPct !== null ? `${p.dcPct}%` : '—';
+    const tcP = p.tcPct !== null ? `${p.tcPct}%` : '—';
+    const ptsFromTypes = p.totalSc + p.totalDc * 2 + p.totalTc * 3;
+    return `<tr>
+      <td><button class="player-link" data-player="${p.name}"><span class="pnum">#${p.num}</span><span class="pname">${p.name}</span></button></td>
+      <td>${p.shotsFechaCount}</td>
+      <td>${sc} <span class="cell-pct">${scP}</span></td>
+      <td>${dc} <span class="cell-pct">${dcP}</span></td>
+      <td>${tc} <span class="cell-pct">${tcP}</span></td>
+      <td><strong>${ptsFromTypes}</strong></td>
+    </tr>`;
+  }).join('');
+
+  const shotsCard = hasAnyRich ? `
+    <div class="sec-label mb" style="margin-top:24px">Tipo de tiro · convertidos / intentados</div>
+    <div class="card mb">
+      <div class="pt-wrap">
+        <table class="pt" style="min-width:600px">
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th title="Fechas con data de tipo de tiro">Fechas</th>
+              <th title="Simples (1 pto): convertidos/intentados · %">SC</th>
+              <th title="Dobles (2 pts): convertidos/intentados · %">DC</th>
+              <th title="Triples (3 pts): convertidos/intentados · %">TC</th>
+              <th title="Puntos calculados desde SC + DC*2 + TC*3">PTS calc.</th>
+            </tr>
+          </thead>
+          <tbody>${shotRows}</tbody>
+        </table>
+      </div>
+    </div>
+  ` : `
+    <div class="reco" style="margin-top:18px">
+      <div class="reco-t">⚠ data/db.json no cargado</div>
+      <div class="reco-txt">El SC/DC/TC por jugador vive en <code>data/db.json</code>. Si abrís la página por <code>file://</code> el fetch falla (CORS) y no se carga — andá a la versión deployada o serví localmente con <code>python -m http.server</code>.</div>
+    </div>
+  `;
+
+  container.innerHTML = `
+    <div class="sec-label mb">Resumen por jugador · ${players.length} jugadores · ${totalFechas} fechas</div>
+    <div class="card mb">
+      <div class="pt-wrap">
+        <table class="pt jugador-table" style="min-width:820px">
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th title="Fechas jugadas / total del torneo">F</th>
+              <th title="Puntos totales acumulados">PTS</th>
+              <th title="PTS / fechas jugadas">PTS/jug</th>
+              <th title="PTS / fechas del torneo (refleja aporte real)">PTS/T</th>
+              <th>REB</th>
+              <th>AS</th>
+              <th>TAP</th>
+              <th>PE+CA</th>
+              <th>FP</th>
+              <th title="Field goal % acumulado">FG%</th>
+              <th title="Convertidos / intentados — dimensiona la oportunidad">conv/int</th>
+              <th>Tags</th>
+            </tr>
+          </thead>
+          <tbody>${generalRows}</tbody>
+        </table>
+      </div>
+    </div>
+    ${shotsCard}
+    <div class="reco" style="margin-top:14px">
+      <div class="reco-t">Cómo leer las tablas</div>
+      <div class="reco-txt"><strong>PTS/jug</strong> = total / fechas que jugó · <strong>PTS/T</strong> = total / fechas del torneo (penaliza ausencias y refleja aporte real). <strong>conv/int</strong> dimensiona el volumen de tiro detrás del FG%. Click en el nombre del jugador → modal con evolución por fecha.</div>
+    </div>
+  `;
+
+  // Bind click on player names → open evolution modal
+  container.querySelectorAll('.player-link').forEach(b => {
+    b.addEventListener('click', () => openPlayerEvolutionModal(b.dataset.player));
+  });
+
+  if (typeof makeTablesSortable === 'function') makeTablesSortable();
+}
+
+/* ── METRICA VIEW ── */
+function renderMetricaNav() {
+  const container = document.getElementById('navMetricaInner');
+  if (!container) return;
+  container.innerHTML = METRICS.map(m =>
+    `<button class="tab-btn" data-metric="${m.key}">${m.label}<span class="tab-date">${m.short}</span></button>`
+  ).join('');
+  container.querySelectorAll('button[data-metric]').forEach(b => {
+    b.addEventListener('click', () => selectMetric(b.dataset.metric));
+  });
+}
+
+function selectMetric(key) {
+  STATE.metric = key;
+  renderMetricaView();
+  updateURL();
+}
+
+function setMetricMode(mm) {
+  STATE.metricMode = mm;
+  renderMetricaView();
+  updateURL();
+}
+
+function getMetricAggregate(player, metricKey, mode) {
+  // mode: 'total' = acumulado · 'tournament' = total / N fechas del torneo · 'played' = total / fechas jugadas
+  const totalFechas = HOPPERS_DATA.fechas.length || 1;
+  const denom = mode === 'tournament' ? totalFechas : (mode === 'played' ? player.fechaCount : 1);
+  let total;
+  switch (metricKey) {
+    case 'pts':   total = player.totalPts;  break;
+    case 'reb':   total = player.totalReb;  break;
+    case 'as':    total = player.totalAs;   break;
+    case 'tap':   total = player.tapTotal;  break;
+    case 'peca':  total = player.pecaTotal; break;
+    case 'fp':    total = player.fpTotal;   break;
+    case 'fgPct': return player.fgTotalAttempts < 5 ? null : player.fgPctOverall;
+    case 'scPct': return player.scAtt < 2 ? null : player.scPct;
+    case 'dcPct': return player.dcAtt < 2 ? null : player.dcPct;
+    case 'tcPct': return player.tcAtt < 2 ? null : player.tcPct;
+    default:      total = 0;
+  }
+  if (mode === 'total') return total;
+  return denom > 0 ? total / denom : 0;
+}
+
+function getMetricPerFecha(playerFecha, metricKey) {
+  switch (metricKey) {
+    case 'pts': return playerFecha.pts;
+    case 'reb': return playerFecha.reb;
+    case 'as':  return playerFecha.as;
+    case 'tap': return playerFecha.tap;
+    case 'peca':return playerFecha.peca;
+    case 'fp':  return playerFecha.fp;
+    case 'fgPct': return (playerFecha.fg && playerFecha.fg.attempts >= 2) ? playerFecha.fg.pct : null;
+    case 'scPct': {
+      if (!playerFecha.hasShots) return null;
+      const att = (playerFecha.sc || 0) + (playerFecha.sf || 0);
+      return att > 0 ? Math.round((playerFecha.sc / att) * 100) : null;
+    }
+    case 'dcPct': {
+      if (!playerFecha.hasShots) return null;
+      const att = (playerFecha.dc || 0) + (playerFecha.df || 0);
+      return att > 0 ? Math.round((playerFecha.dc / att) * 100) : null;
+    }
+    case 'tcPct': {
+      if (!playerFecha.hasShots) return null;
+      const att = (playerFecha.tc || 0) + (playerFecha.tf || 0);
+      return att > 0 ? Math.round((playerFecha.tc / att) * 100) : null;
+    }
+  }
+  return null;
+}
+
+let chartMetricEvol = null;
+
+function renderPtsBreakdownCard() {
+  // Team-level shot type breakdown per fecha (from HTML parsing in fecha.shooting)
+  const fechas = HOPPERS_DATA.fechas;
+  const rows = fechas.map(f => {
+    const sh = f.shooting || {};
+    const s = sh['simples'] || {};
+    const d = sh['dobles'] || {};
+    const t = sh['triples'] || {};
+    const ptsFromTypes = (s.c || 0) + (d.c || 0) * 2 + (t.c || 0) * 3;
+    const intColor = (pct) => pct === undefined ? 'var(--g300)' : pct >= 50 ? 'var(--green)' : pct >= 25 ? 'var(--amber)' : 'var(--red)';
+    return `<tr>
+      <td class="mt-name-cell"><strong>F${f.idx}</strong> · ${f.label}</td>
+      <td>${s.c || 0}/${s.tot || 0} <span class="cell-pct" style="color:${intColor(s.pct)}">${s.pct !== undefined ? s.pct + '%' : '—'}</span></td>
+      <td>${d.c || 0}/${d.tot || 0} <span class="cell-pct" style="color:${intColor(d.pct)}">${d.pct !== undefined ? d.pct + '%' : '—'}</span></td>
+      <td>${t.c || 0}/${t.tot || 0} <span class="cell-pct" style="color:${intColor(t.pct)}">${t.pct !== undefined ? t.pct + '%' : '—'}</span></td>
+      <td><strong>${ptsFromTypes}</strong></td>
+      <td>${f.hoppers}${ptsFromTypes !== f.hoppers ? ` <span style="color:var(--red);font-size:10px">(Δ ${f.hoppers - ptsFromTypes})</span>` : ''}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+    <div class="card mb">
+      <div class="sec-label">Desglose de PTS por tipo de tiro · equipo por fecha</div>
+      <div class="mt-wrap">
+        <table class="mt-table">
+          <thead><tr>
+            <th class="mt-name-col">Fecha</th>
+            <th title="Tiros de 1 pto">Simples</th>
+            <th title="Tiros de 2 pts">Dobles</th>
+            <th title="Tiros de 3 pts">Triples</th>
+            <th title="SC + DC*2 + TC*3">PTS calc.</th>
+            <th title="Marcador final del equipo">PTS final</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--g400);line-height:1.6">
+        <strong style="color:var(--g600)">PTS calc.</strong> = SC + DC×2 + TC×3 desde los totales convertidos del equipo. Si difiere del PTS final puede deberse a tiros libres post-falta no contabilizados o a errores en la planilla.
+      </div>
+    </div>
+  `;
+}
+
+function renderMetricaView() {
+  const metric = METRICS.find(m => m.key === STATE.metric);
+  if (!metric) return;
+
+  document.querySelectorAll('#navMetricaInner button[data-metric]').forEach(b => {
+    b.classList.toggle('active', b.dataset.metric === metric.key);
+  });
+
+  const container = document.getElementById('view-metrica');
+  if (!container) return;
+
+  const isPercent = !!metric.isPercent;
+  const isNegative = !!metric.isNegative;
+  const mode = isPercent ? 'tournament' : STATE.metricMode;
+
+  const players = HOPPERS_DATA.jugadores.map(p => ({ ...p, value: getMetricAggregate(p, metric.key, mode) }))
+    .filter(p => p.value !== null && p.value !== undefined);
+  players.sort((a, b) => isNegative ? a.value - b.value : b.value - a.value);
+
+  const maxVal = Math.max(...players.map(p => p.value), 0);
+  const fmt = v => v === null || v === undefined ? '—' : isPercent ? v + '%' : (mode === 'total' ? String(v) : v.toFixed(1));
+
+  const totalFechas = HOPPERS_DATA.fechas.length;
+  const lbRows = players.slice(0, 8).map((p, i) => {
+    const subv = isPercent
+      ? `${p.fgTotalMakes}/${p.fgTotalAttempts} int.`
+      : `${p.fechaCount}/${totalFechas} f`;
+    return `
+    <div class="lb-row">
+      <span class="lb-rank">${i + 1}</span>
+      <span class="lb-name">${p.name}</span>
+      <div class="lb-bar-wrap"><div class="lb-bar-fg" style="width:${maxVal > 0 ? (p.value / maxVal * 100).toFixed(1) : 0}%"></div></div>
+      <span class="lb-val-wrap"><span class="lb-val">${fmt(p.value)}</span><span class="lb-subv">${subv}</span></span>
+    </div>`;
+  }).join('');
+
+  // Heatmap intensity bands
+  const allCells = [];
+  HOPPERS_DATA.jugadores.forEach(p => {
+    HOPPERS_DATA.fechas.forEach(f => {
+      const fp = p.fechas.find(pf => pf.fechaId === f.id);
+      if (fp) {
+        const v = getMetricPerFecha(fp, metric.key);
+        if (v !== null && v !== undefined) allCells.push(v);
+      }
+    });
+  });
+  const cellMax = allCells.length ? Math.max(...allCells) : 1;
+  const intensity = v => {
+    if (v === null || v === undefined) return 'mt-cell-empty';
+    const r = cellMax > 0 ? v / cellMax : 0;
+    if (r < 0.2) return 'mt-cell-i0';
+    if (r < 0.4) return 'mt-cell-i1';
+    if (r < 0.6) return 'mt-cell-i2';
+    if (r < 0.8) return 'mt-cell-i3';
+    return 'mt-cell-i4';
+  };
+
+  const headerCells = HOPPERS_DATA.fechas.map(f => `<th>F${f.idx}</th>`).join('');
+  const heatmapRows = HOPPERS_DATA.jugadores.map(p => {
+    const cells = HOPPERS_DATA.fechas.map(f => {
+      const fp = p.fechas.find(pf => pf.fechaId === f.id);
+      if (!fp) return '<td class="mt-cell-empty">—</td>';
+      const v = getMetricPerFecha(fp, metric.key);
+      if (v === null || v === undefined) return '<td class="mt-cell-empty">—</td>';
+      return `<td class="${intensity(v)}">${isPercent ? v + '%' : v}</td>`;
+    }).join('');
+    return `<tr><td class="mt-name-cell"><button data-player="${p.name}" title="Ver evolución">${p.name}</button></td>${cells}</tr>`;
+  }).join('');
+
+  const teamPerFecha = HOPPERS_DATA.fechas.map(f => {
+    const vals = f.players.map(pl => getMetricPerFecha(pl, metric.key)).filter(v => v !== null && v !== undefined);
+    if (!vals.length) return null;
+    if (isPercent) return +(vals.reduce((s, v) => s + v, 0) / vals.length).toFixed(1);
+    return vals.reduce((s, v) => s + v, 0);
+  });
+
+  const toggleHTML = isPercent ? '' : `
+    <div class="metric-toggle">
+      <button class="metric-toggle-btn ${STATE.metricMode === 'total' ? 'active' : ''}" data-metric-mode="total" title="Acumulado">Total</button>
+      <button class="metric-toggle-btn ${STATE.metricMode === 'tournament' ? 'active' : ''}" data-metric-mode="tournament" title="Total dividido por fechas del torneo (penaliza ausencias)">Por fecha</button>
+      <button class="metric-toggle-btn ${STATE.metricMode === 'played' ? 'active' : ''}" data-metric-mode="played" title="Total dividido por partidos jugados (eficiencia cuando jugó)">Por partido</button>
+    </div>`;
+
+  container.innerHTML = `
+    <div class="metric-header">
+      <div>
+        <div class="metric-title">${metric.label}</div>
+        <div class="metric-subtitle">${metric.desc}</div>
+      </div>
+      ${toggleHTML}
+    </div>
+
+    <div class="card mb">
+      <div class="sec-label">Ranking · ${mode === 'total' ? 'Total acumulado' : mode === 'tournament' ? 'Por fecha del torneo' : 'Por partido jugado'}${isNegative ? ' · menos es mejor' : ''}</div>
+      <div class="leaderboard">${lbRows}</div>
+    </div>
+
+    <div class="card mb">
+      <div class="sec-label">${isPercent ? 'Promedio del equipo por fecha' : 'Total del equipo por fecha'}</div>
+      <div style="overflow-x:auto;margin:0 -4px">
+        <div style="position:relative;height:220px;min-width:520px;padding:8px 4px 0">
+          <canvas id="chartMetricEvol" role="img" aria-label="Evolución de ${metric.label} por fecha"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb">
+      <div class="sec-label">Detalle jugador × fecha · valores por partido · click sobre el nombre para ver evolución</div>
+      <div class="mt-wrap">
+        <table class="mt-table">
+          <thead><tr><th class="mt-name-col">Jugador</th>${headerCells}</tr></thead>
+          <tbody>${heatmapRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    ${metric.key === 'pts' ? renderPtsBreakdownCard() : ''}
+  `;
+
+  container.querySelectorAll('button[data-metric-mode]').forEach(b => {
+    b.addEventListener('click', () => setMetricMode(b.dataset.metricMode));
+  });
+
+  // Bind click on heatmap player name → open evolution modal for this metric
+  container.querySelectorAll('.mt-name-cell button[data-player]').forEach(b => {
+    b.addEventListener('click', () => openMetricEvolutionModal(b.dataset.player, metric.key));
+  });
+
+  if (chartMetricEvol) chartMetricEvol.destroy();
+  const ce = document.getElementById('chartMetricEvol');
+  if (ce) {
+    chartMetricEvol = new Chart(ce, {
+      data: {
+        labels: HOPPERS_DATA.fechas.map(f => `F${f.idx} · ${f.label}`),
+        datasets: [{
+          type: 'line', label: metric.short, data: teamPerFecha,
+          borderColor: '#1a5fb4', backgroundColor: 'rgba(26,95,180,0.1)',
+          fill: true, tension: .35, pointRadius: 5, pointBackgroundColor: '#1a5fb4',
+          borderWidth: 2.5, spanGaps: true
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => c.parsed.y === null ? null : `${metric.short}: ${isPercent ? c.parsed.y.toFixed(1) + '%' : c.parsed.y}` } }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 }, autoSkip: false, maxRotation: 0 }, grid: { color: 'rgba(0,0,0,0.05)' } },
+          y: { beginAtZero: true, ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } }
+        },
+        layout: { padding: { top: 16, right: 12, bottom: 8, left: 8 } }
+      }
+    });
+  }
+}
+
+/* ── EVOLUTION MODAL ── */
+let evolChart = null;
+
+function closeEvolModal(e) {
+  if (e && e.target && !e.target.matches('#evolModal')) return;
+  const modal = document.getElementById('evolModal');
+  if (modal) modal.classList.remove('open');
+  if (evolChart) { evolChart.destroy(); evolChart = null; }
+}
+window.closeEvolModal = closeEvolModal;
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeEvolModal({ target: document.getElementById('evolModal') });
+});
+
+function openEvolutionModal({ title, subtitle, points, isPercent, metaItems }) {
+  const modal = document.getElementById('evolModal');
+  const titleEl = document.getElementById('evolTitle');
+  const subEl = document.getElementById('evolSub');
+  const metaEl = document.getElementById('evolMeta');
+  if (!modal || !titleEl) return;
+  titleEl.textContent = title;
+  subEl.textContent = subtitle || '';
+
+  metaEl.innerHTML = (metaItems || []).map(m =>
+    `<div class="evol-meta-item">${m.label}<strong>${m.value}</strong></div>`
+  ).join('');
+
+  modal.classList.add('open');
+
+  // Render chart
+  if (evolChart) evolChart.destroy();
+  const cv = document.getElementById('evolChart');
+  if (!cv) return;
+
+  const validPoints = points.filter(p => p.value !== null && p.value !== undefined);
+  const avg = validPoints.length > 0 ? validPoints.reduce((s, p) => s + p.value, 0) / validPoints.length : 0;
+  const avgLine = points.map(() => +avg.toFixed(1));
+
+  evolChart = new Chart(cv, {
+    data: {
+      labels: points.map(p => p.label),
+      datasets: [
+        {
+          type: 'line',
+          label: title,
+          data: points.map(p => p.value),
+          borderColor: '#1a5fb4',
+          backgroundColor: 'rgba(26,95,180,0.12)',
+          fill: true, tension: .35,
+          pointRadius: 6, pointBackgroundColor: '#1a5fb4',
+          borderWidth: 2.5, spanGaps: false
+        },
+        {
+          type: 'line',
+          label: `Promedio ${avg.toFixed(1)}${isPercent ? '%' : ''}`,
+          data: avgLine,
+          borderColor: '#d97706', backgroundColor: 'transparent',
+          borderDash: [5, 4], pointRadius: 0, borderWidth: 1.5
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { color: '#64748b', font: { size: 11 }, boxWidth: 12, usePointStyle: true } },
+        tooltip: { callbacks: { label: c => c.parsed.y === null ? null : `${c.dataset.label}: ${isPercent ? c.parsed.y + '%' : c.parsed.y}` } }
+      },
+      scales: {
+        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: {
+          beginAtZero: true,
+          ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => isPercent ? v + '%' : v },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        }
+      },
+      layout: { padding: { top: 12, right: 12, bottom: 4, left: 8 } }
+    }
+  });
+}
+
+function openPlayerEvolutionModal(playerName) {
+  const player = HOPPERS_DATA.jugadores.find(p => p.name === playerName);
+  if (!player) return;
+
+  const points = HOPPERS_DATA.fechas.map(f => {
+    const fp = player.fechas.find(pf => pf.fechaId === f.id);
+    return { label: `F${f.idx}`, value: fp ? fp.pts : null };
+  });
+
+  openEvolutionModal({
+    title: `${player.name} · Puntos`,
+    subtitle: `#${player.num} · ${player.fechaCount}/${HOPPERS_DATA.fechas.length} fechas jugadas`,
+    points, isPercent: false,
+    metaItems: [
+      { label: 'PTS total', value: player.totalPts },
+      { label: 'PTS/jug', value: player.ptsAvg.toFixed(1) },
+      { label: 'PTS/torneo', value: (player.totalPts / HOPPERS_DATA.fechas.length).toFixed(1) },
+      { label: 'FG% acum', value: player.fgPctOverall !== null ? player.fgPctOverall + '%' : '—' }
+    ]
+  });
+}
+
+function openMetricEvolutionModal(playerName, metricKey) {
+  const player = HOPPERS_DATA.jugadores.find(p => p.name === playerName);
+  const metric = METRICS.find(m => m.key === metricKey);
+  if (!player || !metric) return;
+
+  const points = HOPPERS_DATA.fechas.map(f => {
+    const fp = player.fechas.find(pf => pf.fechaId === f.id);
+    return { label: `F${f.idx}`, value: fp ? getMetricPerFecha(fp, metricKey) : null };
+  });
+
+  const validVals = points.map(p => p.value).filter(v => v !== null && v !== undefined);
+  const total = validVals.reduce((s, v) => s + v, 0);
+  const avgPlayed = validVals.length > 0 ? total / validVals.length : 0;
+  const isPercent = !!metric.isPercent;
+
+  openEvolutionModal({
+    title: `${player.name} · ${metric.label}`,
+    subtitle: `${metric.short} · ${player.fechaCount}/${HOPPERS_DATA.fechas.length} fechas`,
+    points, isPercent,
+    metaItems: isPercent ? [
+      { label: 'Promedio', value: avgPlayed.toFixed(1) + '%' },
+      { label: 'Mín / Máx', value: validVals.length ? `${Math.min(...validVals)}% / ${Math.max(...validVals)}%` : '—' }
+    ] : [
+      { label: 'Total', value: total },
+      { label: 'Por fecha jugada', value: avgPlayed.toFixed(1) },
+      { label: 'Por fecha torneo', value: (total / HOPPERS_DATA.fechas.length).toFixed(1) }
+    ]
+  });
+}
+window.openPlayerEvolutionModal = openPlayerEvolutionModal;
+window.openMetricEvolutionModal = openMetricEvolutionModal;
+
+/* ── INIT ── */
+loadStateFromURL();
+document.body.dataset.mode = STATE.mode;
+
+document.querySelectorAll('.mode-btn').forEach(b => {
+  b.classList.toggle('active', b.dataset.mode === STATE.mode);
+  b.addEventListener('click', () => setMode(b.dataset.mode));
+});
+
+renderMetricaNav();
+
+// Hook into existing showTab to keep STATE.fecha in sync + URL
+const _origShowTab = window.showTab;
+window.showTab = function(id) {
+  _origShowTab(id);
+  STATE.fecha = id;
+  if (STATE.mode === 'fecha') updateURL();
+};
+
+function applyCurrentView() {
+  if (STATE.mode === 'fecha' && STATE.fecha && STATE.fecha !== 'overview') {
+    showTab(STATE.fecha);
+  } else if (STATE.mode === 'jugador') {
+    renderJugadorView();
+    updateURL();
+  } else if (STATE.mode === 'metrica') {
+    renderMetricaView();
+    updateURL();
+  }
+}
+
+// Initial render with HTML-only data so the page is interactive immediately.
+applyCurrentView();
+
+// Then asynchronously load db.json (master DB with SC/DC/TC per player) and re-parse + re-render.
+(async () => {
+  const db = await loadMasterDB();
+  if (db) {
+    const jsonMap = dbToFechaMap(db);
+    const loadedCount = Object.keys(jsonMap).length;
+    window.HOPPERS_DATA = parseDataset(jsonMap);
+    window.HOPPERS_DATA.jsonFechas = Object.keys(jsonMap);
+    window.HOPPERS_DATA.masterDB = db;
+    if (STATE.mode === 'jugador') renderJugadorView();
+    else if (STATE.mode === 'metrica') renderMetricaView();
+    console.info(`[Hoppers] Cargué db.json con ${loadedCount} fechas. Última actualización: ${db.torneo?.ultima_actualizacion || 'desconocida'}.`);
+  } else {
+    console.warn('[Hoppers] No se pudo cargar data/db.json — la página funciona sólo con datos del HTML (sin SC/DC/TC).');
+  }
+})();
 </script>
 </body>
 </html>

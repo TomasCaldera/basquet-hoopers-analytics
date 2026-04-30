@@ -108,7 +108,7 @@
         },
         {
           "numero": 6,
-          "nombre": "Gul",
+          "nombre": "Gugliemone",
           "minutos": null,
           "simples_convertidos": 0,
           "simples_fallados": 4,
@@ -1641,11 +1641,6 @@
       "fechas_jugadas": [1],
       "nombre_variantes": ["Vega"]
     },
-    "Gul": {
-      "numero": 6,
-      "fechas_jugadas": [1],
-      "nombre_variantes": ["Gul"]
-    },
     "Caldera": {
       "numero": 8,
       "fechas_jugadas": [1, 2, 4, 5, 6],
@@ -1680,9 +1675,9 @@
     },
     "Gugliemone": {
       "numero": 4,
-      "fechas_jugadas": [2, 4, 5, 6],
-      "nombre_variantes": ["Gugliemone"],
-      "nota": "Jersey #6 en F2-F4, #4 desde F5"
+      "fechas_jugadas": [1, 2, 4, 5, 6],
+      "nombre_variantes": ["Gugliemone", "Gul"],
+      "nota": "Jersey #6 en F1-F4 (registrado como 'Gul' en F1), #4 desde F5"
     },
     "Rosado": {
       "numero": 10,
