@@ -1118,9 +1118,9 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="hdr-eyebrow">Torneo Star Córdoba · Temporada 2026</div>
     <div class="hdr-title">HOP<em>PERS</em></div>
     <div class="hdr-pills">
-      <div class="hdr-pill"><span class="hdr-pill-val">0–6</span><span class="hdr-pill-lbl">Récord</span></div>
-      <div class="hdr-pill"><span class="hdr-pill-val pos">37.3</span><span class="hdr-pill-lbl">Pts prom.</span></div>
-      <div class="hdr-pill"><span class="hdr-pill-val neg">−20.5</span><span class="hdr-pill-lbl">Dif. prom.</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val">0–8</span><span class="hdr-pill-lbl">Récord</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val pos">37.8</span><span class="hdr-pill-lbl">Pts prom.</span></div>
+      <div class="hdr-pill"><span class="hdr-pill-val neg">−18.8</span><span class="hdr-pill-lbl">Dif. prom.</span></div>
       <div class="hdr-pill"><span class="hdr-pill-val pos">↑</span><span class="hdr-pill-lbl">Tendencia</span></div>
     </div>
   </div>
@@ -1143,6 +1143,8 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <button class="tab-btn" onclick="showTab('f4')">F4 · Doble Cuarto<span class="tab-date">11 Abr 2026</span></button>
     <button class="tab-btn" onclick="showTab('f5')">F5 · Walkers<span class="tab-date">18 Abr 2026</span></button>
     <button class="tab-btn" onclick="showTab('f6')">F6 · Incas<span class="tab-date">26 Abr 2026</span></button>
+    <button class="tab-btn" onclick="showTab('f7')">F7 · Dead Cow<span class="tab-date">9 May 2026</span></button>
+    <button class="tab-btn" onclick="showTab('f8')">F8 · South Ballers<span class="tab-date">16 May 2026</span></button>
     <div class="nav-spacer"></div>
     <button class="legend-btn" onclick="toggleLegend()">Leyenda</button>
   </div>
@@ -1159,16 +1161,16 @@ body[data-mode="metrica"] #view-metrica { display: block }
   <div class="sec-label mb">Progreso del torneo — Hoppers · Star 2026</div>
 
   <div class="g4 mb kpi-grid">
-    <div class="mc"><div class="mc-lbl">Pts anotados prom.</div><div class="mc-val">37.3</div><div class="mc-sub">F1: 28 → F6: 44</div></div>
-    <div class="mc"><div class="mc-lbl">Pts recibidos prom.</div><div class="mc-val neg">57.8</div><div class="mc-sub">F1: 68 → F6: 55</div></div>
-    <div class="mc"><div class="mc-lbl">Diferencial prom.</div><div class="mc-val neg">−20.5</div><div class="mc-sub">F1: −40 → F6: −11</div></div>
+    <div class="mc"><div class="mc-lbl">Pts anotados prom.</div><div class="mc-val">37.8</div><div class="mc-sub">F1: 28 → F8: 46</div></div>
+    <div class="mc"><div class="mc-lbl">Pts recibidos prom.</div><div class="mc-val neg">56.5</div><div class="mc-sub">F1: 68 → F8: 56</div></div>
+    <div class="mc"><div class="mc-lbl">Diferencial prom.</div><div class="mc-val neg">−18.8</div><div class="mc-sub">F1: −40 → F8: −10</div></div>
   </div>
 
   <div class="card mb chart-evol-card">
     <div class="sec-label">Puntos anotados vs concedidos — variación fecha a fecha</div>
     <div style="overflow-x:auto;margin:0 -4px">
       <div style="position:relative;height:280px;min-width:560px;padding:8px 4px 0">
-        <canvas id="chartEvolucion" role="img" aria-label="Evolución de puntos Hoppers vs rival por fecha con variación fecha a fecha">Puntos: F1 28-68, F2 32-70, F3 31-34, F4 38-51, F5 51-69, F6 44-55.</canvas>
+        <canvas id="chartEvolucion" role="img" aria-label="Evolución de puntos Hoppers vs rival por fecha con variación fecha a fecha">Puntos: F1 28-68, F2 32-70, F3 31-34, F4 38-51, F5 51-69, F6 44-55, F7 32-49, F8 46-56.</canvas>
       </div>
     </div>
     <div style="display:flex;gap:16px;margin-top:14px;flex-wrap:wrap">
@@ -1197,14 +1199,18 @@ body[data-mode="metrica"] #view-metrica { display: block }
       <div class="hm-cell hm-l">−4</div><div class="hm-cell hm-l">−4</div><div class="hm-cell hm-l">−8</div><div class="hm-cell hm-l">−2</div>
       <div class="hm-row-lbl">F6</div>
       <div class="hm-cell hm-n">0</div><div class="hm-cell hm-l">−5</div><div class="hm-cell hm-l">−6</div><div class="hm-cell hm-n">0</div>
+      <div class="hm-row-lbl">F7</div>
+      <div class="hm-cell hm-w">+6</div><div class="hm-cell hm-l">−3</div><div class="hm-cell hm-l">−6</div><div class="hm-cell hm-l">−14</div>
+      <div class="hm-row-lbl">F8</div>
+      <div class="hm-cell hm-w">+4</div><div class="hm-cell hm-l">−7</div><div class="hm-cell hm-l">−9</div><div class="hm-cell hm-w">+2</div>
       <div class="hm-row-lbl" style="font-size:10px;color:var(--g400)">Prom.</div>
-      <div class="hm-cell hm-l" style="font-size:11px">−8.5</div>
-      <div class="hm-cell hm-l" style="font-size:11px">−4.8</div>
-      <div class="hm-cell hm-l" style="font-size:11px">−5.0</div>
-      <div class="hm-cell hm-n" style="font-size:11px">−1.8</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−5.1</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−4.9</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−5.6</div>
+      <div class="hm-cell hm-l" style="font-size:11px">−2.9</div>
     </div>
     <div style="margin-top:14px;font-size:12px;line-height:1.65;color:var(--g600)">
-      El Q1 mejoró de −11.8 (F1–F4) a <strong style="color:var(--g800)">−8.5 promedio</strong> — F6 lo empató por primera vez (0–0). El Q4 es el cuarto más controlado (−1.8), con dos empates en F6. El Q2–Q3 sigue siendo la zona de mayor debilidad — es la prioridad táctica para las próximas fechas.
+      El Q1 se consolidó: Hoppers lo <strong style="color:var(--g800)">ganó en F7 (+6) y F8 (+4)</strong>, con un promedio actualizado de −5.1. El Q4 sigue siendo el cuarto más controlado (−2.9 prom.) — ganado o empatado en F6, F8. El Q2–Q3 sigue siendo la zona de mayor debilidad colectiva: −4.9 y −5.6 respectivamente.
     </div>
   </div>
 
@@ -1237,37 +1243,39 @@ body[data-mode="metrica"] #view-metrica { display: block }
           <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F3</strong> · Los Changos</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--green);font-weight:500">62%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">32%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">22</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">25%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">8</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−3</td></tr>
           <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F4</strong> · Doble Cuarto</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">53%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">17</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">38%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">32</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">12%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">17</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−13</td></tr>
           <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F5</strong> · Walkers</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">38%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--green);font-weight:500">55%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">31</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">31%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−18</td></tr>
-          <tr><td style="padding:9px 10px"><strong>F6</strong> · Incas</td><td style="text-align:center;padding:9px 10px;color:var(--red);font-weight:500">26%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">23</td><td style="text-align:center;padding:9px 10px;color:var(--amber);font-weight:500">39%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">33</td><td style="text-align:center;padding:9px 10px;color:var(--amber);font-weight:500">31%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">13</td><td style="text-align:right;padding:9px 10px;color:var(--red)">−11</td></tr>
+          <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F6</strong> · Incas</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">26%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">23</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">39%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">33</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">31%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">13</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−11</td></tr>
+          <tr><td style="padding:9px 10px;border-bottom:1px solid var(--g100)"><strong>F7</strong> · Dead Cow</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">33%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">9</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red);font-weight:500">32%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">22</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--amber);font-weight:500">26%</td><td style="text-align:center;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--g400);font-size:11px">19</td><td style="text-align:right;padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--red)">−17</td></tr>
+          <tr><td style="padding:9px 10px"><strong>F8</strong> · South Ballers</td><td style="text-align:center;padding:9px 10px;color:var(--amber);font-weight:500">53%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">15</td><td style="text-align:center;padding:9px 10px;color:var(--green);font-weight:500">41%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">39</td><td style="text-align:center;padding:9px 10px;color:var(--red);font-weight:500">22%</td><td style="text-align:center;padding:9px 10px;color:var(--g400);font-size:11px">9</td><td style="text-align:right;padding:9px 10px;color:var(--red)">−10</td></tr>
         </tbody>
       </table>
     </div>
-    <div style="margin-top:12px;font-size:11px;color:var(--g600);line-height:1.6">El doble es el tiro del equipo: llegó al 55% en F5 (pico histórico) y se mantiene por encima del 38% en las últimas tres fechas. El triple se estabilizó en 31% en F5–F6, por encima del umbral aceptable. El simple (1pt) es el más variable: de 26% (F6) a 62% (F3) — la mayor inconsistencia del equipo.</div>
+    <div style="margin-top:12px;font-size:11px;color:var(--g600);line-height:1.6">El doble es el tiro base del equipo: pico histórico de 55% (F5), con F8 en 41%. F8 marcó el mejor registro en simples del torneo (53%), impulsado por el dominio de Gonzalez (63% general en 19 intentos). El triple (22% en F8) sigue siendo el más variable. El simple (1pt) mostró su mayor mejora en F8 con 53%.</div>
   </div>
 
   <div class="dark-card mb">
-    <div class="dark-h">Ranking final — 6 fechas</div>
-    <div class="dark-sub">Por promedio de puntos anotados · F1–F6</div>
+    <div class="dark-h">Ranking final — 8 fechas</div>
+    <div class="dark-sub">Por promedio de puntos anotados · F1–F8</div>
     <div style="overflow-x:auto">
       <table class="dt" style="min-width:480px">
         <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
         <tbody>
-          <tr><td class="dt-rank">1</td><td class="dt-name">Gonzalez</td><td>4</td><td>7.8</td><td>6.3</td><td>1.5</td><td>0.5</td><td class="tend-d">↓</td></tr>
-          <tr><td class="dt-rank">2</td><td class="dt-name">Caldera</td><td>5</td><td>7.6</td><td>4.4</td><td>3.4</td><td>0.8</td><td class="tend-u">↑</td></tr>
-          <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>5</td><td>6.0</td><td>2.4</td><td>0.8</td><td>1.0</td><td class="tend-u">↑</td></tr>
-          <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>5</td><td>5.6</td><td>3.0</td><td>2.2</td><td>0.6</td><td class="tend-u">↑</td></tr>
-          <tr><td class="dt-rank">5</td><td class="dt-name">Diaz</td><td>5</td><td>5.4</td><td>3.4</td><td>1.0</td><td>1.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">6</td><td class="dt-name">Gugliemone</td><td>5</td><td>3.6</td><td>5.6</td><td>1.6</td><td>0.4</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>6</td><td>3.5</td><td>2.3</td><td>0.7</td><td>0.0</td><td class="tend-f">→</td></tr>
-          <tr><td class="dt-rank">8</td><td class="dt-name">Zito</td><td>6</td><td>1.3</td><td>0.5</td><td>1.0</td><td>0.8</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">1</td><td class="dt-name">Gonzalez</td><td>5</td><td>10.6</td><td>7.0</td><td>1.8</td><td>0.6</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">2</td><td class="dt-name">Caldera</td><td>7</td><td>8.3</td><td>4.7</td><td>3.3</td><td>1.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>7</td><td>7.0</td><td>1.7</td><td>1.3</td><td>0.9</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>6</td><td>5.0</td><td>3.0</td><td>1.8</td><td>0.5</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Rosado</td><td>4</td><td>4.5</td><td>3.3</td><td>0.5</td><td>0.5</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>7</td><td>4.3</td><td>3.3</td><td>0.9</td><td>0.7</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>8</td><td>3.1</td><td>2.6</td><td>0.5</td><td>0.1</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">8</td><td class="dt-name">Gugliemone</td><td>7</td><td>2.6</td><td>5.3</td><td>1.3</td><td>0.6</td><td class="tend-d">↓</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="card">
-    <div class="an-block"><div class="an-tit">La narrativa del torneo</div><div class="an-txt">Los Hoppers muestran una curva de mejora real. De 28 puntos y −40 de diferencial en F1 a 51 puntos en F5 y solo −11 en F6 (<strong>+58% ofensivo</strong>). El diferencial promedio cayó de −39 en F1–F2 a −14.5 en F5–F6. El récord de 0–6 no refleja el nivel real del equipo — la tendencia sí.</div></div>
-    <div class="an-block"><div class="an-tit">El Q2–Q3 — la prioridad táctica</div><div class="an-txt">En F6, Hoppers empató el Q1 (9–9) y el Q4 (17–17) con Incas — los primeros cuartos empatados del torneo. La derrota se construyó exclusivamente en Q2–Q3 (−11 acumulado). Reproducir la intensidad de Q1 y Q4 en los cuartos del medio es el ajuste más determinante que queda por dar.</div></div>
-    <div class="an-block"><div class="an-tit">El doble — el tiro del equipo</div><div class="an-txt">El tiro de dos puntos alcanzó el <strong>55% en F5</strong> — el mejor registro de la temporada — y se estabilizó en 39% en F6. El triple creció de 6% (F2) a un sólido 31% (F5–F6), por encima del umbral aceptable. Los simples (tiros libres) siguen siendo la mayor inconsistencia: de 26% a 62% según la fecha.</div></div>
+    <div class="an-block"><div class="an-tit">La narrativa del torneo</div><div class="an-txt">De 28 puntos y −40 de diferencial en F1 a 46 puntos y −10 en F8. El diferencial promedio comprimió de −39 (F1–F2) a −12.3 (F6–F8). <strong>Gonzalez anotó 22 puntos en F8 — máximo individual del torneo.</strong> El récord de 0–8 no refleja el nivel real del equipo — la tendencia sí: las últimas 3 fechas promedian −12.7 de diferencial.</div></div>
+    <div class="an-block"><div class="an-tit">El Q2 — la única barrera que queda</div><div class="an-txt">Hoppers ganó Q1 en las últimas 3 fechas (F6 empatado, F7 +6, F8 +4) y también ganó Q4 en F8 (+2) y lo empató en F6. La derrota se construye casi exclusivamente en Q2 — perdido en 7 de 8 partidos. Resolver ese cuarto es el ajuste más determinante que queda por dar.</div></div>
+    <div class="an-block"><div class="an-tit">La dupla que define el equipo</div><div class="an-txt">Gonzalez (10.6 pts/f) y Caldera (8.3 pts/f) son el motor ofensivo. Cuando los dos están en ritmo —como en F8— el equipo puede competir de igual a igual con cualquier rival. Herrera suma consistencia con 7.0 pts/f y evolucionó como distribuidor principal (5 AS en F8 — su máximo).</div></div>
   </div>
 </div>
 
@@ -1302,15 +1310,15 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 1</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="0" data-sf="0" data-dc="1" data-df="4" data-tc="0" data-tf="4" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>14</td><td>3</td><td>7</td><td>0</td><td>0</td><td>0</td><td>100% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>2</td><td>3</td><td>0</td><td>0</td><td>1</td><td>—</td><td></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>12</td><td>2</td><td>0</td><td>1</td><td>1</td><td>29% (7 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#12</span><span class="pname">Vega</span></td><td>0</td><td>4</td><td>4</td><td>0</td><td>0</td><td>1</td><td>0% (5 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>6</td><td>1</td><td>3</td><td>0</td><td>0</td><td>4</td><td>100% (2 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>13% (8 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="2" data-sf="1" data-dc="6" data-df="0" data-tc="0" data-tf="0" data-rd="2" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>14</td><td>3</td><td>7</td><td>0</td><td>0</td><td>0</td><td>100% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="2" data-pe="1" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>2</td><td>3</td><td>0</td><td>0</td><td>1</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="3" data-tc="0" data-tf="1" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="4" data-dc="2" data-df="5" data-tc="0" data-tf="0" data-rd="7" data-ro="5" data-pe="1" data-ca="0"><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>12</td><td>2</td><td>0</td><td>1</td><td>1</td><td>29% (7 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="0" data-df="3" data-tc="0" data-tf="0" data-rd="1" data-ro="3" data-pe="1" data-ca="0"><td><span class="pnum">#12</span><span class="pname">Vega</span></td><td>0</td><td>4</td><td>4</td><td>0</td><td>0</td><td>1</td><td>0% (5 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="2" data-tc="2" data-tf="0" data-rd="0" data-ro="1" data-pe="3" data-ca="1"><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>6</td><td>1</td><td>3</td><td>0</td><td>0</td><td>4</td><td>100% (2 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="4" data-tc="0" data-tf="4" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>13% (8 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1367,15 +1375,15 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 2</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="2" data-sf="2" data-dc="2" data-df="1" data-tc="0" data-tf="1" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td><td>0</td><td>57% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#2</span><span class="pname">Aguirre</span></td><td>6</td><td>5</td><td>2</td><td>0</td><td>1</td><td>1</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>3</td><td>2</td><td>0</td><td>1</td><td>1</td><td>63% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>57% (7 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#5</span><span class="pname">Herrera</span></td><td>4</td><td>4</td><td>0</td><td>1</td><td>5</td><td>1</td><td>40% (5 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>0</td><td>14% (7 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#12</span><span class="pname">Gonzalez</span></td><td>5</td><td>3</td><td>1</td><td>3</td><td>0</td><td>0</td><td>20% (10 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="2" data-df="0" data-tc="0" data-tf="1" data-rd="2" data-ro="2" data-pe="0" data-ca="0"><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td><td>0</td><td>57% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="3" data-df="5" data-tc="0" data-tf="0" data-rd="4" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#2</span><span class="pname">Aguirre</span></td><td>6</td><td>5</td><td>2</td><td>0</td><td>1</td><td>1</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="2" data-sf="0" data-dc="1" data-df="1" data-tc="0" data-tf="1" data-rd="1" data-ro="2" data-pe="1" data-ca="0"><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>4</td><td>3</td><td>2</td><td>0</td><td>1</td><td>1</td><td>63% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="2" data-df="2" data-tc="0" data-tf="3" data-rd="3" data-ro="1" data-pe="0" data-ca="1"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>57% (7 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="2" data-df="2" data-tc="0" data-tf="3" data-rd="3" data-ro="1" data-pe="0" data-ca="1"><td><span class="pnum">#5</span><span class="pname">Herrera</span></td><td>4</td><td>4</td><td>0</td><td>1</td><td>5</td><td>1</td><td>40% (5 int.)</td><td></td></tr>
+          <tr data-sc="1" data-sf="3" data-dc="0" data-df="3" data-tc="0" data-tf="1" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>0</td><td>14% (7 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="1" data-df="7" data-tc="1" data-tf="2" data-rd="2" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#12</span><span class="pname">Gonzalez</span></td><td>5</td><td>3</td><td>1</td><td>3</td><td>0</td><td>0</td><td>20% (10 int.)</td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -1432,15 +1440,15 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 3</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="2" data-sf="0" data-dc="1" data-df="4" data-tc="1" data-tf="1" data-rd="4" data-ro="1" data-pe="3" data-ca="1"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#6</span><span class="pname">Aguirre</span></td><td>8</td><td>3</td><td>2</td><td>0</td><td>0</td><td>0</td><td>86% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#15</span><span class="pname">Bustos</span></td><td>0</td><td>5</td><td>0</td><td>0</td><td>2</td><td>0</td><td>— (1 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>7</td><td>6</td><td>1</td><td>4</td><td>5+FA</td><td>1</td><td>36% (11 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>3</td><td>2</td><td>0</td><td>1</td><td>0</td><td>50% (8 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>7</td><td>5</td><td>0</td><td>0</td><td>2</td><td>4</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#12</span><span class="pname">Osses</span></td><td>0</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>— (1 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#55</span><span class="pname">Herrera</span></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>20% (5 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="4" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#6</span><span class="pname">Aguirre</span></td><td>8</td><td>3</td><td>2</td><td>0</td><td>0</td><td>0</td><td>86% (7 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="4" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#15</span><span class="pname">Bustos</span></td><td>0</td><td>5</td><td>0</td><td>0</td><td>2</td><td>0</td><td>— (1 int.)</td><td></td></tr>
+          <tr data-sc="2" data-sf="0" data-dc="1" data-df="3" data-tc="1" data-tf="4" data-rd="6" data-ro="0" data-pe="0" data-ca="1"><td><span class="pnum">#5</span><span class="pname">Roldan</span></td><td>7</td><td>6</td><td>1</td><td>4</td><td>5+FA</td><td>1</td><td>36% (11 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="1" data-sf="2" data-dc="1" data-df="2" data-tc="1" data-tf="0" data-rd="0" data-ro="3" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>6</td><td>3</td><td>2</td><td>0</td><td>1</td><td>0</td><td>50% (8 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="1" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#42</span><span class="pname">Diaz</span></td><td>7</td><td>5</td><td>0</td><td>0</td><td>2</td><td>4</td><td>50% (8 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="1" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#12</span><span class="pname">Osses</span></td><td>0</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>— (1 int.)</td><td></td></tr>
+          <tr data-sc="1" data-sf="1" data-dc="0" data-df="3" data-tc="0" data-tf="1" data-rd="0" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#55</span><span class="pname">Herrera</span></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>20% (5 int.)</td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -1497,16 +1505,16 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 4</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="0" data-sf="0" data-dc="2" data-df="1" data-tc="1" data-tf="3" data-rd="3" data-ro="3" data-pe="1" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>2</td><td>4</td><td>4</td><td>1</td><td>0</td><td>0</td><td>50% (2 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>7</td><td>6</td><td>0</td><td>2</td><td>0</td><td>1</td><td>43% (7 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#21</span><span class="pname">Aguirre</span></td><td>6</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>100% (4 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#42</span><span class="pname">Gonzalez</span></td><td>7</td><td>7</td><td>1</td><td>0</td><td>3</td><td>0</td><td>29% (14 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#12</span><span class="pname">Diaz</span></td><td>5</td><td>4</td><td>1</td><td>0</td><td>1</td><td>1</td><td>31% (13 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>6</td><td>7</td><td>3</td><td>1</td><td>5</td><td>2</td><td>31% (13 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>3</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#70</span><span class="pname">Radici</span></td><td>2</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="1" data-tc="0" data-tf="0" data-rd="2" data-ro="2" data-pe="0" data-ca="0"><td><span class="pnum">#6</span><span class="pname">Gugliemone</span></td><td>2</td><td>4</td><td>4</td><td>1</td><td>0</td><td>0</td><td>50% (2 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="0" data-tc="0" data-tf="1" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>7</td><td>6</td><td>0</td><td>2</td><td>0</td><td>1</td><td>43% (7 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="2" data-sf="0" data-dc="2" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Aguirre</span></td><td>6</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>100% (4 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="1" data-sf="1" data-dc="3" data-df="8" data-tc="0" data-tf="1" data-rd="6" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#42</span><span class="pname">Gonzalez</span></td><td>7</td><td>7</td><td>1</td><td>0</td><td>3</td><td>0</td><td>29% (14 int.)</td><td></td></tr>
+          <tr data-sc="3" data-sf="1" data-dc="1" data-df="5" data-tc="0" data-tf="3" data-rd="3" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#12</span><span class="pname">Diaz</span></td><td>5</td><td>4</td><td>1</td><td>0</td><td>1</td><td>1</td><td>31% (13 int.)</td><td></td></tr>
+          <tr data-sc="2" data-sf="5" data-dc="2" data-df="2" data-tc="0" data-tf="3" data-rd="6" data-ro="1" data-pe="0" data-ca="2"><td><span class="pnum">#9</span><span class="pname">Caldera</span></td><td>6</td><td>7</td><td>3</td><td>1</td><td>5</td><td>2</td><td>31% (13 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="1" data-tf="0" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>3</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="0" data-tc="0" data-tf="1" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#70</span><span class="pname">Radici</span></td><td>2</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -1572,19 +1580,19 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 5</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="0" data-sf="3" data-dc="1" data-df="4" data-tc="2" data-tf="0" data-rd="5" data-ro="0" data-pe="0" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#43</span><span class="pname">Gonzalez</span></td><td>17</td><td>7</td><td>2</td><td>0</td><td>2</td><td>1</td><td>89% (9 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#10</span><span class="pname">Rosado</span></td><td>8</td><td>5</td><td>0</td><td>0</td><td>1</td><td>0</td><td>30% (10 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>6</td><td>6</td><td>0</td><td>0</td><td>3</td><td>0</td><td>60% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>6</td><td>0</td><td>4</td><td>0</td><td>2</td><td>2</td><td>43% (7 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>6</td><td>2</td><td>1</td><td>0</td><td>3</td><td>0</td><td>60% (5 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>4</td><td>5</td><td>3</td><td>0</td><td>1</td><td>0</td><td>33% (12 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#15</span><span class="pname">Aguirre</span></td><td>0</td><td>1</td><td>2</td><td>0</td><td>0+FA</td><td>0</td><td>0% (3 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
-          <tr><td><span class="pnum">#0</span><span class="pname">Radici</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>3+FA</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="7" data-df="1" data-tc="1" data-tf="0" data-rd="7" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#43</span><span class="pname">Gonzalez</span></td><td>17</td><td>7</td><td>2</td><td>0</td><td>2</td><td>1</td><td>89% (9 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="3" data-dc="1" data-df="4" data-tc="2" data-tf="0" data-rd="5" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#10</span><span class="pname">Rosado</span></td><td>8</td><td>5</td><td>0</td><td>0</td><td>1</td><td>0</td><td>30% (10 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="1" data-sf="1" data-dc="1" data-df="1" data-tc="1" data-tf="0" data-rd="6" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>6</td><td>6</td><td>0</td><td>0</td><td>3</td><td>0</td><td>60% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="3" data-df="2" data-tc="0" data-tf="2" data-rd="0" data-ro="0" data-pe="2" data-ca="0"><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>6</td><td>0</td><td>4</td><td>0</td><td>2</td><td>2</td><td>43% (7 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="3" data-df="2" data-tc="0" data-tf="0" data-rd="0" data-ro="2" data-pe="0" data-ca="0"><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>6</td><td>2</td><td>1</td><td>0</td><td>3</td><td>0</td><td>60% (5 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="4" data-sf="4" data-dc="0" data-df="2" data-tc="0" data-tf="2" data-rd="5" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>4</td><td>5</td><td>3</td><td>0</td><td>1</td><td>0</td><td>33% (12 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="0" data-tc="0" data-tf="1" data-rd="0" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>50% (2 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="0" data-tc="0" data-tf="3" data-rd="1" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="2" data-tc="0" data-tf="1" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#15</span><span class="pname">Aguirre</span></td><td>0</td><td>1</td><td>2</td><td>0</td><td>0+FA</td><td>0</td><td>0% (3 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#0</span><span class="pname">Radici</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>3+FA</td><td>0</td><td>—</td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -1650,18 +1658,18 @@ body[data-mode="metrica"] #view-metrica { display: block }
     <div class="sec-label">Jugadores — Fecha 6</div>
     <div class="pt-wrap">
       <table class="pt">
-        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <thead><tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
         <tbody>
-          <tr><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>13</td><td>6</td><td>3</td><td>0</td><td>2</td><td>2</td><td>47% (17 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>12</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td>38% (16 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
-          <tr><td><span class="pnum">#15</span><span class="pname">Aguirre</span></td><td>8</td><td>5</td><td>3</td><td>0</td><td>3</td><td>1</td><td>40% (10 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#43</span><span class="pname">Gonzalez</span></td><td>2</td><td>8</td><td>2</td><td>0</td><td>1</td><td>1</td><td>7% (14 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
-          <tr><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>5</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>67% (3 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>2</td><td>3</td><td>0</td><td>0</td><td>4</td><td>0</td><td>100% (1 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
-          <tr><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>5</td><td>0</td><td>0</td><td>2</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
-          <tr><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
-          <tr><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
-          <tr><td><span class="pnum">#13</span><span class="pname">Cazon</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="4" data-sf="5" data-dc="3" data-df="2" data-tc="1" data-tf="2" data-rd="4" data-ro="2" data-pe="2" data-ca="0"><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>13</td><td>6</td><td>3</td><td>0</td><td>2</td><td>2</td><td>47% (17 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="2" data-sf="4" data-dc="2" data-df="3" data-tc="2" data-tf="3" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>12</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td>38% (16 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="4" data-df="4" data-tc="0" data-tf="0" data-rd="1" data-ro="4" data-pe="1" data-ca="0"><td><span class="pnum">#15</span><span class="pname">Aguirre</span></td><td>8</td><td>5</td><td>3</td><td>0</td><td>3</td><td>1</td><td>40% (10 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="4" data-dc="1" data-df="7" data-tc="0" data-tf="2" data-rd="8" data-ro="0" data-pe="0" data-ca="1"><td><span class="pnum">#43</span><span class="pname">Gonzalez</span></td><td>2</td><td>8</td><td>2</td><td>0</td><td>1</td><td>1</td><td>7% (14 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="1" data-tc="1" data-tf="0" data-rd="1" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>5</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>67% (3 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="0" data-tc="0" data-tf="0" data-rd="2" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>2</td><td>3</td><td>0</td><td>0</td><td>4</td><td>0</td><td>100% (1 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="1" data-tc="0" data-tf="2" data-rd="2" data-ro="3" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>5</td><td>0</td><td>0</td><td>2</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#13</span><span class="pname">Cazon</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -1696,6 +1704,162 @@ body[data-mode="metrica"] #view-metrica { display: block }
   </div>
 </div>
 
+<!-- ══════ F7 ══════ -->
+<div class="tab-panel" id="tab-f7">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">32</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">9 MAY 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">Dead Cow</span><span class="res-pts" style="color:var(--g400)">49</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill w"><span class="q-lbl">Q1</span><span class="q-score w">16 – 10</span><span class="q-net w">+6</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q2</span><span class="q-score l">9 – 12</span><span class="q-net l">−3</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q3</span><span class="q-score l">2 – 8</span><span class="q-net l">−6</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q4</span><span class="q-score l">5 – 19</span><span class="q-net l">−14</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−17</div><div class="mc-sub">Q1 ganado +6, derrumbe en Q4</div></div>
+    <div class="mc"><div class="mc-lbl">Q ganados</div><div class="mc-val pos">1 / 4</div><div class="mc-sub">Q1 dominado</div></div>
+    <div class="mc"><div class="mc-lbl">Asistencias</div><div class="mc-val neg">5</div><div class="mc-sub">Mínimo del torneo</div></div>
+    <div class="mc"><div class="mc-lbl">PE + CA</div><div class="mc-val">5</div><div class="mc-sub">Pérdidas totales</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F7</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:33%"></div></div><span class="tiro-num warn">33%</span><span class="tiro-vol">3/9 int.</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:32%"></div></div><span class="tiro-num bad">32%</span><span class="tiro-vol">7/22 int.</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:26%"></div></div><span class="tiro-num warn">26%</span><span class="tiro-vol">5/19 int.</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 7</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr data-sc="0" data-sf="1" data-dc="3" data-df="5" data-tc="2" data-tf="3" data-rd="0" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>12</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>36% (14 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="1" data-sf="1" data-dc="3" data-df="2" data-tc="1" data-tf="3" data-rd="6" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>10</td><td>6</td><td>1</td><td>0</td><td>2</td><td>1</td><td>45% (11 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="0" data-sf="2" data-dc="0" data-df="1" data-tc="2" data-tf="1" data-rd="1" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#10</span><span class="pname">Rosado</span></td><td>6</td><td>2</td><td>0</td><td>1</td><td>1</td><td>1</td><td>33% (6 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="2" data-tc="0" data-tf="0" data-rd="6" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>0</td><td>7</td><td>1</td><td>0</td><td>2</td><td>1</td><td>0% (2 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="3" data-tc="0" data-tf="0" data-rd="2" data-ro="1" data-pe="1" data-ca="0"><td><span class="pnum">#15</span><span class="pname">Aguirre</span></td><td>2</td><td>3</td><td>0</td><td>0</td><td>2</td><td>1</td><td>25% (4 int.)</td><td></td></tr>
+          <tr data-sc="2" data-sf="2" data-dc="0" data-df="0" data-tc="0" data-tf="1" data-rd="3" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>40% (5 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="2" data-rd="2" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>0</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0% (3 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="3" data-rd="1" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>0</td><td>1</td><td>2</td><td>0</td><td>3</td><td>0</td><td>0% (3 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="1" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#13</span><span class="pname">Bustos</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt">Un partido de dos mitades radicalmente distintas. Hoppers ganó Q1 por +6 — el mejor arranque del torneo — pero apenas anotó 7 puntos en los tres cuartos restantes. <strong>Herrera</strong> lideró la anotación con 12 pts y dos triples convertidos. <strong>Caldera</strong> sumó 10 pts con 60% en dobles y dominó el rebote con 6 capturas. <strong>Rosado</strong> brilló desde afuera con 2/3 en triples (67%). <strong>Gugliemone</strong> capturó 7 rebotes sin anotar — presencia defensiva clave.</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>El colapso de Q3 (2 puntos en todo el cuarto):</strong> es la cuota de anotación más baja de la temporada para un cuarto. El partido se definió ahí. Mantener el impulso del Q1 en el segundo tiempo es la prioridad.<br><strong>Asistencias en mínimo histórico (5):</strong> el ataque fue más individual que colectivo. Los partidos con más asistencias (F5: 13, F6: 9) coinciden con mejores resultados.<br><strong>Q4 (5-19):</strong> cuando el equipo se desconecta defensivamente en la recta final, el rival acelera. La energía defensiva en los últimos minutos es un aspecto a desarrollar.</div></div>
+  </div>
+  <div class="g2 mb">
+    <div class="reco"><div class="reco-t">El triple como arma táctica</div><div class="reco-txt"><strong>Herrera</strong> (2/5 TC) y <strong>Rosado</strong> (2/3 TC) convirtieron 4 de los 5 triples del equipo. Con 5 triples en total — el segundo mejor registro del torneo — explotar esa opción de manera más sistemática puede ser un diferencial en partidos ajustados.</div></div>
+    <div class="reco"><div class="reco-t">Circulación de balón</div><div class="reco-txt">Las 5 asistencias indican que el ataque fue aislado. Recuperar la fluidez de F5 (13 AS) y F6 (9 AS) requiere movimiento colectivo y más resolución en doble antes de buscar el tiro propio.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking acumulado — F1–F7</div>
+    <div class="dark-sub">Promedio por partido · 7 fechas disputadas</div>
+    <div style="overflow-x:auto">
+      <table class="dt" style="min-width:460px">
+        <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="dt-rank">1</td><td class="dt-name">Caldera</td><td>6</td><td>8.0</td><td>4.7</td><td>3.0</td><td>0.8</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">2</td><td class="dt-name">Gonzalez</td><td>4</td><td>7.8</td><td>6.3</td><td>1.5</td><td>0.5</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>6</td><td>7.0</td><td>2.0</td><td>0.7</td><td>0.8</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">4</td><td class="dt-name">Rosado</td><td>3</td><td>5.3</td><td>3.1</td><td>0.3</td><td>0.3</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Aguirre</td><td>6</td><td>5.0</td><td>3.0</td><td>1.8</td><td>0.5</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>6</td><td>4.5</td><td>3.2</td><td>1.1</td><td>0.8</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>7</td><td>3.3</td><td>2.4</td><td>0.6</td><td>0.0</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">8</td><td class="dt-name">Gugliemone</td><td>6</td><td>3.0</td><td>5.9</td><td>1.5</td><td>0.5</td><td class="tend-d">↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ F8 ══════ -->
+<div class="tab-panel" id="tab-f8">
+  <div class="card mb" style="padding:0;overflow:hidden">
+    <div class="res-hero">
+      <div class="res-side"><span class="res-team ours">Hoppers</span><span class="res-pts l">46</span></div>
+      <div class="res-mid"><div class="res-vs">VS</div><div class="res-date">16 MAY 2026</div><div style="margin-top:8px"><span class="res-badge rb-l">Derrota</span></div></div>
+      <div class="res-side right"><span class="res-team">South Ballers</span><span class="res-pts" style="color:var(--g400)">56</span></div>
+    </div>
+    <div class="quarters">
+      <div class="q-pill w"><span class="q-lbl">Q1</span><span class="q-score w">23 – 19</span><span class="q-net w">+4</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q2</span><span class="q-score l">2 – 9</span><span class="q-net l">−7</span></div>
+      <div class="q-pill l"><span class="q-lbl">Q3</span><span class="q-score l">5 – 14</span><span class="q-net l">−9</span></div>
+      <div class="q-pill w"><span class="q-lbl">Q4</span><span class="q-score w">16 – 14</span><span class="q-net w">+2</span></div>
+    </div>
+  </div>
+  <div class="g4 mb">
+    <div class="mc"><div class="mc-lbl">Diferencial</div><div class="mc-val neg">−10</div><div class="mc-sub">2do más ajustado (excl. F3)</div></div>
+    <div class="mc"><div class="mc-val pos">51</div><div class="mc-lbl">Récord igualado</div><div class="mc-sub">2do mejor puntaje del torneo</div></div>
+    <div class="mc"><div class="mc-val pos">13</div><div class="mc-lbl">Asistencias</div><div class="mc-sub">Máximo igualado (F5)</div></div>
+    <div class="mc"><div class="mc-val pos">22</div><div class="mc-lbl">Pts Gonzalez</div><div class="mc-sub">Récord individual del torneo</div></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Efectividad de tiro — F8 vs acumulado F1–F8</div>
+    <div class="tiro-row"><span class="tiro-tipo">Simples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-warn" style="width:53%"></div></div><span class="tiro-num warn">53%</span><span class="tiro-vol">8/15 · ac:42%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Dobles</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-good" style="width:41%"></div></div><span class="tiro-num good">41%</span><span class="tiro-vol">16/39 · ac:39%</span></div>
+    <div class="tiro-row"><span class="tiro-tipo">Triples</span><div class="tiro-bar-bg"><div class="tiro-bar-fg bar-bad" style="width:22%"></div></div><span class="tiro-num bad">22%</span><span class="tiro-vol">2/9 · ac:21%</span></div>
+  </div>
+  <div class="card mb">
+    <div class="sec-label">Jugadores — Fecha 8</div>
+    <div class="pt-wrap">
+      <table class="pt">
+        <thead><tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><th>Jugador</th><th>PTS</th><th>REB</th><th>AS</th><th>TAP</th><th>FP</th><th>PE+CA</th><th>FG%</th><th></th></tr></thead>
+        <tbody>
+          <tr data-sc="2" data-sf="1" data-dc="10" data-df="6" data-tc="0" data-tf="0" data-rd="8" data-ro="2" data-pe="1" data-ca="0"><td><span class="pnum">#43</span><span class="pname">Gonzalez</span></td><td>22</td><td>10</td><td>3</td><td>0</td><td>2</td><td>1</td><td>63% (19 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="5" data-sf="2" data-dc="1" data-df="4" data-tc="1" data-tf="1" data-rd="4" data-ro="1" data-pe="2" data-ca="0"><td><span class="pnum">#8</span><span class="pname">Caldera</span></td><td>10</td><td>5</td><td>5</td><td>0</td><td>2</td><td>2</td><td>50% (14 int.)</td><td><span class="tag t-star">⭐ Dest.</span></td></tr>
+          <tr data-sc="1" data-sf="4" data-dc="3" data-df="4" data-tc="0" data-tf="1" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#22</span><span class="pname">Herrera</span></td><td>7</td><td>0</td><td>5</td><td>0</td><td>2</td><td>0</td><td>31% (13 int.)</td><td><span class="tag t-up">📈 Alza</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="1" data-tf="1" data-rd="3" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#11</span><span class="pname">Diaz</span></td><td>3</td><td>4</td><td>0</td><td>0</td><td>2</td><td>0</td><td>33% (3 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="1" data-tc="0" data-tf="2" data-rd="3" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#24</span><span class="pname">Lachat</span></td><td>2</td><td>4</td><td>0</td><td>0</td><td>1</td><td>0</td><td>25% (4 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="1" data-df="3" data-tc="0" data-tf="2" data-rd="4" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#10</span><span class="pname">Rosado</span></td><td>2</td><td>4</td><td>0</td><td>0</td><td>0</td><td>1</td><td>17% (6 int.)</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="2" data-tc="0" data-tf="0" data-rd="2" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#4</span><span class="pname">Gugliemone</span></td><td>0</td><td>2</td><td>0</td><td>0</td><td>4</td><td>1</td><td>0% (2 int.)</td><td><span class="tag t-watch">🔧 Crecer</span></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="1" data-ca="0"><td><span class="pnum">#14</span><span class="pname">Zito</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="0" data-ro="1" data-pe="0" data-ca="0"><td><span class="pnum">#21</span><span class="pname">Cabrera</span></td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="1" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#13</span><span class="pname">Bustos</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#9</span><span class="pname">Osses</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+          <tr data-sc="0" data-sf="0" data-dc="0" data-df="0" data-tc="0" data-tf="0" data-rd="0" data-ro="0" data-pe="0" data-ca="0"><td><span class="pnum">#0</span><span class="pname">Radicci</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card mb">
+    <div class="an-block"><div class="an-tit">Resumen</div><div class="an-txt"><strong>El mejor partido del torneo en ofensiva.</strong> Hoppers anotó 46 puntos (2do máximo histórico), ganó Q1 (+4) y Q4 (+2), y empató el máximo de asistencias (13). <strong>Gonzalez</strong> protagonizó el mejor partido individual del torneo: 22 pts con 63% de efectividad en 19 intentos, 10 rebotes y 3 asistencias. <strong>Caldera</strong> sumó su tercer partido consecutivo de doble dígito (10 pts, 50% FG, 5 AS, 5 rebotes). <strong>Herrera</strong> batió su récord de asistencias (5) y confirmó su evolución como distribuidor. La derrota por −10 se construyó en Q2 (−7) y Q3 (−9).</div></div>
+    <div class="divider"></div>
+    <div class="an-block"><div class="an-tit">Para trabajar</div><div class="an-txt"><strong>Q2–Q3 (7 puntos en dos cuartos):</strong> el mismo patrón de siempre. Hoppers ganó Q1 y Q4 pero se quedó sin energía en los cuartos del medio. Es el ajuste más urgente de la temporada.<br><strong>Distribución del ataque:</strong> Gonzalez y Caldera anotaron 32 de 46 pts (70%). Con 12 jugadores disponibles, hay potencial sin explotar en otros roles.<br><strong>Gugliemone (4 FP):</strong> segunda fecha con 4 faltas personales. Mejorar el posicionamiento defensivo para extender su participación útil.</div></div>
+  </div>
+  <div class="g2 mb">
+    <div class="reco"><div class="reco-t">La fórmula que funciona</div><div class="reco-txt">Gonzalez + Caldera como eje ofensivo generó 32 puntos combinados con alta eficiencia. Cuando ambos están disponibles, el equipo tiene capacidad para competir con cualquier rival. El objetivo es mantener esa intensidad durante los 4 cuartos.</div></div>
+    <div class="reco"><div class="reco-t">Resolver el Q2</div><div class="reco-txt">El equipo ganó Q1 en 3 de los últimos 3 partidos pero perdió Q2 en todos. Identificar qué cambia mental o físicamente en ese cuarto — y trabajarlo — puede ser la clave para la primera victoria del torneo.</div></div>
+  </div>
+  <div class="dark-card">
+    <div class="dark-h">Ranking acumulado — F1–F8</div>
+    <div class="dark-sub">Clasificación definitiva · Hoppers · Star 2026</div>
+    <div style="overflow-x:auto">
+      <table class="dt" style="min-width:460px">
+        <thead><tr><th>#</th><th>Jugador</th><th>F</th><th>PTS/f</th><th>REB/f</th><th>AS/f</th><th>PE+CA/f</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="dt-rank">1</td><td class="dt-name">Gonzalez</td><td>5</td><td>10.6</td><td>7.0</td><td>1.8</td><td>0.6</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">2</td><td class="dt-name">Caldera</td><td>7</td><td>8.3</td><td>4.7</td><td>3.3</td><td>1.0</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">3</td><td class="dt-name">Herrera</td><td>7</td><td>7.0</td><td>1.7</td><td>1.3</td><td>0.9</td><td class="tend-u">↑</td></tr>
+          <tr><td class="dt-rank">4</td><td class="dt-name">Aguirre</td><td>6</td><td>5.0</td><td>3.0</td><td>1.8</td><td>0.5</td><td class="tend-d">↓</td></tr>
+          <tr><td class="dt-rank">5</td><td class="dt-name">Rosado</td><td>4</td><td>4.5</td><td>3.3</td><td>0.5</td><td>0.5</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">6</td><td class="dt-name">Diaz</td><td>7</td><td>4.3</td><td>3.3</td><td>0.9</td><td>0.7</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">7</td><td class="dt-name">Lachat</td><td>8</td><td>3.1</td><td>2.6</td><td>0.5</td><td>0.1</td><td class="tend-f">→</td></tr>
+          <tr><td class="dt-rank">8</td><td class="dt-name">Gugliemone</td><td>7</td><td>2.6</td><td>5.3</td><td>1.3</td><td>0.6</td><td class="tend-d">↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <!-- ══════ VIEW: POR JUGADOR ══════ -->
 <div id="view-jugador"></div>
 
@@ -1713,7 +1877,7 @@ function showTab(id) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  const idx = ['overview','f1','f2','f3','f4','f5','f6'].indexOf(id);
+  const idx = ['overview','f1','f2','f3','f4','f5','f6','f7','f8'].indexOf(id);
   document.querySelectorAll('.tab-btn')[idx].classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1792,15 +1956,15 @@ makeTablesSortable();
 /* ── GRÁFICO DOBLE EJE ── */
 const ctx = document.getElementById('chartEvolucion');
 if (ctx) {
-  const hoppers = [28, 32, 31, 38, 51, 44];
-  const rival   = [68, 70, 34, 51, 69, 55];
-  const dif     = [-40, -38, -3, -13, -18, -11];
-  const deltaH  = [null, 4, -1, 7, 13, -7];
-  const deltaR  = [null, 2, -36, 17, 18, -14];
+  const hoppers = [28, 32, 31, 38, 51, 44, 32, 46];
+  const rival   = [68, 70, 34, 51, 69, 55, 49, 56];
+  const dif     = [-40, -38, -3, -13, -18, -11, -17, -10];
+  const deltaH  = [null, 4, -1, 7, 13, -7, -12, 14];
+  const deltaR  = [null, 2, -36, 17, 18, -14, -6, 7];
 
   new Chart(ctx, {
     data: {
-      labels: ['F1 · Independencia','F2 · Jurasicos','F3 · Changos','F4 · Doble Cuarto','F5 · Walkers','F6 · Incas'],
+      labels: ['F1 · Independencia','F2 · Jurasicos','F3 · Changos','F4 · Doble Cuarto','F5 · Walkers','F6 · Incas','F7 · Dead Cow','F8 · South Ballers'],
       datasets: [
         { type:'bar', label:'Hoppers', data:hoppers, backgroundColor:'#1d5fa8', borderRadius:5, borderSkipped:false, yAxisID:'y', order:2 },
         { type:'bar', label:'Rival',   data:rival,   backgroundColor:'#d8d6d0', borderRadius:5, borderSkipped:false, yAxisID:'y', order:2 },
@@ -1967,6 +2131,13 @@ function parseDataset(jsonMap = {}) {
           stat.pe = jp.perdidas;
           stat.ca = jp.caminadas;
           stat.valoracion = jp.valoracion;
+          stat.hasShots = true;
+        } else if (tr.dataset.sc !== undefined) {
+          stat.sc = +tr.dataset.sc; stat.sf = +tr.dataset.sf;
+          stat.dc = +tr.dataset.dc; stat.df = +tr.dataset.df;
+          stat.tc = +tr.dataset.tc; stat.tf = +tr.dataset.tf;
+          stat.rd = +tr.dataset.rd; stat.ro = +tr.dataset.ro;
+          stat.pe = +tr.dataset.pe; stat.ca = +tr.dataset.ca;
           stat.hasShots = true;
         }
 

@@ -36,7 +36,7 @@ No hay nada más. El sitio es un HTML estático con Chart.js. Los datos son un J
 
 ## El equipo
 
-Hoppers terminó las primeras 6 fechas con récord **0–6**, pero eso no cuenta la historia real:
+Hoppers terminó las primeras 8 fechas con récord **0–8**, pero eso no cuenta la historia real:
 
 | Fecha | Hoppers | Rival | Diferencial |
 |-------|---------|-------|-------------|
@@ -46,8 +46,10 @@ Hoppers terminó las primeras 6 fechas con récord **0–6**, pero eso no cuenta
 | F4 vs Doble Cuarto | 38 | 51 | −13 |
 | F5 vs Walkers | 51 | 69 | −18 |
 | F6 vs Incas | 44 | 55 | −11 |
+| F7 vs Dead Cow | 32 | 49 | −17 |
+| F8 vs South Ballers | 46 | 56 | **−10** |
 
-De −40 a −11. El equipo que empezó perdiendo de a 40 ahora empata cuartos individuales contra cualquier rival. El tablero existe para hacer visible ese progreso.
+De −40 a −10. El equipo que empezó perdiendo de a 40 ganó Q1 en los últimos 3 partidos, ganó Q4 en F8, y en F8 Gonzalez anotó 22 pts — el máximo individual del torneo. El tablero existe para hacer visible ese progreso.
 
 ---
 
@@ -67,7 +69,9 @@ basquet-hoopers-analytics/
 ├── analisis/
 │   ├── f5_analisis.md            # Análisis por partido generado por Claude
 │   ├── f6_analisis.md
-│   └── tendencias_6f.md          # Tendencias acumuladas de la temporada
+│   ├── f7_analisis.md
+│   ├── f8_analisis.md
+│   └── tendencias_8f.md          # Tendencias acumuladas de la temporada
 ├── skills/
 │   ├── planilla-ingestor.md      # Skill de Claude para leer planillas
 │   └── basketball-analyst.md    # Skill de Claude para analizar partidos

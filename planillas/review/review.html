@@ -7,7 +7,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Courier New',monospace;background:#0d1117;color:#c9d1d9;padding:20px;font-size:13px}
 h1{color:#ff6b35;margin-bottom:12px;font-size:18px}
-.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid #30363d}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid #30363d;flex-wrap:wrap}
 .tab-btn{padding:8px 20px;background:#0d1117;border:1px solid #30363d;border-bottom:none;color:#8b949e;cursor:pointer;border-radius:4px 4px 0 0;font-family:inherit;font-size:13px;margin-bottom:-1px}
 .tab-btn.active{background:#161b22;color:#ff6b35;border-bottom-color:#161b22}
 .tab-content{display:none}.tab-content.active{display:block}
@@ -39,6 +39,7 @@ button.dl:hover{background:#e05c28}
 .legend{display:flex;gap:16px;margin-bottom:12px;font-size:11px;color:#8b949e;flex-wrap:wrap;align-items:center}
 .lb{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid #8a6000;background:#1a1500;vertical-align:middle;margin-right:4px}
 .note{color:#8b949e;font-size:11px;margin-bottom:14px;padding:8px 12px;border-left:3px solid #30363d}
+.note.warn{border-left-color:#d29922;color:#c9d1d9}
 </style>
 </head>
 <body>
@@ -51,6 +52,8 @@ button.dl:hover{background:#e05c28}
 <div class="tabs">
   <button class="tab-btn active" onclick="showTab('f5')">F5 · 18 abr · vs Walkers</button>
   <button class="tab-btn" onclick="showTab('f6')">F6 · 26 abr · vs Incas</button>
+  <button class="tab-btn" onclick="showTab('f7')">F7 · 9 may · vs Dead Cow</button>
+  <button class="tab-btn" onclick="showTab('f8')">F8 · 16 may · vs South Ballers</button>
 </div>
 
 <!-- ═══════════════════════════════════ F5 ═══════════════════════════════════ -->
@@ -127,6 +130,91 @@ button.dl:hover{background:#e05c28}
 <div class="actions"><button class="dl" onclick="dl('f6')">⬇ Descargar f6_data.json</button></div>
 </div>
 
+<!-- ═══════════════════════════════════ F7 ═══════════════════════════════════ -->
+<div id="tab-f7" class="tab-content">
+<div class="note warn">
+  ⚠️ <strong>F7 — imagen pequeña y angulada.</strong> Totales de equipo confirmados: SC=3, DC=7, TC=5, PTS=32.<br>
+  Los tiros individuales (SC/DC/TC y sus fallados) son estimaciones que suman a los totales — verificar cada fila contra la imagen original.<br>
+  Stats secundarios (AS/RD/RO/FP/PE/CA) también son estimaciones, marcados en amarillo.<br>
+  <strong>Novedad:</strong> Bustos #13 (antes usaba #15 en F1-F4). Confirmar cambio de camiseta.
+</div>
+<div class="meta">
+  <div class="field"><label>Rival</label><input type="text" id="f7-rival" value="Dead Cow"></div>
+  <div class="field"><label>Fecha</label><input type="text" id="f7-fecha" value="2026-05-09"></div>
+  <div class="field"><label>Score Hop.</label><input type="number" id="f7-score" value="32" oninput="updateVal('f7')"></div>
+  <div class="field"><label>Score Rival</label><input type="number" id="f7-scorer" value="49"></div>
+  <div class="field"><label>Q1 [Hop,Riv]</label><input type="text" id="f7-q1" value="16,10"></div>
+  <div class="field"><label>Q2</label><input type="text" id="f7-q2" value="9,12"></div>
+  <div class="field"><label>Q3</label><input type="text" id="f7-q3" value="2,8"></div>
+  <div class="field"><label>Q4</label><input type="text" id="f7-q4" value="5,19"></div>
+</div>
+<div class="table-wrap"><table><thead>
+<tr>
+  <th rowspan="2">N°</th><th rowspan="2">Nombre</th>
+  <th colspan="6" class="sh">——— Tiros ———</th>
+  <th colspan="2" class="pts-head">PTS</th>
+  <th colspan="10" class="sec">——————— Stats ———————</th>
+</tr>
+<tr>
+  <th class="sh">SC</th><th class="sh">SF</th><th class="sh">DC</th><th class="sh">DF</th><th class="sh">TC</th><th class="sh">TF</th>
+  <th class="pts-head">Plan.</th><th class="pts-head">Calc.</th>
+  <th class="sec">AS</th><th class="sec">RD</th><th class="sec">RO</th><th class="sec">FP</th><th class="sec">FT</th><th class="sec">FA</th><th class="sec">TP</th><th class="sec">PE</th><th class="sec">CA</th><th class="sec">VAL</th>
+</tr>
+</thead><tbody id="f7-body"></tbody>
+<tfoot><tr class="tot" id="f7-tot">
+  <td colspan="2">TOTAL</td>
+  <td id="f7-tsc">0</td><td id="f7-tsf">0</td><td id="f7-tdc">0</td><td id="f7-tdf">0</td><td id="f7-ttc">0</td><td id="f7-ttf">0</td>
+  <td id="f7-tpts">0</td><td id="f7-tcalc">0</td>
+  <td id="f7-tas">0</td><td id="f7-trd">0</td><td id="f7-tro">0</td><td id="f7-tfp">0</td><td id="f7-tft">0</td><td id="f7-tfa">0</td><td id="f7-ttp">0</td><td id="f7-tpe">0</td><td id="f7-tca">0</td><td id="f7-tval">0</td>
+</tr></tfoot>
+</table></div>
+<div class="val-box" id="f7-valbox"></div>
+<div class="actions"><button class="dl" onclick="dl('f7')">⬇ Descargar f7_data.json</button></div>
+</div>
+
+<!-- ═══════════════════════════════════ F8 ═══════════════════════════════════ -->
+<div id="tab-f8" class="tab-content">
+<div class="note warn">
+  ⚠️ <strong>F8 — imagen clara, stats derivados de totales de equipo.</strong><br>
+  Totales confirmados: SC=8, DC=16, TC=2, PTS=46 (Hoopers 46 - South Ballers 56).<br>
+  <strong>Gonzalez PTS=18</strong> (derivado: SC=2 + DC=8×2 = 18). Si la imagen muestra 22, significa DC=10 y el total DC del equipo sería 18≠16 — investigar cuál otro jugador tiene menos DC del que aparece.<br>
+  <strong>Herrera/Caldera TC:</strong> uno tiene TC=1 y PTS=10, el otro TC=0 y PTS=7. La asignación actual (Herrera TC=1/PTS=10, Caldera TC=0/PTS=7) es incierta — verificar en imagen.<br>
+  <strong>Novedades:</strong> Osses #9 (antes #12 en F3-F4). Radicci #0 (mismo que F5 "Radici" — confirmar ortografía). Bustos #13 (antes #15).
+</div>
+<div class="meta">
+  <div class="field"><label>Rival</label><input type="text" id="f8-rival" value="South Ballers"></div>
+  <div class="field"><label>Fecha</label><input type="text" id="f8-fecha" value="2026-05-16"></div>
+  <div class="field"><label>Score Hop.</label><input type="number" id="f8-score" value="46" oninput="updateVal('f8')"></div>
+  <div class="field"><label>Score Rival</label><input type="number" id="f8-scorer" value="56"></div>
+  <div class="field"><label>Q1 [Hop,Riv]</label><input type="text" id="f8-q1" value="23,19"></div>
+  <div class="field"><label>Q2</label><input type="text" id="f8-q2" value="2,9"></div>
+  <div class="field"><label>Q3</label><input type="text" id="f8-q3" value="5,14"></div>
+  <div class="field"><label>Q4</label><input type="text" id="f8-q4" value="16,14"></div>
+</div>
+<div class="table-wrap"><table><thead>
+<tr>
+  <th rowspan="2">N°</th><th rowspan="2">Nombre</th>
+  <th colspan="6" class="sh">——— Tiros ———</th>
+  <th colspan="2" class="pts-head">PTS</th>
+  <th colspan="10" class="sec">——————— Stats ———————</th>
+</tr>
+<tr>
+  <th class="sh">SC</th><th class="sh">SF</th><th class="sh">DC</th><th class="sh">DF</th><th class="sh">TC</th><th class="sh">TF</th>
+  <th class="pts-head">Plan.</th><th class="pts-head">Calc.</th>
+  <th class="sec">AS</th><th class="sec">RD</th><th class="sec">RO</th><th class="sec">FP</th><th class="sec">FT</th><th class="sec">FA</th><th class="sec">TP</th><th class="sec">PE</th><th class="sec">CA</th><th class="sec">VAL</th>
+</tr>
+</thead><tbody id="f8-body"></tbody>
+<tfoot><tr class="tot" id="f8-tot">
+  <td colspan="2">TOTAL</td>
+  <td id="f8-tsc">0</td><td id="f8-tsf">0</td><td id="f8-tdc">0</td><td id="f8-tdf">0</td><td id="f8-ttc">0</td><td id="f8-ttf">0</td>
+  <td id="f8-tpts">0</td><td id="f8-tcalc">0</td>
+  <td id="f8-tas">0</td><td id="f8-trd">0</td><td id="f8-tro">0</td><td id="f8-tfp">0</td><td id="f8-tft">0</td><td id="f8-tfa">0</td><td id="f8-ttp">0</td><td id="f8-tpe">0</td><td id="f8-tca">0</td><td id="f8-tval">0</td>
+</tr></tfoot>
+</table></div>
+<div class="val-box" id="f8-valbox"></div>
+<div class="actions"><button class="dl" onclick="dl('f8')">⬇ Descargar f8_data.json</button></div>
+</div>
+
 <script>
 // ── Player data ─────────────────────────────────────────────────────────────
 // Each player: { num, nombre, sc,sf,dc,df,tc,tf, pts, as,rd,ro,fp,ft,fa,tp,pe,ca, val, u:[] }
@@ -175,6 +263,62 @@ const DB = {
      u:['sf','df','tf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
     {num:13,nombre:"Cazon",      sc:0,sf:0,dc:1,df:2,tc:1,tf:2, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
      u:['sf','as','rd','ro','fp','ft','fa','tp','pe','ca','val']},
+  ],
+
+  // ── F7: Dead Cow 09/05/2026 ──────────────────────────────────────────────
+  // Totales equipo confirmados: SC=3 DC=7 TC=5 PTS=32
+  // Stats individuales inciertas — distribución estimada para que sumen a totales
+  f7: [
+    {num:11,nombre:"Diaz",      sc:0,sf:0,dc:0,df:1,tc:1,tf:1, pts:3,  as:0,rd:3,ro:1,fp:2,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sf','df','tf','as','rd','ro','fp','val']},
+    {num:22,nombre:"Herrera",   sc:0,sf:1,dc:3,df:2,tc:0,tf:1, pts:6,  as:5,rd:0,ro:0,fp:2,ft:0,fa:0,tp:0,pe:1,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','pe','val']},
+    {num:8, nombre:"Caldera",   sc:3,sf:0,dc:2,df:5,tc:1,tf:2, pts:10, as:2,rd:3,ro:1,fp:0,ft:0,fa:0,tp:0,pe:1,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','pe','val']},
+    {num:4, nombre:"Gugliemone",sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','pe','ca','val']},
+    {num:15,nombre:"Aguirre",   sc:0,sf:0,dc:0,df:0,tc:1,tf:1, pts:3,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','pe','ca','val']},
+    {num:14,nombre:"Zito",      sc:0,sf:2,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','as','rd','ro','fp','pe','ca','val']},
+    {num:24,nombre:"Lachat",    sc:0,sf:0,dc:1,df:1,tc:1,tf:2, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','pe','ca','val']},
+    {num:21,nombre:"Cabrera",   sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','as','rd','ro','fp','pe','ca','val']},
+    {num:13,nombre:"Bustos",    sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','as','rd','ro','fp','pe','ca','val']},
+    {num:10,nombre:"Rosado",    sc:0,sf:0,dc:1,df:2,tc:1,tf:3, pts:5,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:null,
+     u:['sc','sf','dc','df','tc','tf','pts','as','rd','ro','fp','pe','ca','val']},
+  ],
+
+  // ── F8: South Ballers 16/05/2026 ─────────────────────────────────────────
+  // Totales equipo confirmados: SC=8 DC=16 TC=2 PTS=46
+  // Gonzalez PTS=18 (derivado). Herrera TC=1/PTS=10, Caldera TC=0/PTS=7 (incierto — puede ser al revés)
+  f8: [
+    {num:11,nombre:"Diaz",      sc:0,sf:0,dc:0,df:1,tc:1,tf:1, pts:3,  as:0,rd:3,ro:1,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:5,
+     u:['df','rd','ro','val']},
+    {num:22,nombre:"Herrera",   sc:1,sf:4,dc:3,df:4,tc:1,tf:5, pts:10, as:4,rd:1,ro:2,fp:0,ft:0,fa:0,tp:0,pe:2,ca:0,val:11,
+     u:['df','tc','tf','pts','as','rd','ro','pe','val']},
+    {num:8, nombre:"Caldera",   sc:5,sf:2,dc:1,df:4,tc:0,tf:1, pts:7,  as:5,rd:4,ro:1,fp:2,ft:0,fa:0,tp:0,pe:2,ca:0,val:null,
+     u:['dc','df','tc','tf','pts','as','rd','ro','fp','pe','val']},
+    {num:4, nombre:"Gugliemone",sc:0,sf:0,dc:2,df:0,tc:0,tf:0, pts:4,  as:0,rd:2,ro:0,fp:4,ft:0,fa:0,tp:0,pe:1,ca:0,val:-1,
+     u:['df','rd','fp','pe','val']},
+    {num:43,nombre:"Gonzalez",  sc:2,sf:1,dc:8,df:6,tc:0,tf:0, pts:18, as:3,rd:8,ro:2,fp:2,ft:0,fa:0,tp:0,pe:1,ca:0,val:27,
+     u:['dc','df','pts','as','rd','ro','fp','pe','val']},
+    {num:14,nombre:"Zito",      sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:1,ft:0,fa:0,tp:0,pe:0,ca:0,val:-1,
+     u:['df','fp','val']},
+    {num:24,nombre:"Lachat",    sc:0,sf:0,dc:1,df:1,tc:0,tf:2, pts:2,  as:0,rd:3,ro:1,fp:1,ft:0,fa:0,tp:0,pe:0,ca:0,val:3,
+     u:['df','tf','rd','ro','fp','val']},
+    {num:21,nombre:"Cabrera",   sc:0,sf:0,dc:0,df:1,tc:0,tf:0, pts:0,  as:0,rd:0,ro:1,fp:1,ft:0,fa:0,tp:0,pe:0,ca:0,val:0,
+     u:['df','ro','fp','val']},
+    {num:13,nombre:"Bustos",    sc:0,sf:0,dc:0,df:1,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:-1,
+     u:['df','val']},
+    {num:10,nombre:"Rosado",    sc:0,sf:0,dc:1,df:3,tc:0,tf:2, pts:2,  as:0,rd:4,ro:0,fp:0,ft:0,fa:0,tp:0,pe:1,ca:0,val:2,
+     u:['df','tf','rd','pe','val']},
+    {num:9, nombre:"Osses",     sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:0,
+     u:['val']},
+    {num:0, nombre:"Radicci",   sc:0,sf:0,dc:0,df:0,tc:0,tf:0, pts:0,  as:0,rd:0,ro:0,fp:0,ft:0,fa:0,tp:0,pe:0,ca:0,val:0,
+     u:['val']},
   ]
 };
 
@@ -202,27 +346,21 @@ function render(f){
   tbody.innerHTML='';
   DB[f].forEach((p,i)=>{
     const tr = document.createElement('tr');
-    // N°
     let td=document.createElement('td');
     let inp=numInput(f,i,'num',p.num,false); inp.style.width='30px'; td.appendChild(inp); tr.appendChild(td);
-    // Nombre
     td=document.createElement('td'); td.className='name-cell';
     let ni=document.createElement('input'); ni.type='text'; ni.className='name-inp'; ni.value=p.nombre;
     ni.addEventListener('input',()=>{DB[f][i].nombre=ni.value;});
     td.appendChild(ni); tr.appendChild(td);
-    // Shooting
     SHOOT.forEach(fld=>{
       td=document.createElement('td');
       td.appendChild(numInput(f,i,fld,p[fld],p.u.includes(fld)));
       tr.appendChild(td);
     });
-    // PTS planilla
     td=document.createElement('td');
     td.appendChild(numInput(f,i,'pts',p.pts,p.u.includes('pts')));
     tr.appendChild(td);
-    // PTS calc
     td=document.createElement('td'); td.id=`${f}-calc-${i}`; tr.appendChild(td);
-    // Secondary
     SEC.forEach(fld=>{
       td=document.createElement('td');
       td.appendChild(numInput(f,i,fld,p[fld],p.u.includes(fld)));
@@ -235,7 +373,6 @@ function render(f){
 
 function refresh(f){
   const players = DB[f];
-  // Per-row calc PTS
   players.forEach((p,i)=>{
     const c = calcPts(p);
     const el = document.getElementById(`${f}-calc-${i}`);
@@ -243,7 +380,6 @@ function refresh(f){
     el.textContent = c;
     el.className = c===(p.pts||0) ? 'calc-ok' : 'calc-err';
   });
-  // Totals
   const tot={};
   ALL.forEach(fld=>{ tot[fld]=players.reduce((s,p)=>s+(p[fld]||0),0); });
   tot.calc = players.reduce((s,p)=>s+calcPts(p),0);
@@ -298,8 +434,24 @@ function dl(f){
   const scorer=+(document.getElementById(`${f}-scorer`).value)||0;
   const rival=document.getElementById(`${f}-rival`).value;
   const fecha=document.getElementById(`${f}-fecha`).value;
-  const fnum={f5:5,f6:6}[f];
-  const fid={f5:'18042026',f6:'26042026'}[f];
+  const fnumMap={f5:5,f6:6,f7:7,f8:8};
+  const fidMap={f5:'18042026',f6:'26042026',f7:'09052026',f8:'16052026'};
+  const fnum=fnumMap[f];
+  const fid=fidMap[f];
+
+  // Calcular eficiencia desde stats individuales
+  const totSC=players.reduce((s,p)=>s+(p.sc||0),0);
+  const totSF=players.reduce((s,p)=>s+(p.sf||0),0);
+  const totDC=players.reduce((s,p)=>s+(p.dc||0),0);
+  const totDF=players.reduce((s,p)=>s+(p.df||0),0);
+  const totTC=players.reduce((s,p)=>s+(p.tc||0),0);
+  const totTF=players.reduce((s,p)=>s+(p.tf||0),0);
+  const eficiencia={
+    simples_pct: totSC+totSF>0 ? Math.round(totSC/(totSC+totSF)*100)/100 : null,
+    dobles_pct:  totDC+totDF>0 ? Math.round(totDC/(totDC+totDF)*100)/100 : null,
+    triples_pct: totTC+totTF>0 ? Math.round(totTC/(totTC+totTF)*100)/100 : null
+  };
+
   const obj={
     meta:{
       fecha_numero:fnum, fecha_texto:fecha, id_planilla:fid,
@@ -307,6 +459,7 @@ function dl(f){
       resultado: score>scorer?'ganado':score<scorer?'perdido':'empate',
       score_propio:score, score_rival:scorer,
       parciales:{q1:parseQ(f,'q1'),q2:parseQ(f,'q2'),q3:parseQ(f,'q3'),q4:parseQ(f,'q4'),ot:null},
+      eficiencia_tiro_equipo: eficiencia,
       notas_extraccion:[]
     },
     jugadores: players.map(p=>({
@@ -327,6 +480,8 @@ function dl(f){
 
 render('f5');
 render('f6');
+render('f7');
+render('f8');
 </script>
 </body>
 </html>
