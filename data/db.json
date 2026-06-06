@@ -3,7 +3,7 @@
     "nombre": "Torneo Star",
     "temporada": "2026",
     "equipo": "Hoppers",
-    "ultima_actualizacion": "2026-05-18T00:00:00"
+    "ultima_actualizacion": "2026-05-30T00:00:00"
   },
   "fechas": [
     {
@@ -2279,6 +2279,322 @@
           "valoracion": 0
         }
       ]
+    },
+    {
+      "meta": {
+        "fecha_numero": 9,
+        "fecha_texto": "2026-05-30",
+        "id_planilla": "30052026",
+        "rival": "4K",
+        "cancha": null,
+        "resultado": "perdido",
+        "score_propio": 41,
+        "score_rival": 59,
+        "parciales": {
+          "q1": [
+            10,
+            14
+          ],
+          "q2": [
+            6,
+            10
+          ],
+          "q3": [
+            10,
+            13
+          ],
+          "q4": [
+            15,
+            22
+          ],
+          "ot": null
+        },
+        "parciales_nota": "Parciales calculados como incrementales desde acumulados (planilla muestra: 4K 14-24-37-59, Hoppers 10-16-26-41)",
+        "eficiencia_tiro_equipo": {
+          "simples_pct": 0.29,
+          "dobles_pct": 0.32,
+          "triples_pct": 0.14
+        },
+        "eficiencia_rival": {
+          "simples_pct": 0.75,
+          "dobles_pct": 0.42,
+          "triples_pct": 0.3
+        },
+        "notas_extraccion": [
+          "Derrota por 18 pts vs 4K (59-41). Partido del sistema ID 6.",
+          "Parciales en imagen son acumulados por cuarto, calculados incrementales.",
+          "Columna RB presente en planilla — interpretada como robos, ignorada para el esquema.",
+          "Segunda tabla de parciales (lado derecho) muestra todos ceros — campo vacío del sistema, ignorada.",
+          "Borquez (#13) aparece por primera vez — mismo jersey que Bustos; jugador diferente.",
+          "Suma DC=16 verificada por PTS (41=6*1+16*2+1*3). Suma DF=15 implica 52% dobles, pero planilla muestra 32%; posible error leve de lectura en celdas DF."
+        ]
+      },
+      "jugadores": [
+        {
+          "numero": 11,
+          "nombre": "Diaz",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 1,
+          "dobles_fallados": 2,
+          "triples_convertidos": 1,
+          "triples_fallados": 1,
+          "asistencias": 0,
+          "rebotes_defensivos": 2,
+          "rebotes_ofensivos": 2,
+          "faltas_personales": 2,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 5,
+          "valoracion": 6
+        },
+        {
+          "numero": 22,
+          "nombre": "Herrera",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 1,
+          "dobles_fallados": 2,
+          "triples_convertidos": 0,
+          "triples_fallados": 2,
+          "asistencias": 0,
+          "rebotes_defensivos": 3,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 2,
+          "valoracion": 0
+        },
+        {
+          "numero": 8,
+          "nombre": "Caldera",
+          "minutos": null,
+          "simples_convertidos": 2,
+          "simples_fallados": 4,
+          "dobles_convertidos": 2,
+          "dobles_fallados": 2,
+          "triples_convertidos": 0,
+          "triples_fallados": 1,
+          "asistencias": 2,
+          "rebotes_defensivos": 2,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 5,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 1,
+          "caminadas": 0,
+          "puntos": 6,
+          "valoracion": 2
+        },
+        {
+          "numero": 4,
+          "nombre": "Gugliemone",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 2,
+          "dobles_fallados": 1,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 2,
+          "rebotes_defensivos": 8,
+          "rebotes_ofensivos": 2,
+          "faltas_personales": 3,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 1,
+          "caminadas": 1,
+          "puntos": 4,
+          "valoracion": 13
+        },
+        {
+          "numero": 43,
+          "nombre": "Gonzalez",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 0,
+          "dobles_fallados": 0,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 0,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 0,
+          "valoracion": 0
+        },
+        {
+          "numero": 14,
+          "nombre": "Zito",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 0,
+          "dobles_fallados": 0,
+          "triples_convertidos": 0,
+          "triples_fallados": 1,
+          "asistencias": 0,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 0,
+          "valoracion": -1
+        },
+        {
+          "numero": 24,
+          "nombre": "Lachat",
+          "minutos": null,
+          "simples_convertidos": 2,
+          "simples_fallados": 4,
+          "dobles_convertidos": 2,
+          "dobles_fallados": 2,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 2,
+          "rebotes_defensivos": 1,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 1,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 6,
+          "valoracion": 6
+        },
+        {
+          "numero": 21,
+          "nombre": "Cabrera",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 2,
+          "dobles_fallados": 2,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 2,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 3,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 1,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 4,
+          "valoracion": 3
+        },
+        {
+          "numero": 13,
+          "nombre": "Borquez",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 0,
+          "dobles_fallados": 0,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 0,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 0,
+          "valoracion": 0
+        },
+        {
+          "numero": 10,
+          "nombre": "Rosado",
+          "minutos": null,
+          "simples_convertidos": 2,
+          "simples_fallados": 5,
+          "dobles_convertidos": 6,
+          "dobles_fallados": 4,
+          "triples_convertidos": 0,
+          "triples_fallados": 1,
+          "asistencias": 1,
+          "rebotes_defensivos": 3,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 14,
+          "valoracion": 8
+        },
+        {
+          "numero": 9,
+          "nombre": "Osses",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 0,
+          "dobles_fallados": 0,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 0,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 0,
+          "valoracion": 1
+        },
+        {
+          "numero": 0,
+          "nombre": "Radicci",
+          "minutos": null,
+          "simples_convertidos": 0,
+          "simples_fallados": 0,
+          "dobles_convertidos": 0,
+          "dobles_fallados": 0,
+          "triples_convertidos": 0,
+          "triples_fallados": 0,
+          "asistencias": 0,
+          "rebotes_defensivos": 0,
+          "rebotes_ofensivos": 0,
+          "faltas_personales": 0,
+          "falta_tecnica": 0,
+          "falta_antideportiva": 0,
+          "tapas": 0,
+          "perdidas": 0,
+          "caminadas": 0,
+          "puntos": 0,
+          "valoracion": 0
+        }
+      ]
     }
   ],
   "jugadores_registro": {
@@ -2302,7 +2618,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Zito"
@@ -2326,7 +2643,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Caldera"
@@ -2343,7 +2661,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Lachat"
@@ -2359,7 +2678,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Cabrera"
@@ -2397,7 +2717,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Herrera"
@@ -2413,7 +2734,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Gugliemone",
@@ -2427,7 +2749,8 @@
         2,
         5,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Rosado"
@@ -2449,7 +2772,8 @@
         4,
         5,
         6,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Gonzalez"
@@ -2465,7 +2789,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Diaz"
@@ -2503,7 +2828,8 @@
       "fechas_jugadas": [
         3,
         4,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Osses"
@@ -2516,13 +2842,24 @@
         3,
         4,
         5,
-        8
+        8,
+        9
       ],
       "nombre_variantes": [
         "Radicci",
         "Radici"
       ],
       "nota": "Jersey #3 en F3, #70 en F4, #0 desde F5. Ortografía: 'Radicci'."
+    },
+    "Borquez": {
+      "numero": 13,
+      "fechas_jugadas": [
+        9
+      ],
+      "nombre_variantes": [
+        "Borquez"
+      ],
+      "nota": "Jersey #13 — primer partido registrado. Diferente de Bustos que también usa #13."
     }
   }
 }
