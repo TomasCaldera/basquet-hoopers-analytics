@@ -30,7 +30,7 @@
     "parciales_nota": "Parciales calculados como incrementales desde acumulados (planilla muestra: 4K 14-24-37-59, Hoppers 10-16-26-41)",
     "eficiencia_tiro_equipo": {
       "simples_pct": 0.29,
-      "dobles_pct": 0.32,
+      "dobles_pct": 0.52,
       "triples_pct": 0.14
     },
     "eficiencia_rival": {
@@ -80,7 +80,7 @@
       "dobles_fallados": 2,
       "triples_convertidos": 0,
       "triples_fallados": 2,
-      "asistencias": 0,
+      "asistencias": 2,
       "rebotes_defensivos": 3,
       "rebotes_ofensivos": 0,
       "faltas_personales": 0,
@@ -218,8 +218,8 @@
       "faltas_personales": 0,
       "falta_tecnica": 0,
       "falta_antideportiva": 0,
-      "tapas": 1,
-      "perdidas": 0,
+      "tapas": 0,
+      "perdidas": 1,
       "caminadas": 0,
       "puntos": 4,
       "valoracion": 3
@@ -288,7 +288,7 @@
       "perdidas": 0,
       "caminadas": 0,
       "puntos": 0,
-      "valoracion": 1
+      "valoracion": 0
     },
     {
       "numero": 0,
